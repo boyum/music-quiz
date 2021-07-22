@@ -33,7 +33,7 @@ export function isStructure(structure) {
   );
 }
 
-export function serializeStructure(item, context, resolverArgs = []) {
+export function serializeStructure(item, context?, resolverArgs = []) {
   // Lazy
   if (typeof item === 'function') {
     return serializeStructure(item(...resolverArgs), context, resolverArgs);
