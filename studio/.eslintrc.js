@@ -6,7 +6,7 @@ module.exports = {
   settings: {
     react: {
       pragma: 'React',
-      version: '16.2.0'
+      version: '16.14.0'
     }
   }
 }
