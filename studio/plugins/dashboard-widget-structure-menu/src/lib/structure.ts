@@ -4,8 +4,10 @@ import { defer, from as observableFrom, of as observableOf, throwError } from 'r
 import { mergeMap } from 'rxjs/operators';
 import StructureBuilder from '@sanity/desk-tool/structure-builder';
 
-let prevStructureError = null;
 // @ts-expect-error
+const __DEV__ = global.__DEV__;
+
+let prevStructureError = null;
 if (__DEV__) {
   // @ts-expect-error
 
