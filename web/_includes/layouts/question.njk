@@ -1,0 +1,18 @@
+---
+layout: layouts/base.njk
+templateClass: tmpl-post
+---
+<article>
+  <audio src="{{question.audioTrackUrl}}" controls></audio>
+
+  <h2>Hints:</h2>
+  <ol>
+  {% for hint in question.hints %}
+    <li class="hint">
+      {{hint}}
+    </li>
+  {% endfor %}
+  </ol>
+
+  <p><a href="{{ '/' | url }}">← Home</a></p>
+</article>

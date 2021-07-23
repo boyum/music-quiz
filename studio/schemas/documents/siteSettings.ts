@@ -24,13 +24,6 @@ export default {
       options: {
         layout: 'tags'
       }
-    },
-    {
-      name: 'author',
-      type: 'reference',
-      description: 'Publish an author and set a reference to them here.',
-      title: 'Author',
-      to: [{type: 'author'}]
     }
   ]
 }
