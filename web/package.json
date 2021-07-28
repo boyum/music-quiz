@@ -17,6 +17,7 @@
     "@11ty/eleventy-plugin-syntaxhighlight": "^2.0.3",
     "@sanity/block-content-to-markdown": "0.0.5",
     "@sanity/client": "^2.0.0",
+    "@types/node": "^16.4.6",
     "clean-css": "^4.2.1",
     "dotenv": "^8.2.0",
     "groq": "^0.142.0",
