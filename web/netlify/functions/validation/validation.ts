@@ -1,6 +1,6 @@
 import { Handler } from "@netlify/functions";
 
-export const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, context) => {
   const guess = event.queryStringParameters?.guess;
 
   if (!guess) {
@@ -25,3 +25,5 @@ export const handler: Handler = async (event, context) => {
     body,
   };
 };
+
+export { handler };
