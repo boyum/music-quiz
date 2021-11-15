@@ -12,8 +12,8 @@ import sanityClient from '@sanity/client';
 // Read more about configuring environment variables at
 // https://docs.netlify.com/configure-builds/environment-variables/#declare-variables
 const client = sanityClient({
-  projectId: process.env.SANITY_PROJECTID,
-  dataset: process.env.SANITY_DATASET,
+  projectId: process.env.SANITY_PROJECT_ID || '0q6ju337',
+  dataset: process.env.SANITY_DATASET || 'production',
   token: process.env.SANITY_TOKEN,
   // CDN will not be used if token is set
   useCdn: true,

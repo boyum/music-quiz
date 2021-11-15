@@ -65,7 +65,8 @@ async function getQuestions() {
     title,
     slug,
     audioTrack,
-    hints
+    hints,
+    previewTitle
   }`;
   const order = `| order(publishedAt asc)`;
   const query = [filter, projection, order].join(" ");
