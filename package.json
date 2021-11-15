@@ -19,6 +19,11 @@
     "prettier": "^2.3.2"
   },
   "dependencies": {
-    "@netlify/functions": "^0.7.2"
+    "@netlify/functions": "^0.7.2",
+    "@sanity/asset-utils": "^1.2.3",
+    "@sanity/client": "^2.21.10",
+    "@sanity/image-url": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "groq": "^2.15.0"
   }
 }

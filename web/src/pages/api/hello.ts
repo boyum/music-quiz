@@ -1,10 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiHandler } from "next";
 
 type Data = {
   name: string;
 };
 
-const handler = (request: NextApiRequest, response: NextApiResponse<Data>): void => {
+const handler: NextApiHandler<Data> = (request, response) => {
   response.status(200).json({ name: "John Doe" });
 };
 
