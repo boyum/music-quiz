@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@netlify/functions": "^0.7.2",
+    "@netlify/plugin-nextjs": "^3.9.2",
     "@sanity/asset-utils": "^1.2.3",
     "@sanity/client": "^2.21.10",
     "@sanity/image-url": "^1.0.1",
