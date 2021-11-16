@@ -1,0 +1,9 @@
+[build]
+  command = "lerna bootstrap && next build web"
+  publish = "web/out"
+
+[dev]
+  command = "next dev web"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
