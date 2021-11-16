@@ -10,19 +10,19 @@ export type HomeProps = {
 
 const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
   return (
-    <div className={styles.container}>
+    <div className="">
       <Head>
         <title>Music quiz</title>
         <meta name="description" content="Guess which song I'm playing" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Music quiz</h1>
+      <main className="">
+        <h1 className="">Music quiz</h1>
 
-        <p className={styles.description}>Do you know any of these?</p>
+        <p className="">Do you know any of these?</p>
 
-        <div className={styles.grid}>
+        <div className="">
           {questions.map(question => (
             <Link href={`/question/${question.id}`} key={question.id}>
               {question.previewTitle}
