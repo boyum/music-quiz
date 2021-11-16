@@ -8,12 +8,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@netlify/functions": "^0.7.2",
-    "@sanity/asset-utils": "^1.2.3",
-    "@sanity/client": "^2.21.10",
-    "@sanity/image-url": "^1.0.1",
-    "dotenv": "^10.0.0",
-    "groq": "^2.15.0"
   },
   "devDependencies": {
     "@sanity/types": "^2.13.1",
