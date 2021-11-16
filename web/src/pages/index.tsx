@@ -9,7 +9,7 @@ export type HomeProps = {
   questions: Array<Question>;
 };
 
-const Home: NextPage<HomeProps> = ({ questions }) => {
+const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
   console.log({ questions });
 
   return (

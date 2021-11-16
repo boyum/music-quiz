@@ -13,7 +13,7 @@ enum States {
   PAUSE = "pause",
 }
 
-const QuestionPage: NextPage<QuestionProps> = ({ question }) => {
+const QuestionPage: NextPage<QuestionProps> = ({ question }: QuestionProps) => {
   const [playState, setPlayState] = useState(States.PAUSE);
   const [guess, setGuess] = useState<string>("");
   const audioElement = useRef<HTMLAudioElement>(null);
