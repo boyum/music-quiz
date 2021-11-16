@@ -13,18 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@sanity/types": "^2.13.1",
     "eslint-config-prettier": "^8.3.0",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2"
-  },
-  "dependencies": {
-    "@netlify/functions": "^0.7.2",
-    "@netlify/plugin-nextjs": "^3.9.2",
-    "@sanity/asset-utils": "^1.2.3",
-    "@sanity/client": "^2.21.10",
-    "@sanity/image-url": "^1.0.1",
-    "dotenv": "^10.0.0",
-    "groq": "^2.15.0"
   }
 }
