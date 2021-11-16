@@ -1,7 +1,6 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import styles from "../styles/Home.module.css";
 import { Question } from "../types/question";
 import { getAllQuestions } from "../utils/question.utils";
 
