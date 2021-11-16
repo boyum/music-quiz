@@ -7,12 +7,13 @@
     "dev": "lerna run dev --parallel",
     "format": "lerna run format",
     "build-studio": "lerna bootstrap && cd studio && npm run build",
-    "build-web": "lerna bootstrap && next build web",
+    "build-web": "cross-env NODE_ENV=production && lerna bootstrap && next build web",
     "lint": "lerna run lint",
     "postinstall": "lerna bootstrap",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.3.0",
     "lerna": "^4.0.0",
     "prettier": "^2.3.2"
