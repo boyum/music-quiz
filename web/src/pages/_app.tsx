@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "tailwindcss/tailwind.css";
 import type { AppProps } from "next/app";
 
 const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
