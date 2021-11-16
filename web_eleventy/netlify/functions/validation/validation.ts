@@ -14,10 +14,8 @@ export const handler: Handler = async (event, context) => {
     };
   }
 
-  console.log("guess", guess)
-
   const body = JSON.stringify({
-    isCorrect: guess.toLowerCase() === "coldplay - speed of sound"
+    isCorrect: guess.toLowerCase() === "coldplay - speed of sound",
   });
 
   return {

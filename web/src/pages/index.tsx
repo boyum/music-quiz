@@ -10,8 +10,6 @@ export type HomeProps = {
 };
 
 const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
-  console.log({ questions });
-
   return (
     <div className={styles.container}>
       <Head>
