@@ -1,6 +1,6 @@
 [build]
   command = "lerna bootstrap && next build web"
-  publish = "web/.next"
+  publish = "web/out"
 
 [dev]
   command = "next dev web"
