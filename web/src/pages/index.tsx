@@ -1,7 +1,7 @@
 import type { NextPage, GetServerSideProps } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { Question } from "../types/question";
+import { Question } from "../types/Question";
 import { getAllQuestions } from "../utils/question.utils";
 
 export type HomeProps = {

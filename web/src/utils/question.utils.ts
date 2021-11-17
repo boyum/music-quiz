@@ -1,5 +1,5 @@
 import groq from "groq";
-import { Question } from "../types/question";
+import { Question } from "../types/Question";
 import { getSanityFile } from "../utils/image-url";
 import { overlayDrafts } from "../utils/overlay-drafts";
 import { sanityClient } from "../utils/sanity-client";

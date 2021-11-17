@@ -1,5 +1,5 @@
 import type { NextPage, GetServerSideProps } from "next";
-import type { Question } from "../../types/question";
+import type { Question } from "../../types/Question";
 import { getQuestion } from "../../utils/question.utils";
 import Link from "next/link";
 import { useCallback, useState, useRef } from "react";
