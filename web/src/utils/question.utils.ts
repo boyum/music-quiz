@@ -9,12 +9,12 @@ const hasToken = !!sanityClient.config().token;
 type QuestionDTO = {
   _id: string;
   publishedAt: string;
-  slug: {
+  slug?: {
     _type: "slug";
     current: string;
   };
   title: string;
-  audioTrack: {
+  audioTrack?: {
     _type: "file";
     asset: {
       _ref: string;
@@ -22,7 +22,7 @@ type QuestionDTO = {
     };
   };
   previewTitle: string;
-  hints: Array<string>;
+  hints?: Array<string>;
 };
 
 const mapQuestionDTOToQuestion = ({
@@ -37,9 +37,9 @@ const mapQuestionDTOToQuestion = ({
   id: _id,
   title,
   publishedAt,
-  slug: slug.current,
-  audioTrackUrl: getSanityFile(audioTrack.asset._ref),
-  hints,
+  slug: slug?.current ?? null,
+  audioTrackUrl: audioTrack ? getSanityFile(audioTrack.asset._ref) : null,
+  hints: hints ?? null,
   previewTitle,
 });
 

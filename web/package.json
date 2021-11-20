@@ -12,16 +12,13 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@sanity/types": "^2.13.1",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/react": "^6.3.12",
     "@types/node": "16.11.7",
-    "@types/react": "17.0.34",
     "babel-loader": "^8.2.3",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.3",
     "typescript": "4.4.4"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.3.0"
+  }
 }

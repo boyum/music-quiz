@@ -5,7 +5,6 @@
  * @returns {Array<DocumentType>}
  */
 function overlayDrafts(overlayDrafts = false, docs) {
-  console.log(overlayDrafts ? "Overlaying drafts" : "");
   const reducer = (acc, curr, i, collection) => {
     // If draft, add it to array
     if (

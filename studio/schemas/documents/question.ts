@@ -88,7 +88,7 @@ const contentType: StringSchemaType = {
   },
   {
     title: "Spotify links",
-    name: "spotifyLinks",
+    name: "spotifyIds",
     type: "array",
     of: [{ type: "string" }],
     fieldset: "answers",

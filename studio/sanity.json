@@ -9,6 +9,13 @@
     "useCdn": true,
     "apiVersion": "2021-03-25"
   },
+  "env": {
+    "development": {
+      "api": {
+        "dataset": "test"
+      }
+    }
+  },
   "plugins": [
     "@sanity/base",
     "@sanity/components",
