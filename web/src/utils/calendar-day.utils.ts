@@ -3,8 +3,6 @@ import { CalendarDay } from "../types/CalendarDay";
 import { getSanityFile } from "../utils/image-url";
 import { sanityClient } from "../utils/sanity-client";
 
-const hasToken = !!sanityClient.config().token;
-
 type CalendarDayDTO = {
   _id: string;
   publishedAt: string;
