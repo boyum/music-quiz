@@ -2,14 +2,14 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
-import type { Question } from "../../types/Question";
+import type { CalendarDay } from "../../types/CalendarDay";
 import { getCalendarDay } from "../../utils/calendar-day.utils";
 
 export type DayPageProps = {
-  question: Question;
+  day: CalendarDay;
 };
 
-const DayPage: NextPage<DayPageProps> = ({ question }: DayPageProps) => {
+const DayPage: NextPage<DayPageProps> = ({ day }: DayPageProps) => {
   const [guess, setGuess] = useState<string>("");
   const [isPaused, setIsPaused] = useState(true);
   const audioElement = useRef<HTMLAudioElement>(null);
@@ -19,7 +19,7 @@ const DayPage: NextPage<DayPageProps> = ({ question }: DayPageProps) => {
       return;
     }
 
-    console.log({isPaused})
+    console.log({ isPaused });
 
     setIsPaused(audioElement.current.paused);
 
@@ -31,27 +31,29 @@ const DayPage: NextPage<DayPageProps> = ({ question }: DayPageProps) => {
   }, [isPaused]);
 
   const answer = useCallback(() => {
-    if (guess.toLowerCase() === question.previewTitle.toLowerCase()) {
+    if (guess.toLowerCase() === day.previewTitle.toLowerCase()) {
       alert("CORRECT");
       setGuess("");
     } else {
       alert("FALSE");
     }
-  }, [guess, question.previewTitle]);
+  }, [guess, day.previewTitle]);
+
+  const title = `Day ${day.dayIndex}`;
 
   return (
     <>
       <Head>
-        <title>Day {question.title}</title>
+        <title>{title}</title>
       </Head>
       <article className="px-8 py-6 min-h-screen bg-red-700">
-        <h1 className="text-3xl">Day {question.title}</h1>
-        {question.audioTrackUrl ? (
+        <h1 className="text-3xl">{title}</h1>
+        {day.audioTrackUrl ? (
           <>
             <audio
               ref={audioElement}
               className="sr-only"
-              src={question.audioTrackUrl}
+              src={day.audioTrackUrl}
               controls
               onChange={togglePlayPause}
             ></audio>
@@ -116,14 +118,14 @@ const DayPage: NextPage<DayPageProps> = ({ question }: DayPageProps) => {
           </button>
         </div>
 
-        {question.hints ? (
+        {day.hints ? (
           <>
             <h2>Hints:</h2>
             <button type="button" className="show-hint">
               Show next hint
             </button>
             <ol>
-              {question.hints.map(hint => (
+              {day.hints.map(hint => (
                 <li key={hint} className="hint">
                   {hint}
                 </li>
@@ -156,8 +158,8 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
     throw new Error(`Invalid day index '${dayIndexString}'`);
   }
 
-  const question = await getCalendarDay(dayIndex);
-  const questionWasNotFound = !question;
+  const day = await getCalendarDay(dayIndex);
+  const questionWasNotFound = !day;
   if (questionWasNotFound) {
     return {
       redirect: {
@@ -169,7 +171,7 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
 
   return {
     props: {
-      question,
+      day,
     },
   };
 };
