@@ -13,7 +13,7 @@ type CalendarDayDTO = {
     current: string;
   };
   title: string;
-  audioTrack?: {
+  audioTrack: {
     _type: "file";
     asset: {
       _ref: string;
@@ -39,7 +39,7 @@ const mapCalendarDayDTOToCalendarDay = ({
   title,
   publishedAt,
   slug: slug?.current ?? null,
-  audioTrackUrl: audioTrack ? getSanityFile(audioTrack.asset._ref) : null,
+  audioTrackUrl: getSanityFile(audioTrack.asset._ref),
   hints: hints ?? null,
   previewTitle,
   dayIndex,

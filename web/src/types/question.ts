@@ -3,7 +3,7 @@ export type Question = {
   publishedAt: string;
   slug: string | null;
   title: string;
-  audioTrackUrl: string | null;
+  audioTrackUrl: string;
   hints: Array<string> | null;
   previewTitle: string;
 };

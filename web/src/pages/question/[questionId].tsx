@@ -108,17 +108,21 @@ const QuestionPage: NextPage<QuestionProps> = ({ question }: QuestionProps) => {
         </button>
       </div>
 
-      <h2>Hints:</h2>
-      <button type="button" className="show-hint">
-        Show next hint
-      </button>
-      <ol>
-        {question.hints.map(hint => (
-          <li key={hint} className="hint">
-            {hint}
-          </li>
-        ))}
-      </ol>
+      {question.hints && (
+        <>
+          <h2>Hints:</h2>
+          <button type="button" className="show-hint">
+            Show next hint
+          </button>
+          <ol>
+            {question.hints.map(hint => (
+              <li key={hint} className="hint">
+                {hint}
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
 
       <p>
         <Link href="/">← Home</Link>
