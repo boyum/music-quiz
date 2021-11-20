@@ -2,7 +2,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
-import type { CalendarDay } from "../../types/CalendarDay";
+import { CalendarDay } from "../../types/CalendarDay";
 import { getCalendarDay } from "../../utils/calendar-day.utils";
 
 export type DayPageProps = {
