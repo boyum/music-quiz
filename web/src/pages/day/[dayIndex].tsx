@@ -125,7 +125,7 @@ const DayPage: NextPage<DayPageProps> = ({ day }: DayPageProps) => {
               Show next hint
             </button>
             <ol>
-              {day.hints.map(hint => (
+              {day.hints.map((hint: string) => (
                 <li key={hint} className="hint">
                   {hint}
                 </li>
