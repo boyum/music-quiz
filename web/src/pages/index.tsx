@@ -1,16 +1,11 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
 import { AdventCalendar } from "../components/advent-calendar/AdventCalendar";
-import { Question } from "../types/Question";
 import { isProduction } from "../utils/meta.utils";
-import { getAllQuestions } from "../utils/question.utils";
 
-export type HomeProps = {
-  questions: Array<Question>;
-};
+export type HomeProps = {};
 
-const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
+const Home: NextPage<HomeProps> = ({}: HomeProps) => {
   const today = new Date();
 
   const is2021 = today.getFullYear() === 2021;
@@ -43,13 +38,3 @@ const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
 
 // eslint-disable-next-line import/no-default-export
 export default Home;
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async context => {
-  const questions = await getAllQuestions();
-
-  return {
-    props: {
-      questions,
-    },
-  };
-};
