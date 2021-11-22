@@ -3,7 +3,7 @@
   "name": "music-quiz",
   "version": "1.0.0",
   "scripts": {
-    "build": "lerna run build --parallel",
+    "build": "npm run build-studio && npm run build-web",
     "dev": "lerna run dev --parallel",
     "format": "lerna run format",
     "build-studio": "lerna bootstrap && cd studio && npm run build",
