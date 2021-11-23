@@ -96,10 +96,9 @@ export const getTrackIdFromUrl = (url: string) => {
 
   const trackId = url.replace("https://open.spotify.com/track/", "").split("?")[0];
   return trackId;
-}
+};
 
-
-export const getTrackIdFromUri = (uri: string) =>  {
+export const getTrackIdFromUri = (uri: string) => {
   const isSpotifyUri = uri.startsWith("spotify:track");
   if (!isSpotifyUri) {
     throw new Error(`'${uri}' is not a valid Spotify uri`);
@@ -107,4 +106,4 @@ export const getTrackIdFromUri = (uri: string) =>  {
 
   const trackId = uri.replace("spotify:track:", "");
   return trackId;
-}
+};
