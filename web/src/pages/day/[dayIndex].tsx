@@ -81,7 +81,7 @@ const DayPage: NextPage<DayPageProps> = ({ day, placeholder }: DayPageProps) => 
         <header>
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
-        <div className="flex-grow max-w-4xl">
+        <div className="flex-grow max-w-6xl w-full">
           <audio
             ref={audioElement}
             className="sr-only"
