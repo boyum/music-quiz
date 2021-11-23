@@ -1,6 +1,7 @@
 {
   "name": "web",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,17 +13,31 @@
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@sanity/types": "^2.13.1",
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
+    "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.3.12",
     "@types/node": "16.11.7",
+    "@types/react": "17.0.34",
+    "@types/shuffle-seed": "^1.1.0",
+    "autoprefixer": "^10.4.0",
     "babel-loader": "^8.2.3",
+    "cross-env": "^7.0.3",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.3",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier-plugin-tailwind": "^2.2.12",
+    "tailwindcss": "^2.2.19",
     "typescript": "4.4.4"
   },
   "dependencies": {
-    "@tailwindcss/aspect-ratio": "^0.3.0"
+    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@sanity/asset-utils": "^1.2.3",
+    "@sanity/client": "^2.21.10",
+    "@sanity/image-url": "^1.0.1",
+    "dotenv": "^10.0.0",
+    "groq": "^2.15.0",
+    "next": "^12.0.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "shuffle-seed": "^1.1.6"
   }
 }

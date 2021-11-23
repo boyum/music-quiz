@@ -3,7 +3,7 @@
   "name": "music-quiz",
   "version": "1.0.0",
   "scripts": {
-    "build": "npm run build-studio && npm run build-web",
+    "build": "lerna run build --parallel",
     "dev": "lerna run dev --parallel",
     "format": "lerna run format",
     "build-studio": "lerna bootstrap && cd studio && npm run build",
@@ -13,33 +13,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.3.12",
-    "@storybook/addon-essentials": "^6.3.12",
-    "@storybook/addon-links": "^6.3.12",
-    "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/react": "^6.3.12",
-    "@types/react": "17.0.34",
-    "@types/shuffle-seed": "^1.1.0",
-    "autoprefixer": "^10.4.0",
-    "cross-env": "^7.0.3",
-    "eslint-config-prettier": "^8.3.0",
     "lerna": "^4.0.0",
     "postcss": "^8.3.11",
-    "prettier": "^2.3.2",
-    "prettier-plugin-tailwind": "^2.2.12",
-    "tailwindcss": "^2.2.19"
-  },
-  "dependencies": {
-    "@netlify/functions": "^0.7.2",
-    "@netlify/plugin-nextjs": "^4.0.0-beta.6",
-    "@sanity/asset-utils": "^1.2.3",
-    "@sanity/client": "^2.21.10",
-    "@sanity/image-url": "^1.0.1",
-    "dotenv": "^10.0.0",
-    "groq": "^2.15.0",
-    "next": "^12.0.4",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "shuffle-seed": "^1.1.6"
+    "prettier": "^2.3.2"
   }
 }
