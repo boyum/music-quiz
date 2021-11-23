@@ -24,15 +24,16 @@
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.3",
     "eslint-config-prettier": "^8.3.0",
+    "postcss": "^8.3.11",
     "prettier-plugin-tailwind": "^2.2.12",
     "tailwindcss": "^2.2.19",
     "typescript": "4.4.4"
   },
   "dependencies": {
-    "@tailwindcss/aspect-ratio": "^0.3.0",
     "@sanity/asset-utils": "^1.2.3",
     "@sanity/client": "^2.21.10",
     "@sanity/image-url": "^1.0.1",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
     "dotenv": "^10.0.0",
     "groq": "^2.15.0",
     "next": "^12.0.4",
