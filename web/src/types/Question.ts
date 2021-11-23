@@ -6,4 +6,6 @@ export type Question = {
   audioTrackUrl: string;
   hints: Array<string> | null;
   previewTitle: string;
+  songTitles: Array<string>;
+  artists: Array<string>;
 };

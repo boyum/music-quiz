@@ -22,7 +22,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
 
   return (
     <>
-      <div className="p-6 min-h-screen text-gray-100 font-serif bg-green-900">
+      <div className="p-6 min-h-screen">
         <h1 className="mb-6 mt-4 text-center underline text-4xl md:mb-10 md:mt-6 md:text-5xl lg:mb-16 lg:mt-16 xl:text-6xl">
           🎄 Holly jolly 🎄
         </h1>

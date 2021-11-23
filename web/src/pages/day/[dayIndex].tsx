@@ -2,141 +2,204 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useCallback, useRef, useState } from "react";
+import Confetti from "react-confetti";
+import useWindowSize from "react-use/lib/useWindowSize";
+import useLocalStorage from "react-use/lib/useLocalStorage";
+import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { CalendarDay } from "../../types/CalendarDay";
 import { getCalendarDay } from "../../utils/calendar-day.utils";
 
 export type DayPageProps = {
   day: CalendarDay;
+  placeholder: string;
 };
 
-const DayPage: NextPage<DayPageProps> = ({ day }: DayPageProps) => {
+const DayPage: NextPage<DayPageProps> = ({ day, placeholder }: DayPageProps) => {
   const [guess, setGuess] = useState<string>("");
   const [isPaused, setIsPaused] = useState(true);
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
+    day.dayIndex.toString(),
+    "false",
+  );
+  const [numberOfShownHints, setNumberOfShownHints] = useState(0);
+
   const audioElement = useRef<HTMLAudioElement>(null);
+  const inputElement = useRef<HTMLInputElement>(null);
 
   const togglePlayPause = useCallback(() => {
     if (!audioElement.current) {
       return;
     }
 
-    console.log({ isPaused });
-
-    setIsPaused(audioElement.current.paused);
-
     if (isPaused) {
       audioElement.current.play();
     } else {
       audioElement.current.pause();
     }
+
+    setIsPaused(audioElement.current.paused);
   }, [isPaused]);
 
   const answer = useCallback(() => {
-    if (guess.toLowerCase() === day.previewTitle.toLowerCase()) {
-      alert("CORRECT");
+    const isCorrectTitle = day.songTitles
+      .map(title => title.toLowerCase())
+      .some(title => guess.toLowerCase().includes(title));
+
+    const isCorrectArtist = day.artists
+      .map(artist => artist.toLowerCase())
+      .some(artist => guess.toLowerCase().includes(artist));
+    const isCorrect = isCorrectTitle && isCorrectArtist;
+
+    if (inputElement.current && isCorrect) {
       setGuess("");
+      inputElement.current.value = "";
+      setIsCorrect("true");
+      setShowConfetti(true);
     } else {
       alert("FALSE");
     }
-  }, [guess, day.previewTitle]);
+  }, [day.songTitles, day.artists, guess, setIsCorrect]);
+
+  const openHint = useCallback(() => {
+    if (!day.hints || day.hints.length === 0) {
+      throw new Error("There are no hints.");
+    }
+
+    setNumberOfShownHints(Math.min(numberOfShownHints + 1, day.hints.length));
+  }, [day.hints, numberOfShownHints]);
 
   const title = `Day ${day.dayIndex}`;
 
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>🎄 {title} 🎄</title>
       </Head>
-      <article className="px-8 py-6 min-h-screen bg-red-700">
-        <h1 className="text-3xl">{title}</h1>
-        {day.audioTrackUrl ? (
-          <>
-            <audio
-              ref={audioElement}
-              className="sr-only"
-              src={day.audioTrackUrl}
-              controls
-              onChange={togglePlayPause}
-            ></audio>
+      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif bg-green-900">
+        <header>
+          <h1 className="mb-6 text-3xl">{title}</h1>
+        </header>
+        <div className="flex-grow max-w-4xl">
+          <audio
+            ref={audioElement}
+            className="sr-only"
+            src={day.audioTrackUrl}
+            controls
+            onChange={togglePlayPause}
+          ></audio>
 
+          <button
+            type="button"
+            className="play-pause"
+            aria-label="Play"
+            data-current-state="pause"
+            onClick={togglePlayPause}
+          >
+            {isPaused ? (
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+              </svg>
+            ) : (
+              <svg
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="10" y1="15" x2="10" y2="9"></line>
+                <line x1="14" y1="15" x2="14" y2="9"></line>
+              </svg>
+            )}
+          </button>
+          <div className="flex flex-col gap-2 my-4">
+            <label className="flex flex-col gap-2">
+              <h2 className="text-2xl font-semibold">Skriv svaret her</h2>
+              <p className="mb-2 text-xs">
+                Skriv navn på artist, navn på låt, eller lim inn en Spotify-lenke.
+              </p>
+              <input
+                ref={inputElement}
+                type="text"
+                className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                placeholder={placeholder}
+                onChange={({ target }) => setGuess(target.value)}
+              />
+            </label>
             <button
               type="button"
-              className="play-pause"
-              aria-label="Play"
-              data-current-state="pause"
-              onClick={togglePlayPause}
+              className="px-3 py-2 w-full bg-red-700 rounded shadow"
+              onClick={answer}
             >
-              {isPaused ? (
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                </svg>
-              ) : (
-                <svg
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="10" y1="15" x2="10" y2="9"></line>
-                  <line x1="14" y1="15" x2="14" y2="9"></line>
-                </svg>
-              )}
+              Gjett
             </button>
-          </>
-        ) : null}
-        <div className="answer-container">
-          <label>
-            <h2>Skriv svaret her</h2>
-            <p>Skriv navn på artist, navn på låt, eller lim inn en Spotify-lenke</p>
-            <input
-              type="text"
-              className="guess-input"
-              placeholder="kom igjen, gjett"
-              onChange={({ target }) => setGuess(target.value)}
-            />
-          </label>
-          <button type="button" className="answer-button" onClick={answer}>
-            Answer
-          </button>
-        </div>
+          </div>
 
-        {day.hints ? (
-          <>
-            <h2>Hints:</h2>
-            <button type="button" className="show-hint">
-              Show next hint
-            </button>
-            <ol>
-              {day.hints.map((hint: string) => (
-                <li key={hint} className="hint">
-                  {hint}
-                </li>
-              ))}
-            </ol>
-          </>
-        ) : null}
-        <p>
-          <Link href="/">← Home</Link>
-        </p>
+          {day.hints ? (
+            <>
+              <h2 className="mb-4 mt-10 text-2xl">Hints:</h2>
+
+              <ol className="pl-5 list-decimal">
+                {day.hints.map((hint, index) => {
+                  const hintIsHidden = index >= numberOfShownHints;
+                  if (hintIsHidden) {
+                    return null;
+                  }
+
+                  return (
+                    <li key={hint} className="my-4">
+                      {hint}
+                    </li>
+                  );
+                })}
+              </ol>
+
+              {day.hints.length > numberOfShownHints ? (
+                <button
+                  type="button"
+                  className="px-3 py-2 bg-red-700 rounded shadow"
+                  onClick={openHint}
+                >
+                  {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
+                </button>
+              ) : null}
+            </>
+          ) : null}
+        </div>
+        <footer>
+          <Link href="/">← Tilbake til kalenderen</Link>
+        </footer>
       </article>
+      {showConfetti ? (
+        <Confetti
+          width={width}
+          height={height}
+          onConfettiComplete={() => setShowConfetti(false)}
+          recycle={false}
+          tweenDuration={7000}
+          numberOfPieces={200}
+        />
+      ) : null}
     </>
   );
 };
@@ -169,9 +232,23 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
     };
   }
 
+  const placeholderSong = uniqueNamesGenerator({
+    dictionaries: [adjectives, animals],
+    style: "capital",
+    separator: " ",
+  });
+
+  const placeholderBandName = uniqueNamesGenerator({
+    dictionaries: [adjectives, colors],
+    style: "capital",
+    separator: " ",
+    length: 2,
+  });
+
   return {
     props: {
       day,
+      placeholder: `${placeholderBandName} - ${placeholderSong}`,
     },
   };
 };

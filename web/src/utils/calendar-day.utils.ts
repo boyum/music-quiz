@@ -21,6 +21,8 @@ type CalendarDayDTO = {
   previewTitle: string;
   hints?: Array<string>;
   dayIndex: number;
+  songTitles: Array<string>;
+  artists: Array<string>;
 };
 
 const mapCalendarDayDTOToCalendarDay = ({
@@ -32,6 +34,8 @@ const mapCalendarDayDTOToCalendarDay = ({
   hints,
   previewTitle,
   dayIndex,
+  songTitles,
+  artists,
 }: CalendarDayDTO): CalendarDay => ({
   id: _id,
   title,
@@ -41,6 +45,8 @@ const mapCalendarDayDTOToCalendarDay = ({
   hints: hints ?? null,
   previewTitle,
   dayIndex,
+  songTitles,
+  artists,
 });
 
 export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
@@ -55,6 +61,8 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
     hints,
     previewTitle,
     dayIndex,
+    songTitles,
+    artists,
   }`;
   const order = `| order(publishedAt asc)`;
   const query = [filter, projection, order].join(" ");
