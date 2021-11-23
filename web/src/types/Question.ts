@@ -8,4 +8,5 @@ export type Question = {
   previewTitle: string;
   songTitles: Array<string>;
   artists: Array<string>;
+  spotifyIds: Array<string>;
 };

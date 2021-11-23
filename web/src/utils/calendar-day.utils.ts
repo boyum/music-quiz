@@ -23,6 +23,7 @@ type CalendarDayDTO = {
   dayIndex: number;
   songTitles: Array<string>;
   artists: Array<string>;
+  spotifyIds: Array<string>;
 };
 
 const mapCalendarDayDTOToCalendarDay = ({
@@ -36,6 +37,7 @@ const mapCalendarDayDTOToCalendarDay = ({
   dayIndex,
   songTitles,
   artists,
+  spotifyIds,
 }: CalendarDayDTO): CalendarDay => ({
   id: _id,
   title,
@@ -47,6 +49,7 @@ const mapCalendarDayDTOToCalendarDay = ({
   dayIndex,
   songTitles,
   artists,
+  spotifyIds,
 });
 
 export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
@@ -63,6 +66,7 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
     dayIndex,
     songTitles,
     artists,
+    spotifyIds,
   }`;
   const order = `| order(publishedAt asc)`;
   const query = [filter, projection, order].join(" ");
@@ -83,3 +87,24 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
   const question = mapCalendarDayDTOToCalendarDay(questionDTO);
   return question;
 };
+
+export const getTrackIdFromUrl = (url: string) => {
+  const isSpotifyUri = url.startsWith("https://open.spotify.com/track");
+  if (!isSpotifyUri) {
+    throw new Error(`'${url}' is not a valid Spotify url`);
+  }
+
+  const trackId = url.replace("https://open.spotify.com/track/", "").split("?")[0];
+  return trackId;
+}
+
+
+export const getTrackIdFromUri = (uri: string) =>  {
+  const isSpotifyUri = uri.startsWith("spotify:track");
+  if (!isSpotifyUri) {
+    throw new Error(`'${uri}' is not a valid Spotify uri`);
+  }
+
+  const trackId = uri.replace("spotify:track:", "");
+  return trackId;
+}

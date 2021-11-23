@@ -7,7 +7,11 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import useLocalStorage from "react-use/lib/useLocalStorage";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { CalendarDay } from "../../types/CalendarDay";
-import { getCalendarDay } from "../../utils/calendar-day.utils";
+import {
+  getCalendarDay,
+  getTrackIdFromUri,
+  getTrackIdFromUrl,
+} from "../../utils/calendar-day.utils";
 
 export type DayPageProps = {
   day: CalendarDay;
@@ -43,14 +47,27 @@ const DayPage: NextPage<DayPageProps> = ({ day, placeholder }: DayPageProps) => 
   }, [isPaused]);
 
   const answer = useCallback(() => {
-    const isCorrectTitle = day.songTitles
-      .map(title => title.toLowerCase())
-      .some(title => guess.toLowerCase().includes(title));
+    const answerIsSpotifyUrl = guess.startsWith("https://");
+    const answerIsSpotifyUri = guess.startsWith("spotify:track:");
 
-    const isCorrectArtist = day.artists
-      .map(artist => artist.toLowerCase())
-      .some(artist => guess.toLowerCase().includes(artist));
-    const isCorrect = isCorrectTitle && isCorrectArtist;
+    let isCorrect;
+
+    if (answerIsSpotifyUrl) {
+      const trackId = getTrackIdFromUrl(guess);
+      isCorrect = day.spotifyIds.includes(trackId);
+    } else if (answerIsSpotifyUri) {
+      const trackId = getTrackIdFromUri(guess);
+      isCorrect = day.spotifyIds.includes(trackId);
+    } else {
+      const isCorrectTitle = day.songTitles
+        .map(title => title.toLowerCase())
+        .some(title => guess.toLowerCase().includes(title));
+
+      const isCorrectArtist = day.artists
+        .map(artist => artist.toLowerCase())
+        .some(artist => guess.toLowerCase().includes(artist));
+      isCorrect = isCorrectTitle && isCorrectArtist;
+    }
 
     if (inputElement.current && isCorrect) {
       setGuess("");
@@ -60,7 +77,7 @@ const DayPage: NextPage<DayPageProps> = ({ day, placeholder }: DayPageProps) => 
     } else {
       alert("FALSE");
     }
-  }, [day.songTitles, day.artists, guess, setIsCorrect]);
+  }, [guess, day.spotifyIds, day.songTitles, day.artists, setIsCorrect]);
 
   const openHint = useCallback(() => {
     if (!day.hints || day.hints.length === 0) {
@@ -81,7 +98,7 @@ const DayPage: NextPage<DayPageProps> = ({ day, placeholder }: DayPageProps) => 
         <header>
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
-        <div className="flex-grow max-w-6xl w-full">
+        <div className="flex-grow w-full max-w-6xl">
           <audio
             ref={audioElement}
             className="sr-only"
