@@ -3,7 +3,7 @@ import sanityClient from "@sanity/client";
 export const getClient = () => {
   const isProduction = process.env.NODE_ENV === "production";
 
-  const dataset = isProduction ? "production" : "test";
+  const dataset = process.env.SANITY_DATASET || (isProduction ? "production" : "test");
 
   return sanityClient({
     projectId: "0q6ju337",
