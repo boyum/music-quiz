@@ -1,7 +1,6 @@
 import client from "@sanity/client";
 import { sanity } from "../../client-config";
 
-
 /**
  * Set manually. Find configuration in
  * studio/sanity.json or on manage.sanity.io
