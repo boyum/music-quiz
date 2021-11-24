@@ -1,35 +1,36 @@
-import type { NextPage, GetServerSideProps } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
-import Link from "next/link";
-import styles from "../styles/Home.module.css";
-import { Question } from "../types/question";
-import { getAllQuestions } from "../utils/question.utils";
+import { AdventCalendar } from "../components/advent-calendar/AdventCalendar";
+import { isProduction } from "../utils/meta.utils";
 
-export type HomeProps = {
-  questions: Array<Question>;
-};
+export type HomeProps = {};
 
-const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
+const Home: NextPage<HomeProps> = ({}: HomeProps) => {
+  const today = new Date();
+
+  const is2021 = today.getFullYear() === 2021;
+  const isDecember = today.getMonth() + 1 === 12;
+
+  const dayOfDecember = is2021 && isDecember ? today.getDate() : 0;
+  const unlockedDays = isProduction ? dayOfDecember : 12;
+
+  const finishedDays = isProduction ? [] : [1, 3, 5, 7, 9, 11];
+
   return (
-    <div className={styles.container}>
+    <div className="">
       <Head>
-        <title>Music quiz</title>
-        <meta name="description" content="Guess which song I'm playing" />
+        <title>🎄 Holly Jolly 🎄</title>
+        <meta
+          name="description"
+          content={`${
+            isDecember ? `Today is December ${dayOfDecember}!` : ""
+          } Guess which song I'm playing`}
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>Music quiz</h1>
-
-        <p className={styles.description}>Do you know any of these?</p>
-
-        <div className={styles.grid}>
-          {questions.map(question => (
-            <Link href={`/question/${question.id}`} key={question.id}>
-              {question.previewTitle}
-            </Link>
-          ))}
-        </div>
+      <main className="text-gray-100 font-serif bg-green-900">
+        <AdventCalendar numberOfUnlockedDays={unlockedDays} finishedDays={finishedDays} />
       </main>
     </div>
   );
@@ -37,13 +38,3 @@ const Home: NextPage<HomeProps> = ({ questions }: HomeProps) => {
 
 // eslint-disable-next-line import/no-default-export
 export default Home;
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async context => {
-  const questions = await getAllQuestions();
-
-  return {
-    props: {
-      questions,
-    },
-  };
-};
