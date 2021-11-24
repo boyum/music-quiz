@@ -30,7 +30,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
           {days.map(({ index, isFinished }) => (
             <div key={index} className={"aspect-w-1 aspect-h-1 shadow-md"}>
               <a
-                className="flex items-center justify-center text-green-900 text-3xl hover:bg-red-500 focus:bg-red-500 bg-red-600 rounded-lg transition duration-150 ease-in-out xl:text-4xl"
+                className="flex items-center justify-center text-white text-3xl hover:bg-red-500 focus:bg-red-500 bg-red-600 rounded-lg transition duration-150 ease-in-out xl:text-4xl"
                 href={`/day/${index}`}
                 tabIndex={index}
               >
