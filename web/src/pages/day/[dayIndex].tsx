@@ -159,17 +159,46 @@ const DayPage: NextPage<DayPageProps> = ({
       <Head>
         <title>🎄 {title} 🎄</title>
       </Head>
-      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif bg-green-900">
+      <article
+        className={`flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif${
+          showCorrectFeedbackMessage ? " bg-green-900" : ""
+        }`}
+      >
         <header className="w-full">
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage ? (
           <div className="flex-grow py-20 w-full max-w-sm">
             <h2 className="text-4xl">Congratulations, you are correct!</h2>
-            <h2 className="py-10 text-xl">
-              The song was: {day.songTitles[day.dayIndex - 1]} by {day.artists}
-            </h2>
-            <h2 className="text-xl">Get ready for a new task tomorrow :)</h2>
+            <p className="my-10 text-xl">
+              The song was:
+              <div className="mt-2">
+                <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
+                <span className="underline text-xl">{day.artists[0]}</span>
+              </div>
+            </p>
+            {day.artists.length > 1 ? (
+              <>
+                <p className="my-10 text-xl">These has also made versions of the song:</p>
+                <ul className="list-disc">
+                  {day.artists.slice(1).map(artist => (
+                    <li key={artist}>{artist}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+
+            {day.songTitles.length > 1 ? (
+              <>
+                <p className="my-10 text-xl">Other versions of the song are called:</p>
+                <ul className="list-disc">
+                  {day.songTitles.slice(1).map(songTitle => (
+                    <li key={songTitle}>{songTitle}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+            <p className="text-xl">Get ready for a new task tomorrow 🎁</p>
           </div>
         ) : (
           <div className="flex-grow w-full max-w-sm">
@@ -313,7 +342,7 @@ const DayPage: NextPage<DayPageProps> = ({
                       Sorry, wrong answer. But I think you are close! Try again :)
                     </p>
                   </div>
-                ) : null}
+              ) : null}
               </form>
             </div>
 
