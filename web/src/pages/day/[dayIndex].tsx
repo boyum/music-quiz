@@ -159,7 +159,7 @@ const DayPage: NextPage<DayPageProps> = ({
       <Head>
         <title>🎄 {title} 🎄</title>
       </Head>
-      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif bg-green-900">
+      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif">
         <header className="w-full">
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
@@ -262,7 +262,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   placeholder={artistPlaceholder}
                   onChange={({ target }) => (
-                    setArtistGuess(target.value), 
+                    setArtistGuess(target.value),
                     setShowWrongFeedbackMessage(false)
                   )}
                 />
