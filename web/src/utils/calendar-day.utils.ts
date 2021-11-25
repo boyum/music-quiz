@@ -79,8 +79,8 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
     throw new Error("Could not get question");
   }
 
-  if (!questionDTO._id) {
-    console.error("Found no day with that index");
+  if (!questionDTO?._id) {
+    console.error(`Found no day with index '${dayIndex}'`);
     return null;
   }
 
