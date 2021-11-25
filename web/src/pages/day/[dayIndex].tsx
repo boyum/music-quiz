@@ -164,10 +164,37 @@ const DayPage: NextPage<DayPageProps> = ({
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage ? (
-          <div className="flex-grow w-full max-w-sm py-20">
+          <div className="flex-grow py-20 w-full max-w-sm">
             <h2 className="text-4xl">Congratulations, you are correct!</h2>
-            <h2 className="text-xl py-10">The song was: {day.songTitles[day.dayIndex - 1]} by {day.artists}</h2>
-            <h2 className="text-xl">Get ready for a new task tomorrow :)</h2>
+            <p className="my-10 text-xl">
+              The song was:
+              <div className="mt-2">
+                <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
+                <span className="underline text-xl">{day.artists[0]}</span>
+              </div>
+            </p>
+            {day.artists.length > 1 ? (
+              <>
+                <p className="my-10 text-xl">These has also made versions of the song:</p>
+                <ul className="list-disc">
+                  {day.artists.slice(1).map(artist => (
+                    <li key={artist}>{artist}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+
+            {day.songTitles.length > 1 ? (
+              <>
+                <p className="my-10 text-xl">Other versions of the song are called:</p>
+                <ul className="list-disc">
+                  {day.songTitles.slice(1).map(songTitle => (
+                    <li key={songTitle}>{songTitle}</li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+            <p className="text-xl">Get ready for a new task tomorrow 🎁</p>
           </div>
         ) : (
           <div className="flex-grow w-full max-w-sm">
@@ -253,7 +280,9 @@ const DayPage: NextPage<DayPageProps> = ({
                 </label>
               </div>
               <label
-                className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+                className={`mt-6 flex flex-col gap-2${
+                  inputMode === "song+artist" ? "" : " hidden"
+                }`}
               >
                 <p className="text-md">Artist</p>
                 <input
@@ -262,13 +291,14 @@ const DayPage: NextPage<DayPageProps> = ({
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   placeholder={artistPlaceholder}
                   onChange={({ target }) => (
-                    setArtistGuess(target.value),
-                    setShowWrongFeedbackMessage(false)
+                    setArtistGuess(target.value), setShowWrongFeedbackMessage(false)
                   )}
                 />
               </label>
               <label
-                className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+                className={`mt-6 flex flex-col gap-2${
+                  inputMode === "song+artist" ? "" : " hidden"
+                }`}
               >
                 <p className="text-md">Song title</p>
                 <input
@@ -277,8 +307,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   placeholder={songTitlePlaceholder}
                   onChange={({ target }) => (
-                    setSongTitleGuess(target.value),
-                    setShowWrongFeedbackMessage(false)
+                    setSongTitleGuess(target.value), setShowWrongFeedbackMessage(false)
                   )}
                 />
               </label>
@@ -291,8 +320,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   type="text"
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   onChange={({ target }) => (
-                    setSpotifyGuess(target.value),
-                    setShowWrongFeedbackMessage(false)
+                    setSpotifyGuess(target.value), setShowWrongFeedbackMessage(false)
                   )}
                 />
               </label>
@@ -304,8 +332,10 @@ const DayPage: NextPage<DayPageProps> = ({
                 Have a guess
               </button>
               {showWrongFeedbackMessage ? (
-                <div className="mt-2 text-md">
-                  <p className="text-md">Sorry, wrong answer. But I think you are close! Try again :)</p>
+                <div className="text-md mt-2">
+                  <p className="text-md">
+                    Sorry, wrong answer. But I think you are close! Try again :)
+                  </p>
                 </div>
               ) : null}
             </div>
