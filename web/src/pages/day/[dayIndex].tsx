@@ -261,7 +261,10 @@ const DayPage: NextPage<DayPageProps> = ({
                   type="text"
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   placeholder={artistPlaceholder}
-                  onChange={({ target }) => setArtistGuess(target.value)}
+                  onChange={({ target }) => (
+                    setArtistGuess(target.value), 
+                    setShowWrongFeedbackMessage(false)
+                  )}
                 />
               </label>
               <label
@@ -273,7 +276,10 @@ const DayPage: NextPage<DayPageProps> = ({
                   type="text"
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                   placeholder={songTitlePlaceholder}
-                  onChange={({ target }) => setSongTitleGuess(target.value)}
+                  onChange={({ target }) => (
+                    setSongTitleGuess(target.value),
+                    setShowWrongFeedbackMessage(false)
+                  )}
                 />
               </label>
               <label
@@ -284,7 +290,10 @@ const DayPage: NextPage<DayPageProps> = ({
                   ref={spotifyInputElement}
                   type="text"
                   className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                  onChange={({ target }) => setSpotifyGuess(target.value)}
+                  onChange={({ target }) => (
+                    setSpotifyGuess(target.value),
+                    setShowWrongFeedbackMessage(false)
+                  )}
                 />
               </label>
               <button
