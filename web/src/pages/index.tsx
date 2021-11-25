@@ -29,7 +29,7 @@ const Home: NextPage<HomeProps> = ({}: HomeProps) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="text-gray-100 font-serif bg-green-900">
+      <main className="text-gray-100 font-serif">
         <AdventCalendar numberOfUnlockedDays={unlockedDays} finishedDays={finishedDays} />
       </main>
     </div>

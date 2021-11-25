@@ -155,7 +155,7 @@ const DayPage: NextPage<DayPageProps> = ({
       <Head>
         <title>🎄 {title} 🎄</title>
       </Head>
-      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif bg-green-900">
+      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif">
         <header>
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
