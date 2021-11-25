@@ -58,12 +58,6 @@ const DayPage: NextPage<DayPageProps> = ({
   }, [isPaused]);
 
   const answer = useCallback(() => {
-    console.log(
-      artistInputElement.current,
-      songTitleInputElement.current,
-      spotifyInputElement.current,
-    );
-
     if (
       !artistInputElement.current ||
       !songTitleInputElement.current ||
@@ -84,32 +78,19 @@ const DayPage: NextPage<DayPageProps> = ({
     if (inputMode === "song+artist") {
       const isCorrectTitle = day.songTitles
         .map(title => title.toLowerCase())
-        .some(title => {
-          console.log("includes2 ", normalizedSongTitleGuess.includes(title), title);
-          return (
+        .some(
+          title =>
             normalizedSongTitleGuess.includes(title) ||
-            leven(normalizedSongTitleGuess, title) < title.length / 5
-          );
-        });
+            leven(normalizedSongTitleGuess, title) < title.length / 5,
+        );
 
       const isCorrectArtist = day.artists
         .map(artist => artist.toLowerCase())
-        .some(artist => {
-          console.log("includes", normalizedArtistGuess.includes(artist));
-
-          return (
+        .some(
+          artist =>
             normalizedArtistGuess.includes(artist) ||
-            leven(normalizedArtistGuess, artist) < artist.length / 5
-          );
-        });
-
-      console.log({ artists: day.artists });
-
-      console.log(
-        normalizedArtistGuess,
-        leven(normalizedArtistGuess, "edward sharpe & the magnetic zeros"),
-      );
-      console.log(normalizedSongTitleGuess, leven(normalizedSongTitleGuess, "home"));
+            leven(normalizedArtistGuess, artist) < artist.length / 5,
+        );
 
       isCorrect = isCorrectTitle && isCorrectArtist;
     } else {
