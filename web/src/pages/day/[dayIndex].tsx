@@ -31,6 +31,8 @@ const DayPage: NextPage<DayPageProps> = ({
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
+  const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
+  const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
   const [numberOfShownHints, setNumberOfShownHints] = useState(0);
   const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
   const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
@@ -113,8 +115,9 @@ const DayPage: NextPage<DayPageProps> = ({
       spotifyInputElement.current.value = "";
       setIsCorrect("true");
       setShowConfetti(true);
+      setShowCorrectFeedbackMessage(true);
     } else {
-      alert("FALSE");
+      setShowWrongFeedbackMessage(true);
     }
   }, [
     spotifyGuess,
@@ -146,6 +149,7 @@ const DayPage: NextPage<DayPageProps> = ({
       }
 
       setInputMode(value);
+      setShowWrongFeedbackMessage(false);
     },
     [setInputMode],
   );
@@ -159,163 +163,185 @@ const DayPage: NextPage<DayPageProps> = ({
         <header className="w-full">
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
-        <div className="flex-grow w-full max-w-sm">
-          <audio
-            ref={audioElement}
-            className="sr-only"
-            src={day.audioTrackUrl}
-            controls
-            onChange={togglePlayPause}
-          ></audio>
-          <div className="flex justify-center mb-10 mt-4">
-            <button
-              type="button"
-              className="play-pause"
-              aria-label="Play"
-              data-current-state="pause"
-              onClick={togglePlayPause}
-            >
-              {isPaused ? (
-                <svg
-                  name="play-icon"
-                  className="w-16 h-16"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                </svg>
-              ) : (
-                <svg
-                  name="pause-icon"
-                  className="w-16 h-16"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <line x1="10" y1="15" x2="10" y2="9"></line>
-                  <line x1="14" y1="15" x2="14" y2="9"></line>
-                </svg>
-              )}
-            </button>
+        {showCorrectFeedbackMessage ? (
+          <div className="flex-grow w-full max-w-sm py-20">
+            <h2 className="text-4xl">Congratulations, you are correct!</h2>
+            <h2 className="text-xl py-10">The song was: {day.songTitles[day.dayIndex - 1]} by {day.artists}</h2>
+            <h2 className="text-xl">Get ready for a new task tomorrow :)</h2>
           </div>
-          <div className="flex flex-col gap-2 my-4">
-            <h2 className="text-2xl font-semibold">What might this be?</h2>
-            <div className="flex flex-col my-4">
-              <label className="text-md">
-                <input
-                  className="mr-1"
-                  name="input-mode"
-                  type="radio"
-                  checked={inputMode === "song+artist"}
-                  value="song+artist"
-                  onChange={changeInputMode}
-                />{" "}
-                Song + artist
-              </label>
-              <label className="text-md">
-                <input
-                  className="mr-1"
-                  name="input-mode"
-                  type="radio"
-                  checked={inputMode !== "song+artist"}
-                  value="spotify"
-                  onChange={changeInputMode}
-                />{" "}
-                Spotify
-              </label>
+        ) : (
+          <div className="flex-grow w-full max-w-sm">
+            <audio
+              ref={audioElement}
+              className="sr-only"
+              src={day.audioTrackUrl}
+              controls
+              onChange={togglePlayPause}
+            ></audio>
+            <div className="flex justify-center mb-10 mt-4">
+              <button
+                type="button"
+                className="play-pause"
+                aria-label="Play"
+                data-current-state="pause"
+                onClick={togglePlayPause}
+              >
+                {isPaused ? (
+                  <svg
+                    name="play-icon"
+                    className="w-16 h-16"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                  </svg>
+                ) : (
+                  <svg
+                    name="pause-icon"
+                    className="w-16 h-16"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="10" y1="15" x2="10" y2="9"></line>
+                    <line x1="14" y1="15" x2="14" y2="9"></line>
+                  </svg>
+                )}
+              </button>
             </div>
-            <label
-              className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
-            >
-              <p className="text-md">Artist</p>
-              <input
-                ref={artistInputElement}
-                type="text"
-                className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                placeholder={artistPlaceholder}
-                onChange={({ target }) => setArtistGuess(target.value)}
-              />
-            </label>
-            <label
-              className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
-            >
-              <p className="text-md">Song title</p>
-              <input
-                ref={songTitleInputElement}
-                type="text"
-                className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                placeholder={songTitlePlaceholder}
-                onChange={({ target }) => setSongTitleGuess(target.value)}
-              />
-            </label>
-            <label
-              className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
-            >
-              <p className="text-md">Spotify url</p>
-              <input
-                ref={spotifyInputElement}
-                type="text"
-                className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                onChange={({ target }) => setSpotifyGuess(target.value)}
-              />
-            </label>
-            <button
-              type="button"
-              className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
-              onClick={answer}
-            >
-              Have a guess
-            </button>
-          </div>
-
-          {day.hints ? (
-            <>
-              <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
-
-              <ol className="pl-5 list-decimal">
-                {day.hints.map((hint, index) => {
-                  const hintIsHidden = index >= numberOfShownHints;
-                  if (hintIsHidden) {
-                    return null;
-                  }
-
-                  return (
-                    <li key={hint} className="my-4">
-                      {hint}
-                    </li>
-                  );
-                })}
-              </ol>
-
-              {day.hints.length > numberOfShownHints ? (
-                <button
-                  type="button"
-                  className="px-3 py-2 bg-red-700 rounded shadow"
-                  onClick={openHint}
-                >
-                  {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
-                </button>
+            <div className="flex flex-col gap-2 my-4">
+              <h2 className="text-2xl font-semibold">What might this be?</h2>
+              <div className="flex flex-col my-4">
+                <label className="text-md">
+                  <input
+                    className="mr-1"
+                    name="input-mode"
+                    type="radio"
+                    checked={inputMode === "song+artist"}
+                    value="song+artist"
+                    onChange={changeInputMode}
+                  />{" "}
+                  Song + artist
+                </label>
+                <label className="text-md">
+                  <input
+                    className="mr-1"
+                    name="input-mode"
+                    type="radio"
+                    checked={inputMode !== "song+artist"}
+                    value="spotify"
+                    onChange={changeInputMode}
+                  />{" "}
+                  Spotify
+                </label>
+              </div>
+              <label
+                className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+              >
+                <p className="text-md">Artist</p>
+                <input
+                  ref={artistInputElement}
+                  type="text"
+                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                  placeholder={artistPlaceholder}
+                  onChange={({ target }) => (
+                    setArtistGuess(target.value), 
+                    setShowWrongFeedbackMessage(false)
+                  )}
+                />
+              </label>
+              <label
+                className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+              >
+                <p className="text-md">Song title</p>
+                <input
+                  ref={songTitleInputElement}
+                  type="text"
+                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                  placeholder={songTitlePlaceholder}
+                  onChange={({ target }) => (
+                    setSongTitleGuess(target.value),
+                    setShowWrongFeedbackMessage(false)
+                  )}
+                />
+              </label>
+              <label
+                className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
+              >
+                <p className="text-md">Spotify url</p>
+                <input
+                  ref={spotifyInputElement}
+                  type="text"
+                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                  onChange={({ target }) => (
+                    setSpotifyGuess(target.value),
+                    setShowWrongFeedbackMessage(false)
+                  )}
+                />
+              </label>
+              <button
+                type="button"
+                className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
+                onClick={answer}
+              >
+                Have a guess
+              </button>
+              {showWrongFeedbackMessage ? (
+                <div className="mt-2 text-md">
+                  <p className="text-md">Sorry, wrong answer. But I think you are close! Try again :)</p>
+                </div>
               ) : null}
-            </>
-          ) : null}
-        </div>
+            </div>
+
+            {day.hints ? (
+              <>
+                <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
+
+                <ol className="pl-5 list-decimal">
+                  {day.hints.map((hint, index) => {
+                    const hintIsHidden = index >= numberOfShownHints;
+                    if (hintIsHidden) {
+                      return null;
+                    }
+
+                    return (
+                      <li key={hint} className="my-4">
+                        {hint}
+                      </li>
+                    );
+                  })}
+                </ol>
+
+                {day.hints.length > numberOfShownHints ? (
+                  <button
+                    type="button"
+                    className="px-3 py-2 bg-red-700 rounded shadow"
+                    onClick={openHint}
+                  >
+                    {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
+                  </button>
+                ) : null}
+              </>
+            ) : null}
+          </div>
+        )}
         <footer>
           <span className="underline">
             <Link href="/">← Back to the calendar</Link>
