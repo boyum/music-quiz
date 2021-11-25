@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useWindowSize } from "react-use";
 
 export type SnowCanvasProps = {};
 
@@ -9,15 +8,19 @@ export class Snowflake {
   xVelocity: number;
   yVelocity: number;
   radius: number;
+  color: `rgba(${number}, ${number}, ${number}, ${number})`;
 
   constructor(canvasWidth: number, canvasHeight: number) {
-    const radius = Math.random() * (Math.max(canvasWidth, canvasHeight) * 0.005) + 2;
+    const radius = Math.random() * (Math.max(canvasWidth, canvasHeight) * 0.0025) + 3;
 
     this.x = Snowflake.randomXPosition(canvasWidth);
     this.y = Snowflake.randomYPosition(canvasHeight);
     this.xVelocity = Snowflake.randomVelocity(canvasWidth, canvasHeight, radius, true);
     this.yVelocity = Snowflake.randomVelocity(canvasWidth, canvasHeight, radius, false);
     this.radius = radius;
+
+    const alphaValue = Math.random() * 0.5 + 0.3;
+    this.color = `rgba(255, 255, 255, ${alphaValue})`
   }
 
   private static randomXPosition(canvasWidth: number): number {
@@ -66,7 +69,7 @@ export class Snowflake {
   }
 
   draw(context: CanvasRenderingContext2D): void {
-    context.fillStyle = "rgba(255, 255, 255, 0.7)";
+    context.fillStyle = this.color;
     context.beginPath();
     context.ellipse(this.x, this.y, this.radius, this.radius, 0, 0, 2 * Math.PI);
     context.fill();
