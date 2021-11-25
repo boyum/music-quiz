@@ -51,7 +51,7 @@ export class Snowflake {
   update(canvasWidth: number, canvasHeight: number): void {
     const snowflakeIsOutOfHorizontalBounds =
       this.x + this.radius < 0 || this.x - this.radius > canvasWidth;
-    const snowflakeIsOutOfVerticalBounds = this.y - (this.radius * 2) > canvasHeight;
+    const snowflakeIsOutOfVerticalBounds = this.y - this.radius * 2 > canvasHeight;
 
     if (snowflakeIsOutOfHorizontalBounds || snowflakeIsOutOfVerticalBounds) {
       this.setRandomPosition(canvasWidth);
