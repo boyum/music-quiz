@@ -1,18 +1,19 @@
+import leven from "leven";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import React, { useCallback, useRef, useState } from "react";
 import Confetti from "react-confetti";
-import useWindowSize from "react-use/lib/useWindowSize";
 import useLocalStorage from "react-use/lib/useLocalStorage";
+import useWindowSize from "react-use/lib/useWindowSize";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
+import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { CalendarDay } from "../../types/CalendarDay";
 import {
   getCalendarDay,
   getTrackIdFromUri,
-  getTrackIdFromUrl,
+  getTrackIdFromUrl
 } from "../../utils/calendar-day.utils";
-import leven from "leven";
 
 export type DayPageProps = {
   day: CalendarDay;
@@ -218,42 +219,9 @@ const DayPage: NextPage<DayPageProps> = ({
                 onClick={togglePlayPause}
               >
                 {isPaused ? (
-                  <svg
-                    name="play-icon"
-                    className="w-16 h-16"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                  </svg>
+                  <PlayIcon className="w-16 h-16" />
                 ) : (
-                  <svg
-                    name="pause-icon"
-                    className="w-16 h-16"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="10" y1="15" x2="10" y2="9"></line>
-                    <line x1="14" y1="15" x2="14" y2="9"></line>
-                  </svg>
+                  <PauseIcon className="w-16 h-16" />
                 )}
               </button>
             </div>
