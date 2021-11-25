@@ -7,12 +7,13 @@ import Confetti from "react-confetti";
 import useLocalStorage from "react-use/lib/useLocalStorage";
 import useWindowSize from "react-use/lib/useWindowSize";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
+import { Hints } from "../../components/hints/Hints";
 import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { CalendarDay } from "../../types/CalendarDay";
 import {
   getCalendarDay,
   getTrackIdFromUri,
-  getTrackIdFromUrl
+  getTrackIdFromUrl,
 } from "../../utils/calendar-day.utils";
 
 export type DayPageProps = {
@@ -34,7 +35,6 @@ const DayPage: NextPage<DayPageProps> = ({
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
   const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
-  const [numberOfShownHints, setNumberOfShownHints] = useState(0);
   const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
   const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
     day.dayIndex.toString(),
@@ -130,14 +130,6 @@ const DayPage: NextPage<DayPageProps> = ({
     artistGuess,
     setIsCorrect,
   ]);
-
-  const openHint = useCallback(() => {
-    if (!day.hints || day.hints.length === 0) {
-      throw new Error("There are no hints.");
-    }
-
-    setNumberOfShownHints(Math.min(numberOfShownHints + 1, day.hints.length));
-  }, [day.hints, numberOfShownHints]);
 
   const title = `Day ${day.dayIndex}`;
 
@@ -315,31 +307,7 @@ const DayPage: NextPage<DayPageProps> = ({
             {day.hints ? (
               <>
                 <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
-
-                <ol className="pl-5 list-decimal">
-                  {day.hints.map((hint, index) => {
-                    const hintIsHidden = index >= numberOfShownHints;
-                    if (hintIsHidden) {
-                      return null;
-                    }
-
-                    return (
-                      <li key={hint} className="my-4">
-                        {hint}
-                      </li>
-                    );
-                  })}
-                </ol>
-
-                {day.hints.length > numberOfShownHints ? (
-                  <button
-                    type="button"
-                    className="px-3 py-2 bg-red-700 rounded shadow"
-                    onClick={openHint}
-                  >
-                    {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
-                  </button>
-                ) : null}
+                <Hints hints={day.hints} />
               </>
             ) : null}
           </div>
