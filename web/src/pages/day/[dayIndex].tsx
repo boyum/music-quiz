@@ -32,11 +32,11 @@ const DayPage: NextPage<DayPageProps> = ({
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const [numberOfShownHints, setNumberOfShownHints] = useState(0);
+  const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
   const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
     day.dayIndex.toString(),
     "false",
   );
-  const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
 
   const audioElement = useRef<HTMLAudioElement>(null);
   const artistInputElement = useRef<HTMLInputElement>(null);
@@ -156,7 +156,7 @@ const DayPage: NextPage<DayPageProps> = ({
         <title>🎄 {title} 🎄</title>
       </Head>
       <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif">
-        <header>
+        <header className="w-full">
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
         <div className="flex-grow w-full max-w-sm">
@@ -167,49 +167,54 @@ const DayPage: NextPage<DayPageProps> = ({
             controls
             onChange={togglePlayPause}
           ></audio>
-
-          <button
-            type="button"
-            className="play-pause"
-            aria-label="Play"
-            data-current-state="pause"
-            onClick={togglePlayPause}
-          >
-            {isPaused ? (
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <polygon points="10 8 16 12 10 16 10 8"></polygon>
-              </svg>
-            ) : (
-              <svg
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="10" y1="15" x2="10" y2="9"></line>
-                <line x1="14" y1="15" x2="14" y2="9"></line>
-              </svg>
-            )}
-          </button>
+          <div className="flex justify-center mb-10 mt-4">
+            <button
+              type="button"
+              className="play-pause"
+              aria-label="Play"
+              data-current-state="pause"
+              onClick={togglePlayPause}
+            >
+              {isPaused ? (
+                <svg
+                  name="play-icon"
+                  className="w-16 h-16"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+              ) : (
+                <svg
+                  name="pause-icon"
+                  className="w-16 h-16"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="10" y1="15" x2="10" y2="9"></line>
+                  <line x1="14" y1="15" x2="14" y2="9"></line>
+                </svg>
+              )}
+            </button>
+          </div>
           <div className="flex flex-col gap-2 my-4">
             <h2 className="text-2xl font-semibold">What might this be?</h2>
             <div className="flex flex-col my-4">
@@ -237,7 +242,7 @@ const DayPage: NextPage<DayPageProps> = ({
               </label>
             </div>
             <label
-              className={`mt-2 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+              className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
             >
               <p className="text-md">Artist</p>
               <input
@@ -249,7 +254,7 @@ const DayPage: NextPage<DayPageProps> = ({
               />
             </label>
             <label
-              className={`mt-2 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
+              className={`mt-6 flex flex-col gap-2${inputMode === "song+artist" ? "" : " hidden"}`}
             >
               <p className="text-md">Song title</p>
               <input
@@ -261,7 +266,7 @@ const DayPage: NextPage<DayPageProps> = ({
               />
             </label>
             <label
-              className={`mt-2 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
+              className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
             >
               <p className="text-md">Spotify url</p>
               <input
@@ -282,7 +287,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
           {day.hints ? (
             <>
-              <h2 className="mb-4 mt-10 text-2xl">Hints:</h2>
+              <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
 
               <ol className="pl-5 list-decimal">
                 {day.hints.map((hint, index) => {
