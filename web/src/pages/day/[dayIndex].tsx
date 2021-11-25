@@ -207,7 +207,9 @@ const DayPage: NextPage<DayPageProps> = ({
               className="sr-only"
               src={day.audioTrackUrl}
               controls
+              preload="auto"
               onChange={togglePlayPause}
+              onEnded={() => setIsPaused(true)}
             ></audio>
             <div className="flex justify-center mb-10 mt-4">
               <button
