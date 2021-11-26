@@ -2,19 +2,24 @@ import leven from "leven";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
-import useLocalStorage from "react-use/lib/useLocalStorage";
-import useWindowSize from "react-use/lib/useWindowSize";
+import { useLocalStorage, useWindowSize } from "react-use";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { Hints } from "../../components/hints/Hints";
 import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { CalendarDay } from "../../types/CalendarDay";
+import { FormInputMode } from "../../types/FormInputMode";
 import {
   getCalendarDay,
   getTrackIdFromUri,
   getTrackIdFromUrl,
 } from "../../utils/calendar-day.utils";
+import {
+  getLocalStorageInputMode,
+  isInputMode,
+  setLocalStorageInputMode,
+} from "../../utils/local-storage.utils";
 
 export type DayPageProps = {
   day: CalendarDay;
@@ -35,7 +40,7 @@ const DayPage: NextPage<DayPageProps> = ({
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
   const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
-  const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
+  const [inputMode, setInputMode] = useState<FormInputMode>("song+artist");
   const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
     day.dayIndex.toString(),
     "false",
@@ -137,15 +142,23 @@ const DayPage: NextPage<DayPageProps> = ({
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
 
-      if (value !== "song+artist" && value !== "spotify") {
+      if (!isInputMode(value)) {
         throw new Error(`Invalid input mode '${value}'`);
       }
 
       setInputMode(value);
+      setLocalStorageInputMode(value);
       setShowWrongFeedbackMessage(false);
     },
     [setInputMode],
   );
+
+  useEffect(() => {
+    const storedInputMode = getLocalStorageInputMode();
+    if (storedInputMode !== inputMode) {
+      setInputMode(storedInputMode);
+    }
+  }, [inputMode]);
 
   return (
     <>
@@ -304,7 +317,7 @@ const DayPage: NextPage<DayPageProps> = ({
                       Sorry, wrong answer. But I think you are close! Try again :)
                     </p>
                   </div>
-              ) : null}
+                ) : null}
               </form>
             </div>
 
