@@ -9,3 +9,5 @@
 
 # Local Netlify folder
 .netlify
+
+serviceAccountKey.json
