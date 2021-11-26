@@ -5,7 +5,7 @@ const INPUT_MODE_KEY = "input-mode";
 const fallbackInputMode: FormInputMode = "song+artist";
 
 export const isInputMode = (mode: string | null): mode is FormInputMode => {
-  return mode !== "song+artist" && mode !== "spotify";
+  return mode === "song+artist" || mode === "spotify";
 };
 
 export const setLocalStorageInputMode = (value: FormInputMode): void => {
