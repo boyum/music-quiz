@@ -1,18 +1,20 @@
+import leven from "leven";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import React, { useCallback, useRef, useState } from "react";
 import Confetti from "react-confetti";
-import useWindowSize from "react-use/lib/useWindowSize";
 import useLocalStorage from "react-use/lib/useLocalStorage";
+import useWindowSize from "react-use/lib/useWindowSize";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
+import { Hints } from "../../components/hints/Hints";
+import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { CalendarDay } from "../../types/CalendarDay";
 import {
   getCalendarDay,
   getTrackIdFromUri,
   getTrackIdFromUrl,
 } from "../../utils/calendar-day.utils";
-import leven from "leven";
 
 export type DayPageProps = {
   day: CalendarDay;
@@ -33,7 +35,6 @@ const DayPage: NextPage<DayPageProps> = ({
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
   const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
-  const [numberOfShownHints, setNumberOfShownHints] = useState(0);
   const [inputMode, setInputMode] = useState<"song+artist" | "spotify">("song+artist");
   const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
     day.dayIndex.toString(),
@@ -130,14 +131,6 @@ const DayPage: NextPage<DayPageProps> = ({
     setIsCorrect,
   ]);
 
-  const openHint = useCallback(() => {
-    if (!day.hints || day.hints.length === 0) {
-      throw new Error("There are no hints.");
-    }
-
-    setNumberOfShownHints(Math.min(numberOfShownHints + 1, day.hints.length));
-  }, [day.hints, numberOfShownHints]);
-
   const title = `Day ${day.dayIndex}`;
 
   const changeInputMode = useCallback(
@@ -220,42 +213,9 @@ const DayPage: NextPage<DayPageProps> = ({
                 onClick={togglePlayPause}
               >
                 {isPaused ? (
-                  <svg
-                    name="play-icon"
-                    className="w-16 h-16"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                  </svg>
+                  <PlayIcon className="w-16 h-16" />
                 ) : (
-                  <svg
-                    name="pause-icon"
-                    className="w-16 h-16"
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="10" y1="15" x2="10" y2="9"></line>
-                    <line x1="14" y1="15" x2="14" y2="9"></line>
-                  </svg>
+                  <PauseIcon className="w-16 h-16" />
                 )}
               </button>
             </div>
@@ -349,31 +309,7 @@ const DayPage: NextPage<DayPageProps> = ({
             {day.hints ? (
               <>
                 <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
-
-                <ol className="pl-5 list-decimal">
-                  {day.hints.map((hint, index) => {
-                    const hintIsHidden = index >= numberOfShownHints;
-                    if (hintIsHidden) {
-                      return null;
-                    }
-
-                    return (
-                      <li key={hint} className="my-4">
-                        {hint}
-                      </li>
-                    );
-                  })}
-                </ol>
-
-                {day.hints.length > numberOfShownHints ? (
-                  <button
-                    type="button"
-                    className="px-3 py-2 bg-red-700 rounded shadow"
-                    onClick={openHint}
-                  >
-                    {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
-                  </button>
-                ) : null}
+                <Hints hints={day.hints} />
               </>
             ) : null}
           </div>
