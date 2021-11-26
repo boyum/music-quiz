@@ -33,6 +33,7 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
 
   const [windowWidth, setWindowWidth] = useState<number>();
   const [windowHeight, setWindowHeight] = useState<number>();
+  const [isRunning, setIsRunning] = useState<boolean>(false);
   const canvas = useRef<HTMLCanvasElement>(null);
 
   const snowflakes = useRef<Array<Snowflake>>([]);
@@ -61,8 +62,11 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
 
     context.current = ctx;
 
-    tick(context.current, windowWidth, windowHeight, snowflakes.current);
-  }, [windowHeight, windowWidth]);
+    if (!isRunning) {
+      tick(context.current, windowWidth, windowHeight, snowflakes.current);
+      setIsRunning(true);
+    }
+  }, [isRunning, windowHeight, windowWidth]);
 
   useEffect(() => {
     const resize = () => {
