@@ -16,7 +16,7 @@ export class Snowflake {
     this.radius = radius;
 
     const alphaValue = Math.random() * 0.5 + 0.3;
-    this.color = `rgba(255, 255, 255, ${alphaValue})`
+    this.color = `rgba(255, 255, 255, ${alphaValue})`;
   }
 
   private static randomXPosition(canvasWidth: number): number {
