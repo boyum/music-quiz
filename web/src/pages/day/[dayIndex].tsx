@@ -245,65 +245,67 @@ const DayPage: NextPage<DayPageProps> = ({
                   Spotify
                 </label>
               </div>
-              <label
-                className={`mt-6 flex flex-col gap-2${
-                  inputMode === "song+artist" ? "" : " hidden"
-                }`}
-              >
-                <p className="text-md">Artist</p>
-                <input
-                  ref={artistInputElement}
-                  type="text"
-                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                  placeholder={artistPlaceholder}
-                  onChange={({ target }) => (
-                    setArtistGuess(target.value), setShowWrongFeedbackMessage(false)
-                  )}
-                />
-              </label>
-              <label
-                className={`mt-6 flex flex-col gap-2${
-                  inputMode === "song+artist" ? "" : " hidden"
-                }`}
-              >
-                <p className="text-md">Song title</p>
-                <input
-                  ref={songTitleInputElement}
-                  type="text"
-                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                  placeholder={songTitlePlaceholder}
-                  onChange={({ target }) => (
-                    setSongTitleGuess(target.value), setShowWrongFeedbackMessage(false)
-                  )}
-                />
-              </label>
-              <label
-                className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
-              >
-                <p className="text-md">Spotify url</p>
-                <input
-                  ref={spotifyInputElement}
-                  type="text"
-                  className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                  onChange={({ target }) => (
-                    setSpotifyGuess(target.value), setShowWrongFeedbackMessage(false)
-                  )}
-                />
-              </label>
-              <button
-                type="button"
-                className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
-                onClick={answer}
-              >
-                Have a guess
-              </button>
-              {showWrongFeedbackMessage ? (
-                <div className="text-md mt-2">
-                  <p className="text-md">
-                    Sorry, wrong answer. But I think you are close! Try again :)
-                  </p>
-                </div>
+              <form onSubmit={event => event.preventDefault()}>
+                <label
+                  className={`mt-6 flex flex-col gap-2${
+                    inputMode === "song+artist" ? "" : " hidden"
+                  }`}
+                >
+                  <p className="text-md">Artist</p>
+                  <input
+                    ref={artistInputElement}
+                    type="text"
+                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    placeholder={artistPlaceholder}
+                    onChange={({ target }) => (
+                      setArtistGuess(target.value), setShowWrongFeedbackMessage(false)
+                    )}
+                  />
+                </label>
+                <label
+                  className={`mt-6 flex flex-col gap-2${
+                    inputMode === "song+artist" ? "" : " hidden"
+                  }`}
+                >
+                  <p className="text-md">Song title</p>
+                  <input
+                    ref={songTitleInputElement}
+                    type="text"
+                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    placeholder={songTitlePlaceholder}
+                    onChange={({ target }) => (
+                      setSongTitleGuess(target.value), setShowWrongFeedbackMessage(false)
+                    )}
+                  />
+                </label>
+                <label
+                  className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
+                >
+                  <p className="text-md">Spotify url</p>
+                  <input
+                    ref={spotifyInputElement}
+                    type="text"
+                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    onChange={({ target }) => (
+                      setSpotifyGuess(target.value), setShowWrongFeedbackMessage(false)
+                    )}
+                  />
+                </label>
+                <button
+                  type="submit"
+                  className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
+                  onClick={answer}
+                >
+                  Have a guess
+                </button>
+                {showWrongFeedbackMessage ? (
+                  <div className="text-md mt-2">
+                    <p className="text-md">
+                      Sorry, wrong answer. But I think you are close! Try again :)
+                    </p>
+                  </div>
               ) : null}
+              </form>
             </div>
 
             {day.hints ? (
