@@ -1,7 +1,9 @@
 import groq from "groq";
+import leven from "leven";
 import { CalendarDay } from "../types/CalendarDay";
-import { getSanityFile } from "../utils/image-url";
-import { sanityClient } from "../utils/sanity-client";
+import { Guess, isSpotifyGuess } from "../types/Guess";
+import { getSanityFile } from "./image-url";
+import { sanityClient } from "./sanity-client";
 
 type CalendarDayDTO = {
   _id: string;
@@ -107,3 +109,56 @@ export const getTrackIdFromUri = (uri: string) => {
   const trackId = uri.replace("spotify:track:", "");
   return trackId;
 };
+
+export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean> {
+  const day = await getCalendarDay(dayIndex);
+
+  if (!day) {
+    throw new Error(`Day with index '${dayIndex}' not found`);
+  }
+
+  let isCorrect: boolean;
+
+  if (isSpotifyGuess(guess)) {
+    const spotifyGuess = guess.spotify ?? "";
+    const normalizedSpotifyGuess = spotifyGuess.toLowerCase().trim();
+    const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith("https://");
+    const answerIsSpotifyUri = normalizedSpotifyGuess.startsWith("spotify:track:");
+
+    if (answerIsSpotifyUrl) {
+      const trackId = getTrackIdFromUrl(normalizedSpotifyGuess);
+      isCorrect = day.spotifyIds.includes(trackId);
+    } else if (answerIsSpotifyUri) {
+      const trackId = getTrackIdFromUri(normalizedSpotifyGuess);
+      isCorrect = day.spotifyIds.includes(trackId);
+    } else {
+      throw new Error(`Invalid Spotify guess '${spotifyGuess}'`);
+    }
+  } else {
+    const artistGuess = guess.artist ?? "";
+    const songTitleGuess = guess.songTitle ?? "";
+
+    const normalizedArtistGuess = artistGuess.toLowerCase().trim();
+    const normalizedSongTitleGuess = songTitleGuess.toLowerCase().trim();
+
+    const isCorrectTitle = day.songTitles
+      .map(title => title.toLowerCase())
+      .some(
+        title =>
+          normalizedSongTitleGuess.includes(title) ||
+          leven(normalizedSongTitleGuess, title) < title.length / 5,
+      );
+
+    const isCorrectArtist = day.artists
+      .map(artist => artist.toLowerCase())
+      .some(
+        artist =>
+          normalizedArtistGuess.includes(artist) ||
+          leven(normalizedArtistGuess, artist) < artist.length / 5,
+      );
+
+    isCorrect = isCorrectTitle && isCorrectArtist;
+  }
+
+  return isCorrect;
+}

@@ -1,20 +1,18 @@
-import leven from "leven";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
+import ordinal from "ordinal";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
-import { useLocalStorage, useWindowSize } from "react-use";
+import { useWindowSize } from "react-use";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { Hints } from "../../components/hints/Hints";
-import { PauseIcon, PlayIcon } from "../../components/icons/Icons";
+import { LoadIcon, PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { CalendarDay } from "../../types/CalendarDay";
 import { FormInputMode } from "../../types/FormInputMode";
-import {
-  getCalendarDay,
-  getTrackIdFromUri,
-  getTrackIdFromUrl,
-} from "../../utils/calendar-day.utils";
+import { Guess } from "../../types/Guess";
+import { SuccessResponse } from "../../types/ResponseData";
+import { getCalendarDay } from "../../utils/calendar-day.utils";
 import {
   getLocalStorageInputMode,
   isInputMode,
@@ -32,19 +30,14 @@ const DayPage: NextPage<DayPageProps> = ({
   artistPlaceholder,
   songTitlePlaceholder,
 }: DayPageProps) => {
-  const [artistGuess, setArtistGuess] = useState("");
-  const [songTitleGuess, setSongTitleGuess] = useState("");
-  const [spotifyGuess, setSpotifyGuess] = useState("");
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
   const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
   const [inputMode, setInputMode] = useState<FormInputMode>("song+artist");
-  const [isCorrect, setIsCorrect] = useLocalStorage<"true" | "false">(
-    day.dayIndex.toString(),
-    "false",
-  );
+  const [isGuessing, setIsGuessing] = useState<boolean>(false);
+  const [responseData, setResponseData] = useState<SuccessResponse>();
 
   const audioElement = useRef<HTMLAudioElement>(null);
   const artistInputElement = useRef<HTMLInputElement>(null);
@@ -65,76 +58,55 @@ const DayPage: NextPage<DayPageProps> = ({
     setIsPaused(audioElement.current.paused);
   }, [isPaused]);
 
-  const answer = useCallback(() => {
+  const answer = useCallback(async () => {
     if (
       !artistInputElement.current ||
       !songTitleInputElement.current ||
-      !spotifyInputElement.current
+      !spotifyInputElement.current ||
+      (artistInputElement.current.value.trim() === "" &&
+        songTitleInputElement.current.value.trim() === "" &&
+        spotifyInputElement.current.value.trim() === "")
     ) {
       return;
     }
 
-    const normalizedArtistGuess = artistGuess.toLowerCase().trim();
-    const normalizedSongTitleGuess = songTitleGuess.toLowerCase().trim();
-    const normalizedSpotifyGuess = spotifyGuess.toLowerCase().trim();
+    const guess: Guess =
+      inputMode === "song+artist"
+        ? {
+            songTitle: songTitleInputElement.current.value,
+            artist: artistInputElement.current.value,
+          }
+        : {
+            spotify: spotifyInputElement.current.value,
+          };
 
-    const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith("https://");
-    const answerIsSpotifyUri = normalizedSpotifyGuess.startsWith("spotify:track:");
+    setIsGuessing(true);
 
-    let isCorrect;
+    try {
+      const resData = (await (
+        await fetch(`/api/calendar-day/${day.dayIndex}`, {
+          method: "POST",
+          body: JSON.stringify(guess),
+        })
+      ).json()) as SuccessResponse;
 
-    if (inputMode === "song+artist") {
-      const isCorrectTitle = day.songTitles
-        .map(title => title.toLowerCase())
-        .some(
-          title =>
-            normalizedSongTitleGuess.includes(title) ||
-            leven(normalizedSongTitleGuess, title) < title.length / 5,
-        );
+      setResponseData(resData);
 
-      const isCorrectArtist = day.artists
-        .map(artist => artist.toLowerCase())
-        .some(
-          artist =>
-            normalizedArtistGuess.includes(artist) ||
-            leven(normalizedArtistGuess, artist) < artist.length / 5,
-        );
-
-      isCorrect = isCorrectTitle && isCorrectArtist;
-    } else {
-      if (answerIsSpotifyUrl) {
-        const trackId = getTrackIdFromUrl(spotifyGuess);
-        isCorrect = day.spotifyIds.includes(trackId);
-      } else if (answerIsSpotifyUri) {
-        const trackId = getTrackIdFromUri(spotifyGuess);
-        isCorrect = day.spotifyIds.includes(trackId);
+      if (resData.isCorrect) {
+        artistInputElement.current.value = "";
+        songTitleInputElement.current.value = "";
+        spotifyInputElement.current.value = "";
+        setShowConfetti(true);
+        setShowCorrectFeedbackMessage(true);
+      } else {
+        setShowWrongFeedbackMessage(true);
       }
+    } catch (error) {
+      console.error("Error", error);
+    } finally {
+      setIsGuessing(false);
     }
-
-    if (isCorrect) {
-      setArtistGuess("");
-      setSongTitleGuess("");
-      setSpotifyGuess("");
-
-      artistInputElement.current.value = "";
-      songTitleInputElement.current.value = "";
-      spotifyInputElement.current.value = "";
-      setIsCorrect("true");
-      setShowConfetti(true);
-      setShowCorrectFeedbackMessage(true);
-    } else {
-      setShowWrongFeedbackMessage(true);
-    }
-  }, [
-    spotifyGuess,
-    inputMode,
-    day.songTitles,
-    day.artists,
-    day.spotifyIds,
-    songTitleGuess,
-    artistGuess,
-    setIsCorrect,
-  ]);
+  }, [day.dayIndex, inputMode]);
 
   const title = `Day ${day.dayIndex}`;
 
@@ -173,19 +145,20 @@ const DayPage: NextPage<DayPageProps> = ({
         <header className="w-full">
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
-        {showCorrectFeedbackMessage ? (
+        {showCorrectFeedbackMessage && responseData?.isCorrect ? (
           <div className="flex-grow py-20 w-full max-w-sm">
             <h2 className="text-4xl">Congratulations, you are correct!</h2>
-            <p className="my-10 text-xl">
+            <p className="mt-8 text-xl">You were the {ordinal(responseData.successfulAttempts)} person to guess it right! ✨</p>
+            <div className="mt-8 text-xl">
               The song was:
               <div className="mt-2">
                 <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
                 <span className="underline text-xl">{day.artists[0]}</span>
               </div>
-            </p>
+            </div>
             {day.artists.length > 1 ? (
               <>
-                <p className="my-10 text-xl">These has also made versions of the song:</p>
+                <p className="mt-8 text-xl">These has also made versions of the song:</p>
                 <ul className="list-disc">
                   {day.artists.slice(1).map(artist => (
                     <li key={artist}>{artist}</li>
@@ -196,7 +169,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
             {day.songTitles.length > 1 ? (
               <>
-                <p className="my-10 text-xl">Other versions of the song are called:</p>
+                <p className="mt-8 text-xl">Other versions of the song are called:</p>
                 <ul className="list-disc">
                   {day.songTitles.slice(1).map(songTitle => (
                     <li key={songTitle}>{songTitle}</li>
@@ -204,7 +177,7 @@ const DayPage: NextPage<DayPageProps> = ({
                 </ul>
               </>
             ) : null}
-            <p className="text-xl">Get ready for a new task tomorrow 🎁</p>
+            <p className="text-xl mt-8">Get ready for a new task tomorrow 🎁</p>
           </div>
         ) : (
           <div className="flex-grow w-full max-w-sm">
@@ -270,9 +243,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                     placeholder={artistPlaceholder}
-                    onChange={({ target }) => (
-                      setArtistGuess(target.value), setShowWrongFeedbackMessage(false)
-                    )}
+                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
                 </label>
                 <label
@@ -286,9 +257,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
                     placeholder={songTitlePlaceholder}
-                    onChange={({ target }) => (
-                      setSongTitleGuess(target.value), setShowWrongFeedbackMessage(false)
-                    )}
+                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
                 </label>
                 <label
@@ -299,9 +268,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     ref={spotifyInputElement}
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
-                    onChange={({ target }) => (
-                      setSpotifyGuess(target.value), setShowWrongFeedbackMessage(false)
-                    )}
+                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
                 </label>
                 <button
@@ -309,7 +276,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
                   onClick={answer}
                 >
-                  Have a guess
+                  {isGuessing ? <LoadIcon className="mx-auto w-6 h-6" /> : <>Have a guess</>}
                 </button>
                 {showWrongFeedbackMessage ? (
                   <div className="text-md mt-2">
