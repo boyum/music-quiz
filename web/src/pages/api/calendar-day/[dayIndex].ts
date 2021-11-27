@@ -32,13 +32,13 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
     };
   }
   switch (method) {
-    case "GET": {
-      response.status(200).send({
-        day,
-      });
+    // case "GET": {
+    //   response.status(200).send({
+    //     day,
+    //   });
 
-      break;
-    }
+    //   break;
+    // }
 
     case "POST": {
       const guess: Guess = JSON.parse(request.body);
@@ -55,7 +55,7 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
     }
 
     default: {
-      response.setHeader("Allow", ["GET", "POST"]);
+      response.setHeader("Allow", [/*"GET",*/ "POST"]);
       response.status(405).end(`Method ${method} Not Allowed`);
     }
   }
