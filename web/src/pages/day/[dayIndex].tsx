@@ -1,13 +1,13 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import ordinal from "ordinal";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
 import { Hints } from "../../components/hints/Hints";
 import { LoadIcon, PauseIcon, PlayIcon } from "../../components/icons/Icons";
+import { WinFeedback } from "../../components/win-feedback/WinFeedback";
 import { CalendarDay } from "../../types/CalendarDay";
 import { FormInputMode } from "../../types/FormInputMode";
 import { Guess } from "../../types/Guess";
@@ -146,39 +146,7 @@ const DayPage: NextPage<DayPageProps> = ({
           <h1 className="mb-6 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.isCorrect ? (
-          <div className="flex-grow py-20 w-full max-w-sm">
-            <h2 className="text-4xl">Congratulations, you are correct!</h2>
-            <p className="mt-8 text-xl">You were the {ordinal(responseData.successfulAttempts)} person to guess it right! ✨</p>
-            <div className="mt-8 text-xl">
-              The song was:
-              <div className="mt-2">
-                <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
-                <span className="underline text-xl">{day.artists[0]}</span>
-              </div>
-            </div>
-            {day.artists.length > 1 ? (
-              <>
-                <p className="mt-8 text-xl">These has also made versions of the song:</p>
-                <ul className="list-disc">
-                  {day.artists.slice(1).map(artist => (
-                    <li key={artist}>{artist}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-
-            {day.songTitles.length > 1 ? (
-              <>
-                <p className="mt-8 text-xl">Other versions of the song are called:</p>
-                <ul className="list-disc">
-                  {day.songTitles.slice(1).map(songTitle => (
-                    <li key={songTitle}>{songTitle}</li>
-                  ))}
-                </ul>
-              </>
-            ) : null}
-            <p className="text-xl mt-8">Get ready for a new task tomorrow 🎁</p>
-          </div>
+          <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
           <div className="flex-grow w-full max-w-sm">
             <audio
