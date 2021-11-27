@@ -14,6 +14,15 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day }) => {
           <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
           <span className="underline text-xl">{day.artists[0]}</span>
         </div>
+        <iframe
+          className="block mt-8 w-full"
+          src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`}
+          width="300"
+          height="80"
+          frameBorder="0"
+          allowTransparency={true}
+          allow="encrypted-media"
+        ></iframe>
       </p>
       {day.artists.length > 1 ? (
         <>
