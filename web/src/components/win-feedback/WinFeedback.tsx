@@ -6,7 +6,7 @@ export type WinFeedbackProps = {
   successfulAttempts: number;
 };
 
-export const WinFeedback: React.FC<WinFeedbackProps> = ({ day }) => {
+export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
   return (
     <div className="flex-grow py-20 w-full max-w-sm">
       <h2 className="text-4xl">Congratulations, you are correct!</h2>
@@ -28,7 +28,7 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day }) => {
       </p>
 
       <p className="mt-8 text-xl">
-        You were the {ordinal(responseData.successfulAttempts)} person to guess it right! ✨
+        You were the {ordinal(successfulAttempts)} person to guess it right! ✨
       </p>
 
       {day.artists.length > 1 ? (
