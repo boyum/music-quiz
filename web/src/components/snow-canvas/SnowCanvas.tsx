@@ -29,8 +29,6 @@ const tick = (
 };
 
 export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
-  const NUMBER_OF_SNOWFLAKES = 200;
-
   const [windowWidth, setWindowWidth] = useState<number>();
   const [windowHeight, setWindowHeight] = useState<number>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -53,8 +51,10 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
       throw new Error("Failed  to get canvas context");
     }
 
+
     const noSnowflakes = snowflakes.current.length === 0;
     if (noSnowflakes) {
+      const NUMBER_OF_SNOWFLAKES = Math.min(windowWidth, windowHeight) / 3;
       for (let i = 0; i < NUMBER_OF_SNOWFLAKES; i += 1) {
         snowflakes.current.push(new Snowflake(windowWidth, windowHeight));
       }

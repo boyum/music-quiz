@@ -1,7 +1,9 @@
+import ordinal from "ordinal";
 import { CalendarDay } from "../../types/CalendarDay";
 
 export type WinFeedbackProps = {
   day: CalendarDay;
+  successfulAttempts: number;
 };
 
 export const WinFeedback: React.FC<WinFeedbackProps> = ({ day }) => {
@@ -24,6 +26,11 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day }) => {
           allow="encrypted-media"
         ></iframe>
       </p>
+
+      <p className="mt-8 text-xl">
+        You were the {ordinal(responseData.successfulAttempts)} person to guess it right! ✨
+      </p>
+
       {day.artists.length > 1 ? (
         <>
           <p className="my-8 text-xl">These has also made versions of the song:</p>
