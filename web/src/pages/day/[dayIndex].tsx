@@ -139,7 +139,7 @@ const DayPage: NextPage<DayPageProps> = ({
       </Head>
       <article
         className={`flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif${
-          showCorrectFeedbackMessage ? " bg-green-900" : ""
+          showCorrectFeedbackMessage ? " bg-blue-200" : ""
         }`}
       >
         <header className="w-full">

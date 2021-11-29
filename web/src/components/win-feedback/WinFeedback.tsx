@@ -9,8 +9,8 @@ export type WinFeedbackProps = {
 export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
   return (
     <div className="flex-grow py-20 w-full max-w-sm">
-      <h2 className="text-4xl">Congratulations, you are correct!</h2>
-      <p className="my-10 text-xl">
+      <h2 className="text-4xl text-blue-900">Congratulations, you are correct!</h2>
+      <p className="my-10 text-xl text-blue-900">
         The song was:
         <div className="mt-2">
           <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
@@ -27,13 +27,13 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         ></iframe>
       </p>
 
-      <p className="mt-8 text-xl">
+      <p className="mt-8 text-xl text-blue-900">
         You were the {ordinal(successfulAttempts)} person to guess it right! ✨
       </p>
 
       {day.artists.length > 1 ? (
         <>
-          <p className="my-8 text-xl">These has also made versions of the song:</p>
+          <p className="my-8 text-xl text-blue-900">These has also made versions of the song:</p>
           <ul className="list-disc">
             {day.artists.slice(1).map(artist => (
               <li key={artist}>{artist}</li>
@@ -44,15 +44,15 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
 
       {day.songTitles.length > 1 ? (
         <>
-          <p className="my-10 text-xl">Other versions of the song are called:</p>
-          <ul className="list-disc">
+          <p className="my-10 text-xl text-blue-900">Other versions of the song are called:</p>
+          <ul className="list-disc text-blue-900">
             {day.songTitles.slice(1).map(songTitle => (
               <li key={songTitle}>{songTitle}</li>
             ))}
           </ul>
         </>
       ) : null}
-      <p className="text-xl">Get ready for a new task tomorrow 🎁</p>
+      <p className="text-xl text-blue-900">Get ready for a new task tomorrow 🎁</p>
     </div>
   );
 };
