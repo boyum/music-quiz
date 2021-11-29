@@ -174,8 +174,9 @@ const DayPage: NextPage<DayPageProps> = ({
               </button>
             </div>
             <div className="flex flex-col gap-2 my-4">
-              <h2 className="text-2xl text-blue-900 font-semibold">What might this be?</h2>
+              <h2 className="text-2xl text-blue-900 font-semibold">What song might this be?</h2>
               <div className="flex flex-col my-4">
+                <h3 className="text-md text-blue-900 mb-2">Choose how you want to answer:</h3>
                 <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
