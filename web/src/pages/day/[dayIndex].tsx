@@ -139,16 +139,16 @@ const DayPage: NextPage<DayPageProps> = ({
       </Head>
       <article
         className={`flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif${
-          showCorrectFeedbackMessage ? " bg-green-900" : ""
+          showCorrectFeedbackMessage ? " bg-blue-200" : ""
         }`}
       >
         <header className="w-full">
-          <h1 className="mb-6 text-3xl">{title}</h1>
+          <h1 className="mb-6 text-3xl text-blue-900">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.isCorrect ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
-          <div className="flex-grow w-full max-w-sm">
+          <div className="flex-grow w-full max-w-sm mb-16">
             <audio
               ref={audioElement}
               className="sr-only"
@@ -167,16 +167,16 @@ const DayPage: NextPage<DayPageProps> = ({
                 onClick={togglePlayPause}
               >
                 {isPaused ? (
-                  <PlayIcon className="w-16 h-16" />
+                  <PlayIcon className="w-16 h-16 text-blue-900" />
                 ) : (
-                  <PauseIcon className="w-16 h-16" />
+                  <PauseIcon className="w-16 h-16 text-blue-900" />
                 )}
               </button>
             </div>
             <div className="flex flex-col gap-2 my-4">
-              <h2 className="text-2xl font-semibold">What might this be?</h2>
+              <h2 className="text-2xl text-blue-900 font-semibold">What might this be?</h2>
               <div className="flex flex-col my-4">
-                <label className="text-md">
+                <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
                     name="input-mode"
@@ -187,7 +187,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   />{" "}
                   Song + artist
                 </label>
-                <label className="text-md">
+                <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
                     name="input-mode"
@@ -205,11 +205,11 @@ const DayPage: NextPage<DayPageProps> = ({
                     inputMode === "song+artist" ? "" : " hidden"
                   }`}
                 >
-                  <p className="text-md">Artist</p>
+                  <p className="text-md text-blue-900">Artist</p>
                   <input
                     ref={artistInputElement}
                     type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     placeholder={artistPlaceholder}
                     onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
@@ -219,11 +219,11 @@ const DayPage: NextPage<DayPageProps> = ({
                     inputMode === "song+artist" ? "" : " hidden"
                   }`}
                 >
-                  <p className="text-md">Song title</p>
+                  <p className="text-md text-blue-900">Song title</p>
                   <input
                     ref={songTitleInputElement}
                     type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     placeholder={songTitlePlaceholder}
                     onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
@@ -231,24 +231,24 @@ const DayPage: NextPage<DayPageProps> = ({
                 <label
                   className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
                 >
-                  <p className="text-md">Spotify url</p>
+                  <p className="text-md text-blue-900">Spotify url</p>
                   <input
                     ref={spotifyInputElement}
                     type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-red-700 rounded shadow"
+                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     onChange={({ target }) => setShowWrongFeedbackMessage(false)}
                   />
                 </label>
                 <button
                   type="submit"
-                  className="mt-2 px-3 py-2 w-full bg-red-700 rounded shadow"
+                  className="mt-2 px-3 py-2 w-full bg-blue-900 rounded shadow"
                   onClick={answer}
                 >
                   {isGuessing ? <LoadIcon className="mx-auto w-6 h-6" /> : <>Have a guess</>}
                 </button>
                 {showWrongFeedbackMessage ? (
-                  <div className="text-md mt-2">
-                    <p className="text-md">
+                  <div className="text-md mt-4">
+                    <p className="text-md text-blue-900">
                       Sorry, wrong answer. But I think you are close! Try again :)
                     </p>
                   </div>
@@ -258,14 +258,14 @@ const DayPage: NextPage<DayPageProps> = ({
 
             {day.hints ? (
               <>
-                <h2 className="mb-4 mt-16 text-2xl">Hints:</h2>
+                <h2 className="mb-4 mt-16 text-blue-900 text-2xl">Hints:</h2>
                 <Hints hints={day.hints} />
               </>
             ) : null}
           </div>
         )}
         <footer>
-          <span className="underline">
+          <span className="underline text-blue-900">
             <Link href="/">← Back to the calendar</Link>
           </span>
         </footer>

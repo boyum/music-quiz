@@ -28,7 +28,7 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
         ) : null}
       </Head>
 
-      <div className="bg-green-900">
+      <div className="bg-blue-200">
         <SnowCanvas />
         <div className="relative z-10">
           <Component {...pageProps} />
