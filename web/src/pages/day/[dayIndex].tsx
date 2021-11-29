@@ -154,7 +154,7 @@ const DayPage: NextPage<DayPageProps> = ({
               className="sr-only"
               src={day.audioTrackUrl}
               controls
-              preload="auto"
+              preload="metadata"
               onChange={togglePlayPause}
               onEnded={() => setIsPaused(true)}
             ></audio>
