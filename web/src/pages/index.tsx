@@ -26,7 +26,6 @@ const Home: NextPage<HomeProps> = ({}: HomeProps) => {
             isDecember ? `Today is December ${dayOfDecember}!` : ""
           } Open today's calendar door to see what piece of music is hiding behind it 🌟`}
         />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="text-gray-100 font-serif">
