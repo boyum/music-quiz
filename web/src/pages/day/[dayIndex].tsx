@@ -98,6 +98,7 @@ const DayPage: NextPage<DayPageProps> = ({
         spotifyInputElement.current.value = "";
         setShowConfetti(true);
         setShowCorrectFeedbackMessage(true);
+        setLocalStorageFinishedDay(day.dayIndex);
       } else {
         setShowWrongFeedbackMessage(true);
       }
@@ -143,12 +144,12 @@ const DayPage: NextPage<DayPageProps> = ({
         }`}
       >
         <header className="w-full">
-          <h1 className="mb-6 text-3xl text-blue-900">{title}</h1>
+          <h1 className="mb-6 text-blue-900 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.isCorrect ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
-          <div className="flex-grow w-full max-w-sm mb-16">
+          <div className="flex-grow mb-16 w-full max-w-sm">
             <audio
               ref={audioElement}
               className="sr-only"
@@ -174,9 +175,9 @@ const DayPage: NextPage<DayPageProps> = ({
               </button>
             </div>
             <div className="flex flex-col gap-2 my-4">
-              <h2 className="text-2xl text-blue-900 font-semibold">What song might this be?</h2>
+              <h2 className="text-blue-900 text-2xl font-semibold">What song might this be?</h2>
               <div className="flex flex-col my-4">
-                <h3 className="text-md text-blue-900 mb-2">Choose how you want to answer:</h3>
+                <h3 className="text-md mb-2 text-blue-900">Choose how you want to answer:</h3>
                 <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
@@ -266,7 +267,7 @@ const DayPage: NextPage<DayPageProps> = ({
           </div>
         )}
         <footer>
-          <span className="underline text-blue-900">
+          <span className="text-blue-900 underline">
             <Link href="/">← Back to the calendar</Link>
           </span>
         </footer>
