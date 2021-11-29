@@ -60,7 +60,8 @@ export class Snowflake {
   }
 
   update(canvasWidth: number, canvasHeight: number): void {
-    const stopProbability = 0.1;
+    // TODO: Set `stopProbability` to 0.1 again and find out why invisible snowflakes aren't moved to the top
+    const stopProbability = 0;
     const shouldStop =
       Math.random() < stopProbability &&
       this.y > canvasHeight - (this.radius * Math.random() * 0.5 + 0.5);
