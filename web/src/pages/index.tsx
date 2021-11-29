@@ -1,11 +1,15 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import { AdventCalendar } from "../components/advent-calendar/AdventCalendar";
+import { getLocalStorageFinishedDays } from "../utils/local-storage.utils";
 import { isProduction } from "../utils/meta.utils";
 
 export type HomeProps = {};
 
 const Home: NextPage<HomeProps> = ({}: HomeProps) => {
+  const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
+
   const today = new Date();
 
   const is2021 = today.getFullYear() === 2021;
@@ -14,12 +18,14 @@ const Home: NextPage<HomeProps> = ({}: HomeProps) => {
   const dayOfDecember = is2021 && isDecember ? today.getDate() : 0;
   const unlockedDays = isProduction ? dayOfDecember : 12;
 
-  const finishedDays = isProduction ? [] : [1, 3, 5, 7, 9, 11];
+  useEffect(() => {
+    setFinishedDays(getLocalStorageFinishedDays());
+  }, []);
 
   return (
     <div className="">
       <Head>
-        <title>Holly Jolly</title>
+        <title>Jingle Bell Rock</title>
         <meta
           name="description"
           content={`${
