@@ -28,7 +28,7 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
       </p>
 
       <p className="mt-8 text-xl text-blue-900">
-        You were the {ordinal(successfulAttempts)} person to guess it right! ✨
+        You were the <span className="underline">{ordinal(successfulAttempts)}</span> person to guess it right!
       </p>
 
       {day.artists.length > 1 ? (
@@ -42,17 +42,7 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         </>
       ) : null}
 
-      {day.songTitles.length > 1 ? (
-        <>
-          <p className="my-10 text-xl text-blue-900">Other versions of the song are called:</p>
-          <ul className="list-disc text-blue-900">
-            {day.songTitles.slice(1).map(songTitle => (
-              <li key={songTitle}>{songTitle}</li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-      <p className="text-xl text-blue-900">Get ready for a new task tomorrow 🎁</p>
+      <p className="text-xl text-blue-900 mt-2">Get ready for a new task tomorrow 🎁</p>
     </div>
   );
 };
