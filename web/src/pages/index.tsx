@@ -19,7 +19,7 @@ const Home: NextPage<HomeProps> = ({}: HomeProps) => {
   return (
     <div className="">
       <Head>
-        <title>🎄 Holly Jolly 🎄</title>
+        <title>Holly Jolly</title>
         <meta
           name="description"
           content={`${
