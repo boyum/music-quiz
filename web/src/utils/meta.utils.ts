@@ -1,1 +1,1 @@
-export const isProduction = process.env.SANITY_DATASET === "production";
+export const isProduction = process.env.NODE_ENV === "production";
