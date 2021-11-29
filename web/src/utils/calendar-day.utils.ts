@@ -121,7 +121,7 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean>
 
   if (isSpotifyGuess(guess)) {
     const spotifyGuess = guess.spotify ?? "";
-    const normalizedSpotifyGuess = spotifyGuess.toLowerCase().trim();
+    const normalizedSpotifyGuess = spotifyGuess.trim();
     const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith("https://");
     const answerIsSpotifyUri = normalizedSpotifyGuess.startsWith("spotify:track:");
 
@@ -132,7 +132,8 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean>
       const trackId = getTrackIdFromUri(normalizedSpotifyGuess);
       isCorrect = day.spotifyIds.includes(trackId);
     } else {
-      throw new Error(`Invalid Spotify guess '${spotifyGuess}'`);
+      console.error(`Invalid Spotify guess '${spotifyGuess}'`);
+      isCorrect = false;
     }
   } else {
     const artistGuess = guess.artist ?? "";
