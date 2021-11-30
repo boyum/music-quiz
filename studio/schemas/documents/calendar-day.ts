@@ -41,37 +41,11 @@ const contentType: StringSchemaType = {
       required: () => true,
     },
     {
-      title: "Title",
-      name: "title",
-      type: "string",
-      description: "This title is used on the page itself",
-      initialValue: () => getNextQuestionIndex(),
-    },
-    {
-      title: "Preview title",
-      name: "previewTitle",
-      type: "string",
-      description: "This title is used only within the Sanity Studio",
-      initialValue: async () => {
-        const questionIndex = await getNextQuestionIndex();
-        return `${questionIndex}: `;
-      },
-    },
-    {
       name: "publishedAt",
       type: "datetime",
       title: "Published at",
       initialValue: new Date().toISOString(),
       required: () => true,
-    },
-    {
-      title: "Slug",
-      name: "slug",
-      type: "slug",
-      options: {
-        source: "title",
-        slugify: (title: string) => title.trim().split(" ")[0],
-      },
     },
     {
       title: "Song titles",
@@ -103,7 +77,16 @@ const contentType: StringSchemaType = {
   ],
   preview: {
     select: {
-      title: "previewTitle",
+      dayIndex: "dayIndex",
+      songTitles: "songTitles",
+      artists: "artists",
+    },
+    prepare(selection: { dayIndex: string; songTitles: Array<string>; artists: Array<string> }) {
+      const { dayIndex, songTitles, artists } = selection;
+
+      return {
+        title: `${dayIndex}: ${artists[0]} - ${songTitles[0]}`,
+      };
     },
   },
 };

@@ -8,11 +8,6 @@ import { sanityClient } from "./sanity-client";
 type CalendarDayDTO = {
   _id: string;
   publishedAt: string;
-  slug?: {
-    _type: "slug";
-    current: string;
-  };
-  title: string;
   audioTrack: {
     _type: "file";
     asset: {
@@ -20,7 +15,6 @@ type CalendarDayDTO = {
       _type: "reference";
     };
   };
-  previewTitle: string;
   hints?: Array<string>;
   dayIndex: number;
   songTitles: Array<string>;
@@ -30,25 +24,19 @@ type CalendarDayDTO = {
 
 const mapCalendarDayDTOToCalendarDay = ({
   _id,
-  title,
-  slug,
+  dayIndex,
   audioTrack,
   publishedAt,
   hints,
-  previewTitle,
-  dayIndex,
   songTitles,
   artists,
   spotifyIds,
 }: CalendarDayDTO): CalendarDay => ({
   id: _id,
-  title,
+  dayIndex,
   publishedAt,
-  slug: slug?.current ?? null,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
   hints: hints ?? null,
-  previewTitle,
-  dayIndex,
   songTitles,
   artists,
   spotifyIds,
@@ -60,11 +48,8 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
   const projection = groq`{
     _id,
     publishedAt,
-    title,
-    slug,
     audioTrack,
     hints,
-    previewTitle,
     dayIndex,
     songTitles,
     artists,
