@@ -1,52 +1,72 @@
+import { useCallback, useEffect, useRef, useState } from "react";
 import shuffle from "shuffle-seed";
+import { randomElement } from "../../utils/array.utils";
+import { CalendarDoor } from "../calendar-door/CalendarDoor";
+import { Dialog } from "../dialog/Dialog";
 
 export type AdventCalendarProps = {
   numberOfUnlockedDays: number;
   finishedDays: Array<number>;
 };
 
+const illegalDoorMessages: Readonly<Array<string>> = [
+  "Are you sure that's the correct date?",
+  "Naughty naughty! 🧑‍🎄",
+  "Noooo, be patient - the day will come soon enough.",
+  "Start with today's task instead of focusing on the future.",
+];
+
 export const AdventCalendar: React.FC<AdventCalendarProps> = ({
   numberOfUnlockedDays,
   finishedDays,
 }) => {
-  let days = Array(24)
-    .fill(null)
-    .map((_, index) => ({
-      index: index + 1,
-      isUnlocked: index < numberOfUnlockedDays,
-      isFinished: finishedDays.includes(index + 1),
-    }));
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [illegalDoorMessage, setIllegalDoorMessage] = useState("");
 
-  days = shuffle.shuffle(days, "🎄🎄🎄");
+  let days = useRef(
+    Array(24)
+      .fill(null)
+      .map((_, index) => ({
+        index: index + 1,
+        isUnlocked: index < numberOfUnlockedDays,
+        isFinished: finishedDays.includes(index + 1),
+      })),
+  );
 
-  const unlockedStyle =
-    "hatch-unlocked shadow-inner hover:bg-blue-900 focus:bg-blue-900 text-shadow-unlocked";
-  const lockedStyle = "bg-blue-200 inner-shadow text-shadow";
+  useEffect(() => {
+    days.current = shuffle.shuffle(days.current, "🎄🎄🎄");
+  }, []);
+
+  const onClick = useCallback((event: React.MouseEvent, isUnlocked: boolean) => {
+    if (!isUnlocked) {
+      event.preventDefault();
+      setDialogIsOpen(true);
+      setIllegalDoorMessage(randomElement(illegalDoorMessages));
+    }
+  }, []);
 
   return (
     <>
       <div className="p-6 min-h-screen">
-        <h1 className="mt-4 mb-4 text-center text-blue-900 text-4xl md:mb-10 md:mt-6 md:text-5xl lg:mb-12 lg:mt-16 xl:text-6xl">
+        <h1 className="mb-4 mt-4 text-center text-blue-900 text-4xl md:mb-10 md:mt-6 md:text-5xl lg:mb-12 lg:mt-16 xl:text-6xl">
           🎄 Jingle Bell Rock 🎄
         </h1>
         <p className="mb-8 text-center text-blue-900 text-xl">Can you guess them all?</p>
         <div className="grid gap-2 grid-cols-3 mx-auto max-w-5xl sm:gap-4 sm:grid-cols-4 lg:grid-cols-6">
-          {days.map(({ index, isUnlocked, isFinished }) => (
-            <div key={index} className={"aspect-w-1 aspect-h-1"}>
-              <a
-                className={`flex items-center justify-center text-white text-3xl font-bold rounded-lg transition duration-150 ease-in-out xl:text-4xl ${
-                  isUnlocked ? unlockedStyle : lockedStyle
-                }`}
-                href={`/day/${index}`}
-                tabIndex={index}
-              >
-                {isFinished ? <span className="hatch-badge">💫</span> : null}
-                {index}
-              </a>
-            </div>
+          {days.current.map(({ index, isUnlocked, isFinished }) => (
+            <CalendarDoor
+              key={index}
+              index={index}
+              isUnlocked={isUnlocked}
+              isFinished={isFinished}
+              onClick={event => onClick(event, isUnlocked)}
+            />
           ))}
         </div>
       </div>
+      <Dialog isOpen={dialogIsOpen} onOpenChange={setDialogIsOpen}>
+        <div className="text-xl px-3 py-2">{illegalDoorMessage}</div>
+      </Dialog>
     </>
   );
 };
