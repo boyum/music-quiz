@@ -23,17 +23,15 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [illegalDoorMessage, setIllegalDoorMessage] = useState("");
 
-  let days = useRef(
-    Array(24)
-      .fill(null)
-      .map((_, index) => ({
-        index: index + 1,
-        isUnlocked: index < numberOfUnlockedDays,
-        isFinished: finishedDays.includes(index + 1),
-      })),
-  );
+  let days = Array(24)
+    .fill(null)
+    .map((_, index) => ({
+      index: index + 1,
+      isUnlocked: index < numberOfUnlockedDays,
+      isFinished: finishedDays.includes(index + 1),
+    }));
 
-  days.current = shuffle.shuffle(days.current, "🎄🎄🎄");
+  days = shuffle.shuffle(days, "🎄🎄🎄");
 
   const onClick = useCallback((event: React.MouseEvent, isUnlocked: boolean) => {
     if (!isUnlocked) {
@@ -51,7 +49,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
         </h1>
         <p className="mb-8 text-center text-blue-900 text-xl">Can you guess them all?</p>
         <div className="grid gap-2 grid-cols-3 mx-auto max-w-5xl sm:gap-4 sm:grid-cols-4 lg:grid-cols-6">
-          {days.current.map(({ index, isUnlocked, isFinished }) => (
+          {days.map(({ index, isUnlocked, isFinished }) => (
             <CalendarDoor
               key={index}
               index={index}
