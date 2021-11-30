@@ -1,9 +1,0 @@
-<ol reversed class="questionslist" style="counter-reset: start-from {{ questionslist.length + 1 }}">
-{% for question in questionslist | reverse %}
-  {% set currentQuestion = question.data.question %}
-  <li class="questionlist-item{% if question.url == url %} questionlist-item-active{% endif %}">
-    <a href="{{ question.url | url }}" class="questionlist-link">{% if currentQuestion.title %}{{ currentQuestion.title }}{% else %}<code>{{ question.url }}</code>{% endif %}</a>
-    <time class="questionlist-date" datetime="{{ currentQuestion.publishedAt }}">{{ currentQuestion.publishedAt|readableDate }}</time>
-  </li>
-{% endfor %}
-</ol>
