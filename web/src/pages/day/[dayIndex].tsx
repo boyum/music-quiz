@@ -16,6 +16,7 @@ import { getCalendarDay } from "../../utils/calendar-day.utils";
 import {
   getLocalStorageInputMode,
   isInputMode,
+  setLocalStorageFinishedDay,
   setLocalStorageInputMode,
 } from "../../utils/local-storage.utils";
 
