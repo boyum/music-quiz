@@ -46,7 +46,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
   return (
     <>
       <div className="p-6 min-h-screen">
-        <h1 className="mb-4 mt-4 text-center text-blue-900 text-4xl md:mb-10 md:mt-6 md:text-5xl lg:mb-12 lg:mt-16 xl:text-6xl">
+        <h1 className="mb-4 mt-4 text-center text-blue-900 text-3xl md:mb-10 md:mt-6 md:text-5xl lg:mb-12 lg:mt-16 xl:text-6xl">
           🎄 Jingle Bell Rock 🎄
         </h1>
         <p className="mb-8 text-center text-blue-900 text-xl">Can you guess them all?</p>
