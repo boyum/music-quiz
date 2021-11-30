@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { Footer } from "../components/footer/Footer";
 
 class CustomDocument extends Document {
   render() {
@@ -20,6 +21,7 @@ class CustomDocument extends Document {
           <Main />
           <NextScript />
         </body>
+        <Footer />
       </Html>
     );
   }
