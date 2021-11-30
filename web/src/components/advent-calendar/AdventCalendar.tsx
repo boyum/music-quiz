@@ -13,7 +13,8 @@ const illegalDoorMessages: Readonly<Array<string>> = [
   "Are you sure that's the correct date?",
   "Noooo, be patient - the day will come soon enough.",
   "Start with today's task instead of focusing on the future.",
-  "STOP",
+  "⚠️ STOP ⚠️",
+  "You know what they say - good things come to those who wait",
 ];
 
 export const AdventCalendar: React.FC<AdventCalendarProps> = ({
