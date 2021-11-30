@@ -33,9 +33,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
       })),
   );
 
-  useEffect(() => {
-    days.current = shuffle.shuffle(days.current, "🎄🎄🎄");
-  }, []);
+  days.current = shuffle.shuffle(days.current, "🎄🎄🎄");
 
   const onClick = useCallback((event: React.MouseEvent, isUnlocked: boolean) => {
     if (!isUnlocked) {
@@ -65,7 +63,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
         </div>
       </div>
       <Dialog isOpen={dialogIsOpen} onOpenChange={setDialogIsOpen}>
-        <div className="text-xl px-3 py-2">{illegalDoorMessage}</div>
+        <div className="px-3 py-2 text-xl">{illegalDoorMessage}</div>
       </Dialog>
     </>
   );
