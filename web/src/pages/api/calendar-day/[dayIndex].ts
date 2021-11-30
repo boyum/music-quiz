@@ -32,30 +32,22 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
     };
   }
   switch (method) {
-    // case "GET": {
-    //   response.status(200).send({
-    //     day,
-    //   });
-
-    //   break;
-    // }
-
     case "POST": {
       const guess: Guess = JSON.parse(request.body);
-      const isCorrect = await tryGuess(dayIndex, guess);
-      await postDay(dayIndex, isCorrect, day, guess);
+      const correctness = await tryGuess(dayIndex, guess);
+      await postDay(dayIndex, correctness === 1, day, guess);
 
-      if (isCorrect) {
-        response.status(200).send({ isCorrect, successfulAttempts: day.successfulAttempts + 1 });
+      if (correctness === 1) {
+        response.status(200).send({ correctness, successfulAttempts: day.successfulAttempts + 1 });
       } else {
-        response.status(200).send({ isCorrect });
+        response.status(200).send({ correctness });
       }
 
       break;
     }
 
     default: {
-      response.setHeader("Allow", [/*"GET",*/ "POST"]);
+      response.setHeader("Allow", ["POST"]);
       response.status(405).end(`Method ${method} Not Allowed`);
     }
   }

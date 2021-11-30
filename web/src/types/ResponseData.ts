@@ -1,13 +1,14 @@
 import { CalendarDayStats } from "./CalendarDayStats";
 import { ErrorResponse } from "./ErrorResponse";
 
-export type SuccessResponse = {
-  isCorrect: false;
-}
-| {
-  isCorrect: true;
-  successfulAttempts: number;
-}
+export type SuccessResponse =
+  | {
+      correctness: 0 | 0.5;
+    }
+  | {
+      correctness: 1;
+      successfulAttempts: number;
+    };
 
 export type ResponseData =
   | {
@@ -15,4 +16,3 @@ export type ResponseData =
     }
   | SuccessResponse
   | ErrorResponse;
-
