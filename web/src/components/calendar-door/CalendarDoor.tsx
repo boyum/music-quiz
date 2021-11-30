@@ -13,7 +13,7 @@ export const CalendarDoor: FC<CalendarDoorProps> = ({ index, isUnlocked, isFinis
   const lockedStyle = "bg-blue-200 inner-shadow text-shadow";
 
   return (
-    <div key={index} className={"aspect-w-1 aspect-h-1"}>
+    <div data-name="calendar-door" key={index} className={"aspect-w-1 aspect-h-1"}>
       <a
         className={`flex items-center justify-center text-white text-3xl font-bold rounded-lg transition duration-150 ease-in-out xl:text-4xl ${
           isUnlocked ? unlockedStyle : lockedStyle
