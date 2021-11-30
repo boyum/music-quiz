@@ -11,9 +11,9 @@ export type AdventCalendarProps = {
 
 const illegalDoorMessages: Readonly<Array<string>> = [
   "Are you sure that's the correct date?",
-  "Naughty naughty! 🧑‍🎄",
   "Noooo, be patient - the day will come soon enough.",
   "Start with today's task instead of focusing on the future.",
+  "STOP",
 ];
 
 export const AdventCalendar: React.FC<AdventCalendarProps> = ({
