@@ -169,8 +169,8 @@ const DayPage: NextPage<DayPageProps> = ({
           showCorrectFeedbackMessage ? " bg-blue-200" : ""
         }`}
       >
-        <header className="w-full">
-          <h1 className="mb-6 text-blue-900 text-3xl">{title}</h1>
+        <header className="mb-6 w-full">
+          <h1 className="text-blue-900 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.correctness === 1 ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />

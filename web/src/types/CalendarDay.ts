@@ -7,4 +7,5 @@ export type CalendarDay = {
   songTitles: Array<string>;
   artists: Array<string>;
   spotifyIds: Array<string>;
+  playedBy: string | null;
 };

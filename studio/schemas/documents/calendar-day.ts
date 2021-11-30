@@ -74,6 +74,11 @@ const contentType: StringSchemaType = {
       type: "array",
       of: [{ type: "string" }],
     },
+    {
+      title: "Played by",
+      name: "playedBy",
+      type: "string",
+    },
   ],
   preview: {
     select: {
