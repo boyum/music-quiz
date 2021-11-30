@@ -12,6 +12,7 @@ import { CalendarDay } from "../../types/CalendarDay";
 import { FormInputMode } from "../../types/FormInputMode";
 import { Guess } from "../../types/Guess";
 import { SuccessResponse } from "../../types/ResponseData";
+import { randomElement } from "../../utils/array.utils";
 import { getCalendarDay } from "../../utils/calendar-day.utils";
 import {
   getLocalStorageInputMode,
@@ -26,6 +27,19 @@ export type DayPageProps = {
   songTitlePlaceholder: string;
 };
 
+/** Messages which are cycled upon 0% correctness */
+const wrongAnswerMessages0: Readonly<Array<string>> = [
+  "Now you're just guessing!",
+  "Are you sure you spelled it correctly?",
+  "Keep guessing!",
+];
+
+/** Messages which are cycled upon 50% correctness */
+const wrongAnswerMessages50: Readonly<Array<string>> = [
+  "You're getting closer!",
+  "Sorry, wrong answer. But I think you are close! Try again!",
+];
+
 const DayPage: NextPage<DayPageProps> = ({
   day,
   artistPlaceholder,
@@ -35,10 +49,10 @@ const DayPage: NextPage<DayPageProps> = ({
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
-  const [showWrongFeedbackMessage, setShowWrongFeedbackMessage] = useState(false);
   const [inputMode, setInputMode] = useState<FormInputMode>("song+artist");
   const [isGuessing, setIsGuessing] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<SuccessResponse>();
+  const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(null);
 
   const audioElement = useRef<HTMLAudioElement>(null);
   const artistInputElement = useRef<HTMLInputElement>(null);
@@ -93,15 +107,26 @@ const DayPage: NextPage<DayPageProps> = ({
 
       setResponseData(resData);
 
-      if (resData.isCorrect) {
-        artistInputElement.current.value = "";
-        songTitleInputElement.current.value = "";
-        spotifyInputElement.current.value = "";
-        setShowConfetti(true);
-        setShowCorrectFeedbackMessage(true);
-        setLocalStorageFinishedDay(day.dayIndex);
-      } else {
-        setShowWrongFeedbackMessage(true);
+      switch (resData.correctness) {
+        case 1: {
+          artistInputElement.current.value = "";
+          songTitleInputElement.current.value = "";
+          spotifyInputElement.current.value = "";
+          setShowConfetti(true);
+          setShowCorrectFeedbackMessage(true);
+          setLocalStorageFinishedDay(day.dayIndex);
+          break;
+        }
+
+        case 0.5: {
+          setWrongAnswerMessage(randomElement(wrongAnswerMessages50));
+          break;
+        }
+
+        case 0: {
+          setWrongAnswerMessage(randomElement(wrongAnswerMessages0));
+          break;
+        }
       }
     } catch (error) {
       console.error("Error", error);
@@ -122,7 +147,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
       setInputMode(value);
       setLocalStorageInputMode(value);
-      setShowWrongFeedbackMessage(false);
+      setWrongAnswerMessage(null);
     },
     [setInputMode],
   );
@@ -147,7 +172,7 @@ const DayPage: NextPage<DayPageProps> = ({
         <header className="w-full">
           <h1 className="mb-6 text-blue-900 text-3xl">{title}</h1>
         </header>
-        {showCorrectFeedbackMessage && responseData?.isCorrect ? (
+        {showCorrectFeedbackMessage && responseData?.correctness === 1 ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
           <div className="flex-grow mb-16 w-full max-w-sm">
@@ -214,7 +239,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     placeholder={artistPlaceholder}
-                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
+                    onChange={() => setWrongAnswerMessage(null)}
                   />
                 </label>
                 <label
@@ -228,7 +253,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     placeholder={songTitlePlaceholder}
-                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
+                    onChange={() => setWrongAnswerMessage(null)}
                   />
                 </label>
                 <label
@@ -239,7 +264,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     ref={spotifyInputElement}
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
-                    onChange={({ target }) => setShowWrongFeedbackMessage(false)}
+                    onChange={() => setWrongAnswerMessage(null)}
                   />
                 </label>
                 <button
@@ -249,11 +274,9 @@ const DayPage: NextPage<DayPageProps> = ({
                 >
                   {isGuessing ? <LoadIcon className="mx-auto w-6 h-6" /> : <>Have a guess</>}
                 </button>
-                {showWrongFeedbackMessage ? (
+                {wrongAnswerMessage ? (
                   <div className="text-md mt-4">
-                    <p className="text-md text-blue-900">
-                      Sorry, wrong answer. But I think you are close! Try again :)
-                    </p>
+                    <p className="text-md text-blue-900">{wrongAnswerMessage}</p>
                   </div>
                 ) : null}
               </form>

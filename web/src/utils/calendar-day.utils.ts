@@ -110,14 +110,14 @@ export const getTrackIdFromUri = (uri: string) => {
   return trackId;
 };
 
-export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean> {
+export async function tryGuess(dayIndex: number, guess: Guess): Promise<0 | 0.5 | 1> {
   const day = await getCalendarDay(dayIndex);
 
   if (!day) {
     throw new Error(`Day with index '${dayIndex}' not found`);
   }
 
-  let isCorrect: boolean;
+  let correctness = 0;
 
   if (isSpotifyGuess(guess)) {
     const spotifyGuess = guess.spotify ?? "";
@@ -127,13 +127,13 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean>
 
     if (answerIsSpotifyUrl) {
       const trackId = getTrackIdFromUrl(normalizedSpotifyGuess);
-      isCorrect = day.spotifyIds.includes(trackId);
+      correctness = day.spotifyIds.includes(trackId) ? 1 : 0;
     } else if (answerIsSpotifyUri) {
       const trackId = getTrackIdFromUri(normalizedSpotifyGuess);
-      isCorrect = day.spotifyIds.includes(trackId);
+      correctness = day.spotifyIds.includes(trackId) ? 1 : 0;
     } else {
       console.error(`Invalid Spotify guess '${spotifyGuess}'`);
-      isCorrect = false;
+      correctness = 0;
     }
   } else {
     const artistGuess = guess.artist ?? "";
@@ -158,8 +158,9 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<boolean>
           leven(normalizedArtistGuess, artist) < artist.length / 5,
       );
 
-    isCorrect = isCorrectTitle && isCorrectArtist;
+    correctness += isCorrectTitle ? 0.5 : 0;
+    correctness += isCorrectArtist ? 0.5 : 0;
   }
 
-  return isCorrect;
+  return <0 | 0.5 | 1>correctness;
 }
