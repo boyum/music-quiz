@@ -1,12 +1,5 @@
 import * as React from "react";
-import {
-  Root,
-  Overlay,
-  Content,
-  Title,
-  Description,
-  Close,
-} from "@radix-ui/react-dialog";
+import { Root, Overlay, Content, Title, Description, Close } from "@radix-ui/react-dialog";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import styles from "./Dialog.module.scss";
 
@@ -24,7 +17,7 @@ export const Dialog: React.FC<DialogProps> = ({
   onOpenChange,
   children,
 }) => {
-  const closeButtonLabel = "Close dialog"
+  const closeButtonLabel = "Close dialog";
 
   return (
     <Root open={isOpen} onOpenChange={onOpenChange}>
@@ -33,7 +26,7 @@ export const Dialog: React.FC<DialogProps> = ({
         {title && <Title className={styles.title}>{title}</Title>}
         {description && <Description>{description}</Description>}
         <Close className={styles.closeButton} aria-label={closeButtonLabel}>
-          <Cross2Icon />
+          <Cross2Icon width={22} height={22} />
         </Close>
         {children}
       </Content>
