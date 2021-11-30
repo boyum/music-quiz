@@ -15,6 +15,7 @@ const illegalDoorMessages: Readonly<Array<string>> = [
   "Start with today's task instead of focusing on the future.",
   "⚠️ STOP ⚠️",
   "You know what they say - good things come to those who wait",
+  "I'd also like to know what's behind that door. Better wait!",
 ];
 
 export const AdventCalendar: React.FC<AdventCalendarProps> = ({
