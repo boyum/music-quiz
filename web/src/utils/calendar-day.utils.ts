@@ -20,6 +20,7 @@ type CalendarDayDTO = {
   songTitles: Array<string>;
   artists: Array<string>;
   spotifyIds: Array<string>;
+  playedBy?: string;
 };
 
 const mapCalendarDayDTOToCalendarDay = ({
@@ -31,6 +32,7 @@ const mapCalendarDayDTOToCalendarDay = ({
   songTitles,
   artists,
   spotifyIds,
+  playedBy,
 }: CalendarDayDTO): CalendarDay => ({
   id: _id,
   dayIndex,
@@ -40,13 +42,15 @@ const mapCalendarDayDTOToCalendarDay = ({
   songTitles,
   artists,
   spotifyIds,
+  playedBy: playedBy ?? null,
 });
 
 export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
-  const filter = groq`*[_type == "calendar-day" && defined(slug) && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
+  const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
     _id,
+    _type,
     publishedAt,
     audioTrack,
     hints,
@@ -54,13 +58,15 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
     songTitles,
     artists,
     spotifyIds,
+    playedBy,
   }`;
-  const order = `| order(publishedAt asc)`;
+  const order = `| order(dayIndex asc)`;
   const query = [filter, projection, order].join(" ");
 
   let questionDTO;
   try {
     questionDTO = await sanityClient.fetch<CalendarDayDTO>(query);
+    console.log({ questionDTO });
   } catch (error) {
     console.error(error);
     throw new Error("Could not get question");
