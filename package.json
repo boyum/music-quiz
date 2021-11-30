@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "lerna": "^4.0.0",
-    "postcss": "^8.3.11",
+    "postcss": "^8.4.4",
     "prettier": "^2.5.0",
     "prettier-plugin-tailwind": "^2.2.12"
   }
