@@ -26,9 +26,12 @@ export async function postDay(
   day: CalendarDayStats,
   guess: Guess,
 ): Promise<void> {
+  const guesses = [...day.guesses, guess];
+
   const updatedDay: CalendarDayStats = {
     ...day,
-    guesses: [...day.guesses, guess],
+    guesses,
+    numberOfAttempts: guesses.length,
     successfulAttempts: day.successfulAttempts + (isCorrect ? 1 : 0),
   };
 
