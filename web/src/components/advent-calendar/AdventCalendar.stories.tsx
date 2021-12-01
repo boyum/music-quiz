@@ -8,8 +8,7 @@ import { AdventCalendar } from "./AdventCalendar";
 export default {
   title: "Molecules/AdventCalendar",
   component: AdventCalendar,
-  args: {
-  },
+  args: {},
 } as ComponentMeta<typeof AdventCalendar>;
 
 const Template: ComponentStory<typeof AdventCalendar> = args => <AdventCalendar {...args} />;

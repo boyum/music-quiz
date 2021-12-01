@@ -164,9 +164,7 @@ const DayPage: NextPage<DayPageProps> = ({
       <Head>
         <title>{title}</title>
       </Head>
-      <article
-        className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif"
-      >
+      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif">
         <header className="mb-6 w-full">
           <h1 className="text-blue-900 text-3xl">{title}</h1>
         </header>
