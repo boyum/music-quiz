@@ -6,28 +6,24 @@ import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
 
 const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
-  const isProduction = process.env.NODE_ENV === "production";
-
   return (
     <>
       <Head>
-        {isProduction ? (
-          <>
-            <Script
-              src="https://www.googletagmanager.com/gtag/js?id=G-CZVWH2Q7LV"
-              strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-              {`
+        <>
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-CZVWH2Q7LV"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){window.dataLayer.push(arguments);}
                   gtag('js', new Date());
 
                   gtag('config', 'G-CZVWH2Q7LV');
                 `}
-            </Script>
-          </>
-        ) : null}
+          </Script>
+        </>
       </Head>
 
       <div className="bg-blue-200">
