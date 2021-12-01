@@ -12,16 +12,16 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
         <>
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-CZVWH2Q7LV"
-            strategy="afterInteractive"
+            strategy="beforeInteractive"
           />
-          <Script id="google-analytics" strategy="afterInteractive">
+          <Script id="google-analytics" strategy="beforeInteractive">
             {`
-                  window.dataLayer = window.dataLayer || [];
-                  function gtag(){window.dataLayer.push(arguments);}
-                  gtag('js', new Date());
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){window.dataLayer.push(arguments);}
+              gtag('js', new Date());
 
-                  gtag('config', 'G-CZVWH2Q7LV');
-                `}
+              gtag('config', 'G-CZVWH2Q7LV');
+            `}
           </Script>
         </>
       </Head>
