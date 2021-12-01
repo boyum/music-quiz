@@ -6,10 +6,12 @@ import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
 
 const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
+  const isProduction = process.env.NODE_ENV === "production";
+
   return (
     <>
       <Head>
-        {process.env.SANITY_DATASET === "production" ? (
+        {isProduction ? (
           <>
             <Script
               src="https://www.googletagmanager.com/gtag/js?id=G-CZVWH2Q7LV"
