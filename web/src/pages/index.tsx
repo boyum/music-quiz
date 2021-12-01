@@ -1,13 +1,15 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { AdventCalendar } from "../components/advent-calendar/AdventCalendar";
 import { getLocalStorageFinishedDays } from "../utils/local-storage.utils";
-import { isProduction } from "../utils/meta.utils";
+import { sanityIsProduction } from "../utils/meta.utils";
 
-export type HomeProps = {};
+export type HomeProps = {
+  isProduction: boolean;
+};
 
-const Home: NextPage<HomeProps> = ({}: HomeProps) => {
+const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
   const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
 
   const today = new Date();
@@ -43,3 +45,11 @@ const Home: NextPage<HomeProps> = ({}: HomeProps) => {
 
 // eslint-disable-next-line import/no-default-export
 export default Home;
+
+export const getServerSideProps: GetServerSideProps<HomeProps> = async context => {
+  return {
+    props: {
+      isProduction: sanityIsProduction,
+    },
+  };
+};
