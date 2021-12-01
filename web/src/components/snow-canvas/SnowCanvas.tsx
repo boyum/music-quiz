@@ -51,7 +51,6 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
       throw new Error("Failed  to get canvas context");
     }
 
-
     const noSnowflakes = snowflakes.current.length === 0;
     if (noSnowflakes) {
       const NUMBER_OF_SNOWFLAKES = Math.min(windowWidth, windowHeight) / 3;
