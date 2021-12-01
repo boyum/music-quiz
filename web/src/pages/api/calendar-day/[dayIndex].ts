@@ -28,6 +28,7 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
     day = {
       dayIndex,
       guesses: [],
+      numberOfAttempts: 0,
       successfulAttempts: 0,
     };
   }
