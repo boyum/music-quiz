@@ -3,10 +3,10 @@ import { FormInputMode } from "../types/FormInputMode";
 const INPUT_MODE_KEY = "input-mode";
 const FINISHED_DAYS_KEY = "finished-days";
 
-const fallbackInputMode: FormInputMode = "song+artist";
+const fallbackInputMode: FormInputMode = "artist+song";
 
 export const isInputMode = (mode: string | null): mode is FormInputMode => {
-  return mode === "song+artist" || mode === "spotify";
+  return mode === "artist+song" || mode === "spotify";
 };
 
 export const setLocalStorageInputMode = (value: FormInputMode): void => {

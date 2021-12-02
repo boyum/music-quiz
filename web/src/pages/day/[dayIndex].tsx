@@ -86,7 +86,7 @@ const DayPage: NextPage<DayPageProps> = ({
     }
 
     const guess: Guess =
-      inputMode === "song+artist"
+      inputMode === "artist+song"
         ? {
             songTitle: songTitleInputElement.current.value,
             artist: artistInputElement.current.value,
