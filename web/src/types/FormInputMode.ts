@@ -1,1 +1,1 @@
-export type FormInputMode = "song+artist" | "spotify";
+export type FormInputMode = "artist+song" | "spotify";

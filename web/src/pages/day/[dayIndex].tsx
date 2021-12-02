@@ -49,7 +49,7 @@ const DayPage: NextPage<DayPageProps> = ({
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
-  const [inputMode, setInputMode] = useState<FormInputMode>("song+artist");
+  const [inputMode, setInputMode] = useState<FormInputMode>("artist+song");
   const [isGuessing, setIsGuessing] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<SuccessResponse>();
   const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(null);
@@ -205,18 +205,18 @@ const DayPage: NextPage<DayPageProps> = ({
                     className="mr-1"
                     name="input-mode"
                     type="radio"
-                    checked={inputMode === "song+artist"}
-                    value="song+artist"
+                    checked={inputMode === "artist+song"}
+                    value="artist+song"
                     onChange={changeInputMode}
                   />{" "}
-                  Song + artist
+                  Artist + song
                 </label>
                 <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
                     name="input-mode"
                     type="radio"
-                    checked={inputMode !== "song+artist"}
+                    checked={inputMode !== "artist+song"}
                     value="spotify"
                     onChange={changeInputMode}
                   />{" "}
@@ -226,7 +226,7 @@ const DayPage: NextPage<DayPageProps> = ({
               <form onSubmit={event => event.preventDefault()}>
                 <label
                   className={`mt-6 flex flex-col gap-2${
-                    inputMode === "song+artist" ? "" : " hidden"
+                    inputMode === "artist+song" ? "" : " hidden"
                   }`}
                 >
                   <p className="text-md text-blue-900">Artist</p>
@@ -240,7 +240,7 @@ const DayPage: NextPage<DayPageProps> = ({
                 </label>
                 <label
                   className={`mt-6 flex flex-col gap-2${
-                    inputMode === "song+artist" ? "" : " hidden"
+                    inputMode === "artist+song" ? "" : " hidden"
                   }`}
                 >
                   <p className="text-md text-blue-900">Song title</p>
