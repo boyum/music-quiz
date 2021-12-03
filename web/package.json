@@ -48,7 +48,7 @@
     "@sanity/client": "^2.21.10",
     "@sanity/image-url": "^1.0.1",
     "@tailwindcss/aspect-ratio": "^0.3.0",
-    "firebase": "^9.5.0",
+    "firebase": "^9.6.0",
     "firebase-admin": "^10.0.0",
     "groq": "^2.15.0",
     "leven": "^4.0.0",
