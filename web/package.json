@@ -17,7 +17,7 @@
     "@babel/core": "^7.16.0",
     "@sanity/types": "^2.22.3",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/react": "^6.4.2",
+    "@storybook/react": "^6.4.4",
     "@types/jest": "^27.0.3",
     "@types/jest-environment-puppeteer": "^4.4.1",
     "@types/node": "16.11.7",
