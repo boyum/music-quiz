@@ -1,10 +1,10 @@
 export type SpotifyGuess = {
-  spotify?: string;
+  spotify: string;
 };
 
 export type SongTitleGuess = {
-  songTitle?: string;
-  artist?: string;
+  songTitle: string;
+  artist: string;
 };
 
 export type Guess = SpotifyGuess | SongTitleGuess;
