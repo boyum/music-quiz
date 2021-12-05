@@ -141,8 +141,6 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<0 | 0.5 
 
     const noArtist = !day.artists || day.artists.length === 0;
 
-    console.log({noArtist})
-
     const isCorrectArtist = noArtist
       ? true
       : day.artists
@@ -152,7 +150,6 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<0 | 0.5 
               normalizedArtistGuess.includes(artist) ||
               leven(normalizedArtistGuess, artist) < artist.length / 5,
           );
-
     correctness += isCorrectTitle ? 0.5 : 0;
     correctness += isCorrectArtist ? 0.5 : 0;
   }

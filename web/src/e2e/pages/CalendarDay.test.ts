@@ -58,8 +58,8 @@ describe("CalendarDay", () => {
     // Open door
     await page.goto(`${deployUrl}/day/${DAY_INDEX}`);
 
-    const incorrectArtist = "incorrectArtist";
-    const incorrectSong = "incorrectSong";
+    const incorrectArtist = "👩‍🎤";
+    const incorrectSong = "🎶";
 
     // Input answers to form
     await page.type(`input[data-test-id="artist-input"]`, incorrectArtist);
@@ -86,7 +86,7 @@ describe("CalendarDay", () => {
     // Open door
     await page.goto(`${deployUrl}/day/${DAY_INDEX}`);
 
-    const artist = "incorrectArtist";
+    const artist = "👩‍🎤";
     const songTitle = "Home";
 
     // Input answers to form
@@ -115,7 +115,7 @@ describe("CalendarDay", () => {
     await page.goto(`${deployUrl}/day/${DAY_INDEX}`);
 
     const artist = "Edward Sharpe & The Magnetic Zeros";
-    const songTitle = "incorrectSongTitle";
+    const songTitle = "🎶";
 
     // Input answers to form
     await page.type(`input[data-test-id="artist-input"]`, artist);
