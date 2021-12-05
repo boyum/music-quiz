@@ -224,20 +224,23 @@ const DayPage: NextPage<DayPageProps> = ({
                 </label>
               </div>
               <form onSubmit={event => event.preventDefault()}>
-                <label
-                  className={`mt-6 flex flex-col gap-2${
-                    inputMode === "artist+song" ? "" : " hidden"
-                  }`}
-                >
-                  <p className="text-md text-blue-900">Artist</p>
-                  <input
-                    ref={artistInputElement}
-                    type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
-                    placeholder={artistPlaceholder}
-                    onChange={() => setWrongAnswerMessage(null)}
-                  />
-                </label>
+                {day.artists && day.artists.length > 0 ? (
+                  <label
+                    className={`mt-6 flex flex-col gap-2${
+                      inputMode === "artist+song" ? "" : " hidden"
+                    }`}
+                  >
+                    <p className="text-md text-blue-900">Artist</p>
+                    <input
+                      ref={artistInputElement}
+                      data-test-id="artist-input"
+                      type="text"
+                      className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
+                      placeholder={artistPlaceholder}
+                      onChange={() => setWrongAnswerMessage(null)}
+                    />
+                  </label>
+                ) : null}
                 <label
                   className={`mt-6 flex flex-col gap-2${
                     inputMode === "artist+song" ? "" : " hidden"
@@ -246,6 +249,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   <p className="text-md text-blue-900">Song title</p>
                   <input
                     ref={songTitleInputElement}
+                    data-test-id="song-input"
                     type="text"
                     className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
                     placeholder={songTitlePlaceholder}
@@ -271,7 +275,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   {isGuessing ? <LoadIcon className="mx-auto w-6 h-6" /> : <>Have a guess</>}
                 </button>
                 {wrongAnswerMessage ? (
-                  <div className="text-md mt-4">
+                  <div className="text-md mt-4" data-test-id="incorrect-answer-message">
                     <p className="text-md text-blue-900">{wrongAnswerMessage}</p>
                   </div>
                 ) : null}

@@ -8,13 +8,13 @@ export type WinFeedbackProps = {
 
 export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
   return (
-    <div className="flex-grow py-20 w-full max-w-sm">
+    <div className="flex-grow py-20 w-full max-w-sm" data-test-id="correct-answer-message">
       <h2 className="text-blue-900 text-4xl">Congratulations, you are correct!</h2>
       <p className="my-10 text-blue-900 text-md">
         The song was:
         <div className="mt-2">
-          <span className="underline text-xl">{day.songTitles[0]}</span> by{" "}
-          <span className="underline text-xl">{day.artists[0]}</span>
+          <span className="underline text-xl">{day.songTitles[0]}</span>
+          {day.artists ? <span className="underline text-xl"> by {day.artists[0]}</span> : null}
           {day.playedBy ? <>, and was played by {day.playedBy}</> : null}.
         </div>
         <iframe
@@ -33,11 +33,11 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         guess it right!
       </p>
 
-      {day.artists.length > 1 ? (
+      {day.artists && day.artists.length > 1 ? (
         <>
           <p className="mt-8 text-blue-900 text-xl">These have also made versions of the song:</p>
           <ul className="list-disc ml-6 my-4 text-blue-900">
-            {day.artists.slice(1).map(artist => (
+            {day.artists?.slice(1).map(artist => (
               <li key={artist}>{artist}</li>
             ))}
           </ul>

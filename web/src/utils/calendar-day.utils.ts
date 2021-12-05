@@ -139,13 +139,19 @@ export async function tryGuess(dayIndex: number, guess: Guess): Promise<0 | 0.5 
           leven(normalizedSongTitleGuess, title) < title.length / 5,
       );
 
-    const isCorrectArtist = day.artists
-      .map(artist => artist.toLowerCase())
-      .some(
-        artist =>
-          normalizedArtistGuess.includes(artist) ||
-          leven(normalizedArtistGuess, artist) < artist.length / 5,
-      );
+    const noArtist = !day.artists || day.artists.length === 0;
+
+    console.log({noArtist})
+
+    const isCorrectArtist = noArtist
+      ? true
+      : day.artists
+          ?.map(artist => artist.toLowerCase())
+          .some(
+            artist =>
+              normalizedArtistGuess.includes(artist) ||
+              leven(normalizedArtistGuess, artist) < artist.length / 5,
+          );
 
     correctness += isCorrectTitle ? 0.5 : 0;
     correctness += isCorrectArtist ? 0.5 : 0;
