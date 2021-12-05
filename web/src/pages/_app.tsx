@@ -4,10 +4,11 @@ import Script from "next/script";
 import "tailwindcss/tailwind.css";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
+import { IdProvider } from "@radix-ui/react-id"
 
 const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <>
+    <IdProvider>
       <Head>
         <>
           <Script
@@ -32,7 +33,7 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
           <Component {...pageProps} />
         </div>
       </div>
-    </>
+    </IdProvider>
   );
 };
 
