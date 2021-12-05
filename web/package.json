@@ -10,6 +10,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "test:e2e": "jest --watch --config jest.config.e2e.ts",
+    "ci-test:e2e": "jest --config jest.config.e2e.ts --coverage",
     "format:check": "prettier --check .",
     "format-all-files": "prettier --write ."
   },

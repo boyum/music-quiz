@@ -1,0 +1,24 @@
+name: E2E tests
+
+on:
+  issue_comment:
+    types: [edited]
+
+jobs:
+  capture_vercel_preview_url:
+    name: Capture Vercel preview URL
+    runs-on: "ubuntu-latest"
+    steps:
+      - uses: aaimio/vercel-preview-url-action@v1
+        id: vercel_preview_url
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Store DEPLOY_URL in env file
+        run: |
+          touch .env
+          echo DEPLOY_URL=${{ steps.vercel_preview_url.outputs.vercel_preview_url }} >> .env
+
+      - name: Run e2e tests
+        run: |
+          npm run ci-test:e2e
