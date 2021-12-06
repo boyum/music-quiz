@@ -9,11 +9,12 @@ import { Hints } from "../../components/hints/Hints";
 import { LoadIcon, PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { WinFeedback } from "../../components/win-feedback/WinFeedback";
 import { CalendarDay } from "../../types/CalendarDay";
+import { CalendarDayPreview } from "../../types/CalendarDayPreview";
 import { FormInputMode } from "../../types/FormInputMode";
 import { Guess } from "../../types/Guess";
 import { SuccessResponse } from "../../types/ResponseData";
 import { randomElement } from "../../utils/array.utils";
-import { getCalendarDay } from "../../utils/calendar-day.utils";
+import { getCalendarDayPreview } from "../../utils/calendar-day.utils";
 import {
   getLocalStorageInputMode,
   isInputMode,
@@ -22,7 +23,7 @@ import {
 } from "../../utils/local-storage.utils";
 
 export type DayPageProps = {
-  day: CalendarDay;
+  dayPreview: CalendarDayPreview;
   artistPlaceholder: string;
   songTitlePlaceholder: string;
 };
@@ -41,10 +42,11 @@ const wrongAnswerMessages50: Readonly<Array<string>> = [
 ];
 
 const DayPage: NextPage<DayPageProps> = ({
-  day,
+  dayPreview,
   artistPlaceholder,
   songTitlePlaceholder,
 }: DayPageProps) => {
+  const [day, setDay] = useState<CalendarDay | null>(null);
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
@@ -99,7 +101,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
     try {
       const resData = (await (
-        await fetch(`/api/calendar-day/${day.dayIndex}`, {
+        await fetch(`/api/calendar-day/${dayPreview.dayIndex}`, {
           method: "POST",
           body: JSON.stringify(guess),
         })
@@ -114,7 +116,8 @@ const DayPage: NextPage<DayPageProps> = ({
           spotifyInputElement.current.value = "";
           setShowConfetti(true);
           setShowCorrectFeedbackMessage(true);
-          setLocalStorageFinishedDay(day.dayIndex);
+          setLocalStorageFinishedDay(dayPreview.dayIndex);
+          setDay(resData.day);
           break;
         }
 
@@ -133,9 +136,9 @@ const DayPage: NextPage<DayPageProps> = ({
     } finally {
       setIsGuessing(false);
     }
-  }, [day.dayIndex, inputMode]);
+  }, [dayPreview.dayIndex, inputMode]);
 
-  const title = `Day ${day.dayIndex}`;
+  const title = `Day ${dayPreview.dayIndex}`;
 
   const changeInputMode = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -168,14 +171,14 @@ const DayPage: NextPage<DayPageProps> = ({
         <header className="mb-6 w-full">
           <h1 className="text-blue-900 text-3xl">{title}</h1>
         </header>
-        {showCorrectFeedbackMessage && responseData?.correctness === 1 ? (
+        {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
           <div className="flex-grow mb-16 w-full max-w-sm">
             <audio
               ref={audioElement}
               className="sr-only"
-              src={day.audioTrackUrl}
+              src={dayPreview.audioTrackUrl}
               controls
               preload="metadata"
               onChange={togglePlayPause}
@@ -224,7 +227,7 @@ const DayPage: NextPage<DayPageProps> = ({
                 </label>
               </div>
               <form onSubmit={event => event.preventDefault()}>
-                {day.artists && day.artists.length > 0 ? (
+                {dayPreview.hasArtists ? (
                   <label
                     className={`mt-6 flex flex-col gap-2${
                       inputMode === "artist+song" ? "" : " hidden"
@@ -282,10 +285,10 @@ const DayPage: NextPage<DayPageProps> = ({
               </form>
             </div>
 
-            {day.hints ? (
+            {dayPreview.hints ? (
               <>
                 <h2 className="mb-4 mt-16 text-blue-900 text-2xl">Hints:</h2>
-                <Hints hints={day.hints} />
+                <Hints hints={dayPreview.hints} />
               </>
             ) : null}
           </div>
@@ -327,7 +330,7 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
     throw new Error(`Invalid day index '${dayIndexString}'`);
   }
 
-  const day = await getCalendarDay(dayIndex);
+  const day = await getCalendarDayPreview(dayIndex);
   const questionWasNotFound = !day;
   if (questionWasNotFound) {
     return {
@@ -353,7 +356,7 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
 
   return {
     props: {
-      day,
+      dayPreview: day,
       artistPlaceholder,
       songTitlePlaceholder,
     },

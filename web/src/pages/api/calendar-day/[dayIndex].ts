@@ -2,8 +2,8 @@ import type { NextApiHandler } from "next";
 import { isError } from "../../../types/ErrorResponse";
 import { Guess } from "../../../types/Guess";
 import { ResponseData } from "../../../types/ResponseData";
-import { tryGuess } from "../../../utils/calendar-day.utils";
-import { getDay, postDay } from "../../../utils/firebase.utils";
+import { getCalendarDay, tryGuess } from "../../../utils/calendar-day.utils";
+import { getDayStats, postDayStats } from "../../../utils/firebase.utils";
 
 const dayHandler: NextApiHandler<ResponseData> = async (request, response): Promise<void> => {
   const dayIndexString = request.query.dayIndex;
@@ -23,23 +23,33 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
     });
   }
 
-  let day = await getDay(dayIndex);
-  if (isError(day)) {
-    day = {
+  let dayStats = await getDayStats(dayIndex);
+  if (isError(dayStats)) {
+    dayStats = {
       dayIndex,
       guesses: [],
       numberOfAttempts: 0,
       successfulAttempts: 0,
     };
   }
+
   switch (method) {
     case "POST": {
       const guess: Guess = JSON.parse(request.body);
-      const correctness = await tryGuess(dayIndex, guess);
-      await postDay(dayIndex, correctness === 1, day, guess);
+      const day = await getCalendarDay(dayIndex);
+
+      if (!day) {
+        response.status(200).send({ correctness: 0 });
+        return;
+      }
+
+      const correctness = await tryGuess(day, guess);
+      await postDayStats(dayIndex, correctness === 1, dayStats, guess);
 
       if (correctness === 1) {
-        response.status(200).send({ correctness, successfulAttempts: day.successfulAttempts + 1 });
+        response
+          .status(200)
+          .send({ correctness, successfulAttempts: dayStats.successfulAttempts + 1, day });
       } else {
         response.status(200).send({ correctness });
       }
