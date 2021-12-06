@@ -5,7 +5,7 @@ import { Guess } from "../types/Guess";
 
 const CALENDAR_DAY_COLLECTION = `calendar-day-${process.env.SANITY_DATASET ?? "test"}`;
 
-export async function getDay(dayIndex: number): Promise<CalendarDayStats | ErrorResponse> {
+export async function getDayStats(dayIndex: number): Promise<CalendarDayStats | ErrorResponse> {
   const document = await firebase
     .collection(CALENDAR_DAY_COLLECTION)
     .doc(dayIndex.toString())
@@ -20,7 +20,7 @@ export async function getDay(dayIndex: number): Promise<CalendarDayStats | Error
   return data.day as CalendarDayStats;
 }
 
-export async function postDay(
+export async function postDayStats(
   dayIndex: number,
   isCorrect: boolean,
   day: CalendarDayStats,

@@ -1,33 +1,17 @@
 import groq from "groq";
 import leven from "leven";
 import { CalendarDay } from "../types/CalendarDay";
+import { CalendarDayPreview } from "../types/CalendarDayPreview";
+import { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
+import { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
 import { Guess, isSpotifyGuess } from "../types/Guess";
 import { getSanityFile } from "./image-url";
 import { sanityClient } from "./sanity-client";
-
-type CalendarDayDTO = {
-  _id: string;
-  publishedAt: string;
-  audioTrack: {
-    _type: "file";
-    asset: {
-      _ref: string;
-      _type: "reference";
-    };
-  };
-  hints?: Array<string>;
-  dayIndex: number;
-  songTitles: Array<string>;
-  artists: Array<string>;
-  spotifyIds: Array<string>;
-  playedBy?: string;
-};
 
 const mapCalendarDayDTOToCalendarDay = ({
   _id,
   dayIndex,
   audioTrack,
-  publishedAt,
   hints,
   songTitles,
   artists,
@@ -36,7 +20,6 @@ const mapCalendarDayDTOToCalendarDay = ({
 }: CalendarDayDTO): CalendarDay => ({
   id: _id,
   dayIndex,
-  publishedAt,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
   hints: hints ?? null,
   songTitles,
@@ -45,12 +28,25 @@ const mapCalendarDayDTOToCalendarDay = ({
   playedBy: playedBy ?? null,
 });
 
+const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
+  _id,
+  dayIndex,
+  audioTrack,
+  hints,
+  artists,
+}: CalendarDayPreviewDTO): CalendarDayPreview => ({
+  id: _id,
+  dayIndex,
+  audioTrackUrl: getSanityFile(audioTrack.asset._ref),
+  hints: hints ?? null,
+  hasArtists: artists && artists.length > 0,
+});
+
 export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
   const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
     _id,
-    publishedAt,
     audioTrack,
     hints,
     dayIndex,
@@ -79,6 +75,38 @@ export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | nu
   return question;
 };
 
+export const getCalendarDayPreview = async (
+  dayIndex: number,
+): Promise<CalendarDayPreview | null> => {
+  // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
+  const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
+  const projection = groq`{
+    _id,
+    audioTrack,
+    dayIndex,
+    hints,
+    artists,
+  }`;
+  const order = `| order(dayIndex asc)`;
+  const query = [filter, projection, order].join(" ");
+
+  let questionDTO;
+  try {
+    questionDTO = await sanityClient.fetch<CalendarDayPreviewDTO>(query);
+  } catch (error) {
+    console.error(error);
+    throw new Error("Could not get question");
+  }
+
+  if (!questionDTO?._id) {
+    console.error(`Found no day with index '${dayIndex}'`);
+    return null;
+  }
+
+  const question = mapCalendarDayPreviewDTOToCalendarDayPreview(questionDTO);
+  return question;
+};
+
 export const getTrackIdFromUrl = (url: string) => {
   const isSpotifyUri = url.startsWith("https://open.spotify.com/track");
   if (!isSpotifyUri) {
@@ -99,13 +127,7 @@ export const getTrackIdFromUri = (uri: string) => {
   return trackId;
 };
 
-export async function tryGuess(dayIndex: number, guess: Guess): Promise<0 | 0.5 | 1> {
-  const day = await getCalendarDay(dayIndex);
-
-  if (!day) {
-    throw new Error(`Day with index '${dayIndex}' not found`);
-  }
-
+export async function tryGuess(day: CalendarDay, guess: Guess): Promise<0 | 0.5 | 1> {
   let correctness = 0;
 
   if (isSpotifyGuess(guess)) {
