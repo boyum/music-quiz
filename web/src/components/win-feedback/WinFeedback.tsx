@@ -33,17 +33,6 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         guess it right!
       </p>
 
-      {day.artists && day.artists.length > 1 ? (
-        <>
-          <p className="mt-8 text-blue-900 text-xl">These have also made versions of the song:</p>
-          <ul className="list-disc ml-6 my-4 text-blue-900">
-            {day.artists?.slice(1).map(artist => (
-              <li key={artist}>{artist}</li>
-            ))}
-          </ul>
-        </>
-      ) : null}
-
       <p className="mt-2 text-blue-900 text-xl">Get ready for a new task tomorrow 🎁</p>
     </div>
   );
