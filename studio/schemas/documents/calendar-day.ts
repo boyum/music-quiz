@@ -88,8 +88,13 @@ const contentType: StringSchemaType = {
     prepare(selection: { dayIndex: string; songTitles: Array<string>; artists: Array<string> }) {
       const { dayIndex, songTitles, artists } = selection;
 
+      const hasArtist = artists && artists.length > 0;
+      const title = hasArtist
+        ? `${dayIndex}: ${artists[0]} - ${songTitles[0]}`
+        : `${dayIndex}: ${songTitles[0]}`;
+
       return {
-        title: `${dayIndex}: ${artists[0]} - ${songTitles[0]}`,
+        title,
       };
     },
   },
