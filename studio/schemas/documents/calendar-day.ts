@@ -37,14 +37,13 @@ const contentType: StringSchemaType = {
       options: {
         accept: "audio/*",
       },
-      required: () => true,
+      validation: Rule => Rule.required(),
     },
     {
       name: "publishedAt",
       type: "datetime",
       title: "Published at",
-      initialValue: new Date().toISOString(),
-      required: () => true,
+      validation: Rule => Rule.required(),
     },
     {
       title: "Song titles",
@@ -52,6 +51,7 @@ const contentType: StringSchemaType = {
       type: "array",
       of: [{ type: "string" }],
       fieldset: "answers",
+      validation: Rule => Rule.required(),
     },
     {
       title: "Artists",
