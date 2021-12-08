@@ -29,7 +29,6 @@ const contentType: StringSchemaType = {
       type: "number",
       description: "The calendar day",
       initialValue: async () => Number.parseInt(await getNextQuestionIndex()),
-      readOnly: true,
     },
     {
       name: "audioTrack",
