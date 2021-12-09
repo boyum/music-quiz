@@ -28,7 +28,7 @@
     "react-icons": "^3.11.0",
     "sanity-plugin-dashboard-widget-document-list": "^0.0.13",
     "sanity-plugin-dashboard-widget-netlify": "^1.2.1",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.3.3"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
