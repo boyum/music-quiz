@@ -9,5 +9,5 @@ export type CalendarDayPreviewDTO = {
   };
   hints?: Array<string>;
   dayIndex: number;
-  artists: Array<string>;
+  artists?: Array<string>;
 };
