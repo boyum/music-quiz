@@ -39,7 +39,7 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
   dayIndex,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
   hints: hints ?? null,
-  hasArtists: artists && artists.length > 0,
+  hasArtists: artists && artists.length > 0 ? true : false,
 });
 
 export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
