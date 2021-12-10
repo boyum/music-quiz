@@ -8,7 +8,7 @@ export type WinFeedbackProps = {
 
 export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
   return (
-    <div className="flex-grow py-20 w-full max-w-sm" data-test-id="correct-answer-message">
+    <div className="grow py-20 w-full max-w-sm" data-test-id="correct-answer-message">
       <h2 className="text-blue-900 text-4xl">Congratulations, you are correct!</h2>
       <p className="my-10 text-blue-900 text-md">
         The song was:
