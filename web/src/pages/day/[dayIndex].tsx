@@ -174,7 +174,7 @@ const DayPage: NextPage<DayPageProps> = ({
         {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
           <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
         ) : (
-          <div className="flex-grow mb-16 w-full max-w-sm">
+          <div className="grow mb-16 w-full max-w-sm">
             <audio
               ref={audioElement}
               className="sr-only"
