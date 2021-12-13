@@ -13,9 +13,9 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
         <>
           <Script
             src="https://www.googletagmanager.com/gtag/js?id=G-GGY21QWYBC"
-            strategy="beforeInteractive"
+            strategy="afterInteractive"
           />
-          <Script id="google-analytics" strategy="beforeInteractive">
+          <Script id="gtm" strategy="afterInteractive">
             {`
               (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
               new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
