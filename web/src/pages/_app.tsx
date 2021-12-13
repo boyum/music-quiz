@@ -1,6 +1,5 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Script from "next/script";
 import "tailwindcss/tailwind.css";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
@@ -11,19 +10,16 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
     <IdProvider>
       <Head>
         <>
-          <Script
+          <script
             src="https://www.googletagmanager.com/gtag/js?id=G-GGY21QWYBC"
-            strategy="afterInteractive"
-          />
-          <Script id="gtm" strategy="afterInteractive">
-            {`
-              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-              })(window,document,'script','dataLayer','GTM-WLD4SPB');
-            `}
-          </Script>
+          ></script>
+          <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','GTM-WLD4SPB');
+          </script>
         </>
       </Head>
 
