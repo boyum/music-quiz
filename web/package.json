@@ -48,7 +48,7 @@
     "@radix-ui/react-icons": "^1.0.3",
     "@radix-ui/react-id": "^0.1.4",
     "@sanity/asset-utils": "^1.2.3",
-    "@sanity/client": "^2.23.1",
+    "@sanity/client": "^2.23.2",
     "@sanity/image-url": "^1.0.1",
     "firebase": "^9.6.1",
     "firebase-admin": "^10.0.1",
