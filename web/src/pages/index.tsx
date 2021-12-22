@@ -17,8 +17,8 @@ const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
   const is2021 = today.getFullYear() === 2021;
   const isDecember = today.getMonth() + 1 === 12;
 
-  const dayOfDecember = is2021 && isDecember ? today.getDate() : 0;
-  const unlockedDays = isProduction ? dayOfDecember : 12;
+  const dayOfDecember = is2021 && isDecember ? today.getDate() : 24;
+  const unlockedDays = isProduction ? dayOfDecember : 24;
 
   useEffect(() => {
     setFinishedDays(getLocalStorageFinishedDays());

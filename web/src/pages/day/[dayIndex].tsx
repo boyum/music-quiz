@@ -1,7 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
@@ -16,6 +16,7 @@ import { SuccessResponse } from "../../types/ResponseData";
 import { randomElement } from "../../utils/array.utils";
 import { getCalendarDayPreview } from "../../utils/calendar-day.utils";
 import {
+  getLocalStorageFinishedDays,
   getLocalStorageInputMode,
   isInputMode,
   setLocalStorageFinishedDay,
@@ -55,6 +56,7 @@ const DayPage: NextPage<DayPageProps> = ({
   const [isGuessing, setIsGuessing] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<SuccessResponse>();
   const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(null);
+  const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
 
   const audioElement = useRef<HTMLAudioElement>(null);
   const artistInputElement = useRef<HTMLInputElement>(null);
@@ -117,6 +119,7 @@ const DayPage: NextPage<DayPageProps> = ({
           setShowConfetti(true);
           setShowCorrectFeedbackMessage(true);
           setLocalStorageFinishedDay(dayPreview.dayIndex);
+          setFinishedDays(getLocalStorageFinishedDays());
           setDay(resData.day);
           break;
         }
@@ -162,6 +165,38 @@ const DayPage: NextPage<DayPageProps> = ({
     }
   }, [inputMode]);
 
+  useEffect(() => {
+    setFinishedDays(getLocalStorageFinishedDays());
+  }, []);
+
+  const getAdjective = (numberOfCorrect: number): string => {
+    if (numberOfCorrect < 6) {
+      return "not do so great, but we still love you.";
+    }
+
+    if (numberOfCorrect < 12) {
+      return "get quite a few correct!";
+    }
+
+    if (numberOfCorrect < 18) {
+      return "quite good!";
+    }
+
+    if (numberOfCorrect < 24) {
+      return "better than most!";
+    }
+
+    return "perfectly!!!";
+  };
+
+  const allDays = useMemo(
+    () =>
+      Array(24)
+        .fill(undefined)
+        .map((_, index) => index + 1),
+    [],
+  );
+
   return (
     <>
       <Head>
@@ -172,7 +207,32 @@ const DayPage: NextPage<DayPageProps> = ({
           <h1 className="text-blue-900 text-3xl">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
-          <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
+          <>
+            <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
+            <div className="text-center bg-black px-4 py-3">
+              <h2 className="text-xl">That&apos;s all Folks!</h2>
+              <p>
+                Thank you for participaing in this year&apos;s music quiz advent calendar!
+                <br /> It has been a thrill creating this website,
+                <br /> recording the pieces and seeing you all answer hilariously wrong 🎵
+                <br />
+                <br />
+                You did {getAdjective(finishedDays.length)}
+                <br /> You answered correct on {finishedDays.length} out of 24 days.
+              </p>
+              <h3 className="text-lg">These were your results:</h3>
+              {allDays.map(day => (
+                <div className="my-2" key={day}>
+                  <a className="underline" href={`/day/${day}`}>Day {day}</a>:{" "}
+                  {finishedDays.includes(day) ? (
+                    <span className="text-green-600">Correct</span>
+                  ) : (
+                    <span className="text-red-700">Incorrect</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </>
         ) : (
           <div className="grow mb-16 w-full max-w-sm">
             <audio
