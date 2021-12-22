@@ -63,7 +63,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
         </div>
       </div>
       <Dialog isOpen={dialogIsOpen} onOpenChange={setDialogIsOpen}>
-        <div className="px-3 py-2 text-xl">{illegalDoorMessage}</div>
+        <div className="px-3 py-2 text-xl text-blue-900">{illegalDoorMessage}</div>
       </Dialog>
     </>
   );
