@@ -221,6 +221,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   <p>
                     Thank you for participating in this year&apos;s
                     <br /> music quiz advent calendar!
+                    <br/>
                     <br /> You did {getAdjective(finishedDays.length)}
                     <br /> You answered correct on{" "}
                     <span className="text-lg">{finishedDays.length} out of 24 days</span>
@@ -234,11 +235,9 @@ const DayPage: NextPage<DayPageProps> = ({
                       </>
                     )}
                     <br />
-                    <br />
                     <br /> It has been a thrill creating this website,
                     <br /> recording the pieces and
                     <br /> seeing you all answer hilariously wrong 🎵
-                    <br />
                     <br />
                     <br /> We wish you a 🎄merry Christmas and happy holidays 🎄
                     <br /> and we will hopefully meet again next year!
