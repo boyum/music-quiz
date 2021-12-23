@@ -85,8 +85,7 @@ const DayPage: NextPage<DayPageProps> = ({
       !artistInputElement.current ||
       !songTitleInputElement.current ||
       !spotifyInputElement.current ||
-      (artistInputElement.current.value.trim() === "" &&
-        songTitleInputElement.current.value.trim() === "" &&
+      (songTitleInputElement.current.value.trim() === "" &&
         spotifyInputElement.current.value.trim() === "")
     ) {
       return;
