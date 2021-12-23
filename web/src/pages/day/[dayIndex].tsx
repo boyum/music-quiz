@@ -114,7 +114,9 @@ const DayPage: NextPage<DayPageProps> = ({
 
       switch (resData.correctness) {
         case 1: {
-          artistInputElement.current.value = "";
+          if (artistInputElement.current) {
+            artistInputElement.current.value = "";
+          }
           songTitleInputElement.current.value = "";
           spotifyInputElement.current.value = "";
           setShowConfetti(true);
@@ -219,7 +221,7 @@ const DayPage: NextPage<DayPageProps> = ({
                   <p>
                     Thank you for participating in this year&apos;s
                     <br /> music quiz advent calendar!
-                    <br/>
+                    <br />
                     <br /> You did {getAdjective(finishedDays.length)}
                     <br /> You answered correct on{" "}
                     <span className="text-lg">{finishedDays.length} out of 24 days</span>
