@@ -33,7 +33,14 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         guess it right!
       </p>
 
-      <p className="mt-2 text-blue-900 text-xl">Get ready for a new task tomorrow 🎁</p>
+      {day.dayIndex < 24 ? (
+        <p className="mt-2 text-blue-900 text-xl">Get ready for a new task tomorrow 🎁</p>
+      ) : (
+        <p className="mt-2 text-blue-900 text-xl">
+          Sadly there won&apos;t be a new piece tomorrow,
+          but we&apos;ll see eachother again next year ✨
+        </p>
+      )}
     </div>
   );
 };
