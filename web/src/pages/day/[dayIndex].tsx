@@ -82,7 +82,6 @@ const DayPage: NextPage<DayPageProps> = ({
 
   const answer = useCallback(async () => {
     if (
-      !artistInputElement.current ||
       !songTitleInputElement.current ||
       !spotifyInputElement.current ||
       (songTitleInputElement.current.value.trim() === "" &&
@@ -95,7 +94,7 @@ const DayPage: NextPage<DayPageProps> = ({
       inputMode === "artist+song"
         ? {
             songTitle: songTitleInputElement.current.value,
-            artist: artistInputElement.current.value,
+            artist: artistInputElement.current?.value ?? "",
           }
         : {
             spotify: spotifyInputElement.current.value,
