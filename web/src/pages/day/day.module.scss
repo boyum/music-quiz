@@ -1,0 +1,10 @@
+.day24 {
+  animation: fade-in 0.5s 3s ease-in-out forwards;
+  opacity: 0;
+  visibility: hidden;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; visibility: visible; }
+  to { opacity: 1; visibility: visible; }
+}

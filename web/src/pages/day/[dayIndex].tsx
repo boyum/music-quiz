@@ -1,3 +1,4 @@
+import { Cross2Icon } from "@radix-ui/react-icons";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
@@ -22,6 +23,7 @@ import {
   setLocalStorageFinishedDay,
   setLocalStorageInputMode,
 } from "../../utils/local-storage.utils";
+import styles from "./day.module.scss";
 
 export type DayPageProps = {
   dayPreview: CalendarDayPreview;
@@ -57,6 +59,7 @@ const DayPage: NextPage<DayPageProps> = ({
   const [responseData, setResponseData] = useState<SuccessResponse>();
   const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(null);
   const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
+  const [showEndCredits, setShowEndCredits] = useState(true);
 
   const audioElement = useRef<HTMLAudioElement>(null);
   const artistInputElement = useRef<HTMLInputElement>(null);
@@ -209,29 +212,54 @@ const DayPage: NextPage<DayPageProps> = ({
         {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
           <>
             <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
-            <div className="text-center bg-black px-4 py-3">
-              <h2 className="text-xl">That&apos;s all Folks!</h2>
-              <p>
-                Thank you for participaing in this year&apos;s music quiz advent calendar!
-                <br /> It has been a thrill creating this website,
-                <br /> recording the pieces and seeing you all answer hilariously wrong 🎵
-                <br />
-                <br />
-                You did {getAdjective(finishedDays.length)}
-                <br /> You answered correct on {finishedDays.length} out of 24 days.
-              </p>
-              <h3 className="text-lg">These were your results:</h3>
-              {allDays.map(day => (
-                <div className="my-2" key={day}>
-                  <a className="underline" href={`/day/${day}`}>Day {day}</a>:{" "}
-                  {finishedDays.includes(day) ? (
-                    <span className="text-green-600">Correct</span>
-                  ) : (
-                    <span className="text-red-700">Incorrect</span>
-                  )}
+            {day.dayIndex === 24 && showEndCredits ? (
+              <div
+                className={`${styles.day24} inset-0 absolute bg-gray-900 flex items-center justify-center`}
+              >
+                <div className="text-center px-10 py-4 relative">
+                  <h2 className="text-4xl mb-8">That&apos;s all Folks!</h2>
+                  <p>
+                    Thank you for participating in this year&apos;s
+                    <br /> music quiz advent calendar!
+                    <br /> You did {getAdjective(finishedDays.length)}
+                    <br /> You answered correct on{" "}
+                    <span className="text-lg">{finishedDays.length} out of 24 days</span>
+                    {finishedDays.length === 24 ? (
+                      "!"
+                    ) : (
+                      <>
+                        ,
+                        <br /> but fear not! You can still go back
+                        <br /> and try your luck on the remaining days.
+                      </>
+                    )}
+                    <br />
+                    <br />
+                    <br /> It has been a thrill creating this website,
+                    <br /> recording the pieces and
+                    <br /> seeing you all answer hilariously wrong 🎵
+                    <br />
+                    <br />
+                    <br /> We wish you a 🎄merry Christmas and happy holidays 🎄
+                    <br /> and we will hopefully meet again next year!
+                    <br /> This music quiz might become a regular thing,
+                    <br /> so please follow along on{" "}
+                    <a className="underline" href="https://twitter.com/sindreboyum">
+                      Sindre&apos;s Twitter
+                    </a>
+                    <br /> for updates ✨
+                  </p>
+                  <button
+                    className="top-2 right-2 absolute"
+                    type="button"
+                    onClick={() => setShowEndCredits(false)}
+                  >
+                    <span className="sr-only">Close end credits</span>
+                    <Cross2Icon width={22} height={22} />
+                  </button>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : null}
           </>
         ) : (
           <div className="grow mb-16 w-full max-w-sm">
