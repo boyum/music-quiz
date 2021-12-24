@@ -212,7 +212,7 @@ const DayPage: NextPage<DayPageProps> = ({
         {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
           <>
             <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
-            {day.dayIndex === 24 && showEndCredits ? (
+            {(day.dayIndex === 24 || finishedDays.length === 24) && showEndCredits ? (
               <div
                 className={`${styles.day24} inset-0 absolute bg-gray-900 flex items-center justify-center`}
               >
