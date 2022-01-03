@@ -1,9 +1,9 @@
 import type { NextApiHandler } from "next";
-import { isError } from "../../../types/ErrorResponse";
-import { Guess } from "../../../types/Guess";
+import { isError } from "../../../../../common/types/ErrorResponse";
+import { Guess } from "../../../../../common/types/Guess";
 import { ResponseData } from "../../../types/ResponseData";
 import { getCalendarDay, tryGuess } from "../../../utils/calendar-day.utils";
-import { getDayStats, postDayStats } from "../../../utils/firebase.utils";
+import { getDayStats, postDayStats } from "../../../../../common/utils/firebase/firebase.utils";
 
 const dayHandler: NextApiHandler<ResponseData> = async (request, response): Promise<void> => {
   const dayIndexString = request.query.dayIndex;

@@ -1,6 +1,6 @@
 import { CalendarDay } from "./CalendarDay";
-import { CalendarDayStats } from "./CalendarDayStats";
-import { ErrorResponse } from "./ErrorResponse";
+import { CalendarDayStats } from "../../../common/types/CalendarDayStats";
+import { ErrorResponse } from "../../../common/types/ErrorResponse";
 
 export type SuccessResponse =
   | {

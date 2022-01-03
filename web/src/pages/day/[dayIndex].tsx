@@ -12,7 +12,7 @@ import { WinFeedback } from "../../components/win-feedback/WinFeedback";
 import { CalendarDay } from "../../types/CalendarDay";
 import { CalendarDayPreview } from "../../types/CalendarDayPreview";
 import { FormInputMode } from "../../types/FormInputMode";
-import { Guess } from "../../types/Guess";
+import { Guess } from "../../../../common/types/Guess";
 import { SuccessResponse } from "../../types/ResponseData";
 import { randomElement } from "../../utils/array.utils";
 import { getCalendarDayPreview } from "../../utils/calendar-day.utils";
@@ -81,12 +81,12 @@ const DayPage: NextPage<DayPageProps> = ({
   }, [isPaused]);
 
   const answer = useCallback(async () => {
-    if (
+    const invalidInput =
       !songTitleInputElement.current ||
       !spotifyInputElement.current ||
       (songTitleInputElement.current.value.trim() === "" &&
-        spotifyInputElement.current.value.trim() === "")
-    ) {
+        spotifyInputElement.current.value.trim() === "");
+    if (invalidInput) {
       return;
     }
 
@@ -191,14 +191,6 @@ const DayPage: NextPage<DayPageProps> = ({
 
     return "perfectly!!!";
   };
-
-  const allDays = useMemo(
-    () =>
-      Array(24)
-        .fill(undefined)
-        .map((_, index) => index + 1),
-    [],
-  );
 
   return (
     <>

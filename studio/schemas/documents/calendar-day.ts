@@ -1,8 +1,12 @@
 import { StringSchemaType } from "@sanity/types";
 import { getClient } from "../../utils/client.utils";
+import {Guess } from "../../../common/types/Guess";
+import { postDayStats } from "../../../common/utils/firebase/firebase.utils";
 
 const name = "calendar-day";
 const client = getClient();
+
+console.log(postDayStats.toString())
 
 const getNextQuestionIndex = async () => {
   const query = `count(*[_type=="${name}"]{_id})`;

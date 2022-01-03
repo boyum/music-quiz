@@ -1,7 +1,17 @@
 {
-  "include": ["./node_modules/@sanity/base/types/**/*.ts", "./**/*.ts", "./**/*.tsx"],
+  "include": [
+    "./node_modules/@sanity/base/types/**/*.ts",
+    "./**/*.ts",
+    "./**/*.tsx"
+  ],
   "compilerOptions": {
     "jsx": "react",
     "resolveJsonModule": true
-  }
+  },
+  "references": [
+    {
+      "path": "../common/tsconfig.json",
+      "prepend": true
+    }
+  ]
 }

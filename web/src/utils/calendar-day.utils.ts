@@ -4,7 +4,7 @@ import { CalendarDay } from "../types/CalendarDay";
 import { CalendarDayPreview } from "../types/CalendarDayPreview";
 import { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
 import { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
-import { Guess, isSpotifyGuess } from "../types/Guess";
+import { Guess, isSpotifyGuess } from "../../../common/types/Guess";
 import { getSanityFile } from "./image-url";
 import { sanityClient } from "./sanity-client";
 

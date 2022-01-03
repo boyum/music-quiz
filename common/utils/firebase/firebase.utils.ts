@@ -1,7 +1,7 @@
-import { firebase } from "../lib/firebase";
-import { CalendarDayStats } from "../types/CalendarDayStats";
-import { ErrorResponse } from "../types/ErrorResponse";
-import { Guess } from "../types/Guess";
+import { firebase } from "../../lib/firebase";
+import { CalendarDayStats } from "../../types/CalendarDayStats";
+import { ErrorResponse } from "../../types/ErrorResponse";
+import { Guess } from "../../types/Guess";
 
 const CALENDAR_DAY_COLLECTION = `calendar-day-${process.env.SANITY_DATASET ?? "test"}`;
 
