@@ -12,14 +12,6 @@ export type HomeProps = {
 const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
   const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
 
-  const today = new Date();
-
-  const is2021 = today.getFullYear() === 2021;
-  const isDecember = today.getMonth() + 1 === 12;
-
-  const dayOfDecember = is2021 && isDecember ? today.getDate() : 24;
-  const unlockedDays = isProduction ? dayOfDecember : 24;
-
   useEffect(() => {
     setFinishedDays(getLocalStorageFinishedDays());
   }, []);
@@ -28,16 +20,11 @@ const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
     <div className="">
       <Head>
         <title>Jingle Bell Rock</title>
-        <meta
-          name="description"
-          content={`${
-            isDecember ? `Today is December ${dayOfDecember}!` : ""
-          } Open today's calendar door to see what piece of music is hiding behind it 🌟`}
-        />
+        <meta name="description" content="24 doors, 24 songs. Can you guess them all?" />
       </Head>
 
       <main className="text-gray-100 font-serif">
-        <AdventCalendar numberOfUnlockedDays={unlockedDays} finishedDays={finishedDays} />
+        <AdventCalendar numberOfUnlockedDays={24} finishedDays={finishedDays} />
       </main>
     </div>
   );
