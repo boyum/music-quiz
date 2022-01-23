@@ -15,7 +15,7 @@
     "format-all-files": "prettier --write ."
   },
   "devDependencies": {
-    "@babel/core": "^7.16.10",
+    "@babel/core": "^7.16.12",
     "@sanity/types": "^2.24.0",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.4.14",
