@@ -50,7 +50,7 @@
     "@sanity/asset-utils": "^1.2.3",
     "@sanity/client": "^2.23.1",
     "@sanity/image-url": "^1.0.1",
-    "firebase": "^9.6.5",
+    "firebase": "^9.6.6",
     "firebase-admin": "^10.0.2",
     "groq": "^2.15.0",
     "leven": "^4.0.0",
