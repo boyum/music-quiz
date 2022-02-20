@@ -30,7 +30,7 @@
     "cross-env": "^7.0.3",
     "eslint": "8.9.0",
     "eslint-config-next": "12.1.0",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-prettier": "^8.4.0",
     "jest": "^27.5.1",
     "postcss": "^8.4.6",
     "prettier": "^2.5.1",
