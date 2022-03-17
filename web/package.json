@@ -26,7 +26,7 @@
     "@types/puppeteer": "^5.4.5",
     "@types/react": "17.0.40",
     "@types/shuffle-seed": "^1.1.0",
-    "autoprefixer": "^10.4.2",
+    "autoprefixer": "^10.4.4",
     "cross-env": "^7.0.3",
     "eslint": "8.11.0",
     "eslint-config-next": "12.1.0",
