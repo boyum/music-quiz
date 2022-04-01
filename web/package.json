@@ -54,7 +54,7 @@
     "firebase-admin": "^10.0.2",
     "groq": "^2.15.0",
     "leven": "^4.0.0",
-    "next": "^12.1.2",
+    "next": "^12.1.4",
     "ordinal": "^1.0.3",
     "react": "17.0.2",
     "react-confetti": "^6.0.1",
