@@ -18,7 +18,7 @@
     "@babel/core": "^7.17.8",
     "@sanity/types": "^2.29.3",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/react": "^6.4.19",
+    "@storybook/react": "^6.4.20",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@types/jest": "^27.4.1",
     "@types/jest-environment-puppeteer": "^5.0.0",
