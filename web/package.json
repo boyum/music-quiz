@@ -37,7 +37,7 @@
     "prettier-plugin-tailwind": "^2.2.12",
     "puppeteer": "^13.5.2",
     "puppeteer-core": "^13.5.2",
-    "sass": "^1.49.10",
+    "sass": "^1.49.11",
     "tailwindcss": "^3.0.23",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.7.0",
