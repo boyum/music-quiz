@@ -56,9 +56,9 @@
     "leven": "^4.0.0",
     "next": "^12.1.4",
     "ordinal": "^1.0.3",
-    "react": "17.0.2",
+    "react": "18.0.0",
     "react-confetti": "^6.0.1",
-    "react-dom": "17.0.2",
+    "react-dom": "18.0.0",
     "react-use": "^17.3.2",
     "shuffle-seed": "^1.1.6",
     "unique-names-generator": "^4.7.1"
