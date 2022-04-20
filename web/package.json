@@ -16,7 +16,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
-    "@sanity/types": "^2.29.3",
+    "@sanity/types": "^2.29.5",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/react": "^6.4.20",
     "@tailwindcss/aspect-ratio": "^0.4.0",
