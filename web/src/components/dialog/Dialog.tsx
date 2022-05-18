@@ -8,6 +8,7 @@ export type DialogProps = {
   title?: string;
   description?: string;
   onOpenChange: (open: boolean) => void;
+  children: React.ReactElement | Array<React.ReactElement>
 };
 
 export const Dialog: React.FC<DialogProps> = ({
