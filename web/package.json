@@ -59,7 +59,7 @@
     "react": "18.1.0",
     "react-confetti": "^6.0.1",
     "react-dom": "18.1.0",
-    "react-use": "^17.3.2",
+    "react-use": "^17.4.0",
     "shuffle-seed": "^1.1.6",
     "unique-names-generator": "^4.7.1"
   }
