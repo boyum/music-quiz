@@ -15,7 +15,7 @@ export const CalendarDoor: FC<CalendarDoorProps> = ({ index, isUnlocked, isFinis
   return (
     <div data-test-id="calendar-door" key={index} className={"aspect-w-1 aspect-h-1"}>
       <a
-        className={`flex items-center justify-center text-white text-3xl font-bold rounded-lg transition duration-150 ease-in-out xl:text-4xl ${
+        className={`flex items-center justify-center rounded-lg text-3xl font-bold text-white transition duration-150 ease-in-out xl:text-4xl ${
           isUnlocked ? unlockedStyle : lockedStyle
         }`}
         href={`/day/${index}`}

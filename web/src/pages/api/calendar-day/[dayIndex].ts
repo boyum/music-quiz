@@ -9,6 +9,15 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
   const dayIndexString = request.query.dayIndex;
   const method = request.method ?? "GET";
 
+  if (!dayIndexString) {
+    response.status(400).send({
+      error: `Invalid day index string '${dayIndexString}'`,
+      day: undefined,
+    });
+
+    return;
+  }
+
   let dayIndex: number;
   if (Array.isArray(dayIndexString)) {
     dayIndex = parseInt(dayIndexString[0]);
@@ -21,6 +30,7 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
       error: `Invalid day index '${dayIndex}'`,
       day: undefined,
     });
+    return;
   }
 
   let dayStats = await getDayStats(dayIndex);

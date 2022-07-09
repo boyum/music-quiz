@@ -8,17 +8,17 @@ export type WinFeedbackProps = {
 
 export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
   return (
-    <div className="grow py-20 w-full max-w-sm" data-test-id="correct-answer-message">
-      <h2 className="text-blue-900 text-4xl">Congratulations, you are correct!</h2>
-      <p className="my-10 text-blue-900 text-md">
+    <div className="w-full max-w-sm grow py-20" data-test-id="correct-answer-message">
+      <h2 className="text-4xl text-blue-900">Congratulations, you are correct!</h2>
+      <p className="text-md my-10 text-blue-900">
         The song was:
         <div className="mt-2">
-          <span className="underline text-xl">{day.songTitles[0]}</span>
-          {day.artists ? <span className="underline text-xl"> by {day.artists[0]}</span> : null}
+          <span className="text-xl underline">{day.songTitles[0]}</span>
+          {day.artists ? <span className="text-xl underline"> by {day.artists[0]}</span> : null}
           {day.playedBy ? <>, and was played by {day.playedBy}</> : null}.
         </div>
         <iframe
-          className="block mt-8 w-full"
+          className="mt-8 block w-full"
           src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`}
           width="300"
           height="80"
@@ -28,17 +28,17 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
         ></iframe>
       </p>
 
-      <p className="mt-8 text-blue-900 text-xl">
+      <p className="mt-8 text-xl text-blue-900">
         You were the <span className="underline">{ordinal(successfulAttempts)}</span> person to
         guess it right!
       </p>
 
       {day.dayIndex < 24 ? (
-        <p className="mt-2 text-blue-900 text-xl">Get ready for a new task tomorrow 🎁</p>
+        <p className="mt-2 text-xl text-blue-900">Get ready for a new task tomorrow 🎁</p>
       ) : (
-        <p className="mt-2 text-blue-900 text-xl">
-          Sadly there won&apos;t be a new piece tomorrow,
-          but we&apos;ll see eachother again next year ✨
+        <p className="mt-2 text-xl text-blue-900">
+          Sadly there won&apos;t be a new piece tomorrow, but we&apos;ll see eachother again next
+          year ✨
         </p>
       )}
     </div>

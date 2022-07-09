@@ -23,7 +23,7 @@ const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
         <meta name="description" content="24 doors, 24 songs. Can you guess them all?" />
       </Head>
 
-      <main className="text-gray-100 font-serif">
+      <main className="font-serif text-gray-100">
         <AdventCalendar numberOfUnlockedDays={24} finishedDays={finishedDays} />
       </main>
     </div>
