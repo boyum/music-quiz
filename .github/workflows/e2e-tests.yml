@@ -3,10 +3,6 @@ name: E2E tests
 on:
   issue_comment:
     types: [edited]
-  push:
-    paths:
-      - "web/**/*"
-      - "common/**/*"
 
 jobs:
   capture_vercel_preview_url:
