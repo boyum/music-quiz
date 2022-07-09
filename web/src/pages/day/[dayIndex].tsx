@@ -205,19 +205,19 @@ const DayPage: NextPage<DayPageProps> = ({
       <Head>
         <title>{title}</title>
       </Head>
-      <article className="flex flex-col items-center px-8 py-6 min-h-screen text-gray-100 font-serif">
+      <article className="flex min-h-screen flex-col items-center px-8 py-6 font-serif text-gray-100">
         <header className="mb-6 w-full">
-          <h1 className="text-blue-900 text-3xl">{title}</h1>
+          <h1 className="text-3xl text-blue-900">{title}</h1>
         </header>
         {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
           <>
             <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
             {(day.dayIndex === 24 || finishedDays.length === 24) && showEndCredits ? (
               <div
-                className={`${styles.day24} inset-0 absolute bg-gray-900 flex items-center justify-center`}
+                className={`${styles.day24} absolute inset-0 flex items-center justify-center bg-gray-900`}
               >
-                <div className="text-center px-10 py-4 relative">
-                  <h2 className="text-4xl mb-8">That&apos;s all Folks!</h2>
+                <div className="relative px-10 py-4 text-center">
+                  <h2 className="mb-8 text-4xl">That&apos;s all Folks!</h2>
                   <p>
                     Thank you for participating in this year&apos;s
                     <br /> music quiz advent calendar!
@@ -249,7 +249,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     <br /> for updates ✨
                   </p>
                   <button
-                    className="top-2 right-2 absolute"
+                    className="absolute top-2 right-2"
                     type="button"
                     onClick={() => setShowEndCredits(false)}
                   >
@@ -261,7 +261,7 @@ const DayPage: NextPage<DayPageProps> = ({
             ) : null}
           </>
         ) : (
-          <div className="grow mb-16 w-full max-w-sm">
+          <div className="mb-16 w-full max-w-sm grow">
             <audio
               ref={audioElement}
               className="sr-only"
@@ -271,7 +271,7 @@ const DayPage: NextPage<DayPageProps> = ({
               onChange={togglePlayPause}
               onEnded={() => setIsPaused(true)}
             ></audio>
-            <div className="flex justify-center mb-10 mt-4">
+            <div className="mb-10 mt-4 flex justify-center">
               <button
                 type="button"
                 className="play-pause"
@@ -280,15 +280,15 @@ const DayPage: NextPage<DayPageProps> = ({
                 onClick={togglePlayPause}
               >
                 {isPaused ? (
-                  <PlayIcon className="w-16 h-16 text-blue-900" />
+                  <PlayIcon className="h-16 w-16 text-blue-900" />
                 ) : (
-                  <PauseIcon className="w-16 h-16 text-blue-900" />
+                  <PauseIcon className="h-16 w-16 text-blue-900" />
                 )}
               </button>
             </div>
-            <div className="flex flex-col gap-2 my-4">
-              <h2 className="text-blue-900 text-2xl font-semibold">What song might this be?</h2>
-              <div className="flex flex-col my-4">
+            <div className="my-4 flex flex-col gap-2">
+              <h2 className="text-2xl font-semibold text-blue-900">What song might this be?</h2>
+              <div className="my-4 flex flex-col">
                 <h3 className="text-md mb-2 text-blue-900">Choose how you want to answer:</h3>
                 <label className="text-md text-blue-900">
                   <input
@@ -325,7 +325,7 @@ const DayPage: NextPage<DayPageProps> = ({
                       ref={artistInputElement}
                       data-test-id="artist-input"
                       type="text"
-                      className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
+                      className="rounded border-4 border-blue-900 px-3 py-2 text-gray-800 shadow"
                       placeholder={artistPlaceholder}
                       onChange={() => setWrongAnswerMessage(null)}
                     />
@@ -341,7 +341,7 @@ const DayPage: NextPage<DayPageProps> = ({
                     ref={songTitleInputElement}
                     data-test-id="song-input"
                     type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
+                    className="rounded border-4 border-blue-900 px-3 py-2 text-gray-800 shadow"
                     placeholder={songTitlePlaceholder}
                     onChange={() => setWrongAnswerMessage(null)}
                   />
@@ -353,16 +353,16 @@ const DayPage: NextPage<DayPageProps> = ({
                   <input
                     ref={spotifyInputElement}
                     type="text"
-                    className="px-3 py-2 text-gray-800 border-4 border-blue-900 rounded shadow"
+                    className="rounded border-4 border-blue-900 px-3 py-2 text-gray-800 shadow"
                     onChange={() => setWrongAnswerMessage(null)}
                   />
                 </label>
                 <button
                   type="submit"
-                  className="mt-2 px-3 py-2 w-full bg-blue-900 rounded shadow"
+                  className="mt-2 w-full rounded bg-blue-900 px-3 py-2 shadow"
                   onClick={answer}
                 >
-                  {isGuessing ? <LoadIcon className="mx-auto w-6 h-6" /> : <>Have a guess</>}
+                  {isGuessing ? <LoadIcon className="mx-auto h-6 w-6" /> : <>Have a guess</>}
                 </button>
                 {wrongAnswerMessage ? (
                   <div className="text-md mt-4" data-test-id="incorrect-answer-message">
@@ -374,7 +374,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
             {dayPreview.hints ? (
               <>
-                <h2 className="mb-4 mt-16 text-blue-900 text-2xl">Hints:</h2>
+                <h2 className="mb-4 mt-16 text-2xl text-blue-900">Hints:</h2>
                 <Hints hints={dayPreview.hints} />
               </>
             ) : null}

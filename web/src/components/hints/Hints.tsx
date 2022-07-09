@@ -17,7 +17,7 @@ export const Hints: React.FC<HintsProps> = ({ hints }) => {
 
   return (
     <>
-      <ol className="pl-5 list-decimal">
+      <ol className="list-decimal pl-5">
         {hints.map((hint, index) => {
           const hintIsHidden = index >= numberOfShownHints;
           if (hintIsHidden) {
@@ -32,7 +32,7 @@ export const Hints: React.FC<HintsProps> = ({ hints }) => {
         })}
       </ol>
       {hints.length > numberOfShownHints ? (
-        <button type="button" className="px-3 py-2 bg-blue-900 rounded shadow" onClick={openHint}>
+        <button type="button" className="rounded bg-blue-900 px-3 py-2 shadow" onClick={openHint}>
           {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
         </button>
       ) : null}

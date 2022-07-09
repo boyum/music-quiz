@@ -81,7 +81,7 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
   return (
     <canvas
       suppressHydrationWarning
-      className="fixed z-0 inset-0 pointer-events-none"
+      className="pointer-events-none fixed inset-0 z-0"
       ref={canvas}
       width={windowWidth}
       height={windowHeight}
