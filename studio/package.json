@@ -6,7 +6,7 @@
   "author": "Sanity <hello@sanity.io>",
   "scripts": {
     "dev": "sanity start",
-    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
+    "format": "prettier-eslint --write \"**/*.ts\" \"!node_modules/**\" \"!lib/**\" \"!dist/**\"",
     "build": "sanity build",
     "graphql-deploy": "sanity graphql deploy --playground",
     "lint": "eslint .",
@@ -34,7 +34,6 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^8.20.0",
     "eslint-config-standard": "^17.0.0",
-    "eslint-config-standard-react": "^11.0.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
