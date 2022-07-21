@@ -13,21 +13,12 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/base": "^2.30.1",
-    "@sanity/cli": "^2.30.2",
-    "@sanity/components": "^2.14.0",
-    "@sanity/core": "^2.30.2",
-    "@sanity/dashboard": "^2.30.1",
-    "@sanity/default-layout": "^2.30.1",
-    "@sanity/default-login": "^2.30.1",
-    "@sanity/desk-tool": "^2.30.1",
     "date-fns": "^2.28.0",
     "eslint-config": "^0.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "react-icons": "^4.4.0",
-    "sanity-plugin-dashboard-widget-document-list": "^0.0.13",
-    "sanity-plugin-dashboard-widget-netlify": "^1.2.1",
+    "sanity": "^3.0.0-dev-preview.9",
     "styled-components": "^5.3.5"
   },
   "devDependencies": {
