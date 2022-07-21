@@ -24,7 +24,7 @@ const Home: NextPage<HomeProps> = ({ isProduction }: HomeProps) => {
       </Head>
 
       <main className="font-serif text-gray-100">
-        <AdventCalendar numberOfUnlockedDays={24} finishedDays={finishedDays} />
+        <AdventCalendar finishedDays={finishedDays} />
       </main>
     </div>
   );
