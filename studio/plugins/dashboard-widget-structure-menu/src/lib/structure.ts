@@ -1,8 +1,8 @@
 /* global __DEV__ */
 
-import { defer, from as observableFrom, of as observableOf, throwError } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
-import StructureBuilder from '@sanity/desk-tool/structure-builder';
+import { defer, from as observableFrom, of as observableOf, throwError } from "rxjs";
+import { mergeMap } from "rxjs/operators";
+import StructureBuilder from "@sanity/desk-tool/structure-builder";
 
 // @ts-expect-error
 const __DEV__ = global.__DEV__;
@@ -19,35 +19,35 @@ if (__DEV__) {
 }
 
 export function isSubscribable(thing) {
-  return thing && (typeof thing.then === 'function' || typeof thing.subscribe === 'function');
+  return thing && (typeof thing.then === "function" || typeof thing.subscribe === "function");
 }
 
 export function isStructure(structure) {
   return (
     structure &&
-    (typeof structure === 'function' ||
-      typeof structure.serialize !== 'function' ||
-      typeof structure.then !== 'function' ||
-      typeof structure.subscribe !== 'function' ||
-      typeof structure.type !== 'string')
+    (typeof structure === "function" ||
+      typeof structure.serialize !== "function" ||
+      typeof structure.then !== "function" ||
+      typeof structure.subscribe !== "function" ||
+      typeof structure.type !== "string")
   );
 }
 
 export function serializeStructure(item, context?, resolverArgs = []) {
   // Lazy
-  if (typeof item === 'function') {
+  if (typeof item === "function") {
     return serializeStructure(item(...resolverArgs), context, resolverArgs);
   }
 
   // Promise/observable returning a function, builder or plain JSON structure
   if (isSubscribable(item)) {
     return observableFrom(item).pipe(
-      mergeMap(val => serializeStructure(val, context, resolverArgs))
+      mergeMap(val => serializeStructure(val, context, resolverArgs)),
     );
   }
 
   // Builder?
-  if (item && typeof item.serialize === 'function') {
+  if (item && typeof item.serialize === "function") {
     return serializeStructure(item.serialize(context));
   }
 
@@ -58,8 +58,8 @@ export function serializeStructure(item, context?, resolverArgs = []) {
 export function getDefaultStructure() {
   const items = StructureBuilder.documentTypeListItems();
   return StructureBuilder.list()
-    .id('__root__')
-    .title('Content')
+    .id("__root__")
+    .title("Content")
     .showIcons(items.some(item => item.getSchemaType().icon))
     .items(items);
 }
@@ -70,7 +70,7 @@ export function getDefaultStructure() {
 export function loadStructure() {
   let structure;
   try {
-    const mod = require('part:@sanity/desk-tool/structure?') || getDefaultStructure();
+    const mod = require("part:@sanity/desk-tool/structure?") || getDefaultStructure();
     structure = mod && mod.__esModule ? mod.default : mod;
 
     // On invalid modules, when HMR kicks in, we sometimes get an empty object back when the
@@ -79,7 +79,7 @@ export function loadStructure() {
       __DEV__ &&
       prevStructureError &&
       structure &&
-      structure.constructor.name === 'Object' &&
+      structure.constructor.name === "Object" &&
       Object.keys(structure).length === 0
     ) {
       return throwError(prevStructureError);
@@ -94,8 +94,8 @@ export function loadStructure() {
   if (!isStructure(structure)) {
     return throwError(
       new Error(
-        `Structure needs to export a function, an observable, a promise or a stucture builder, got ${typeof structure}`
-      )
+        `Structure needs to export a function, an observable, a promise or a stucture builder, got ${typeof structure}`,
+      ),
     );
   }
 

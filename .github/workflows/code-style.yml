@@ -13,10 +13,10 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
@@ -26,4 +26,4 @@ jobs:
       - name: Install npm packages
         uses: bahmutov/npm-install@v1
 
-      - run: npm run format:check
+      - run: npm run format
