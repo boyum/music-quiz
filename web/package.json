@@ -35,8 +35,8 @@
     "postcss": "^8.4.14",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.12",
-    "puppeteer": "^15.4.0",
-    "puppeteer-core": "^15.4.0",
+    "puppeteer": "^15.5.0",
+    "puppeteer-core": "^15.5.0",
     "sass": "^1.53.0",
     "tailwindcss": "^3.1.6",
     "ts-jest": "^28.0.7",
@@ -44,9 +44,7 @@
     "typescript": "4.7.4"
   },
   "dependencies": {
-    "@radix-ui/react-dialog": "^1.0.0",
     "@radix-ui/react-icons": "^1.1.1",
-    "@radix-ui/react-id": "^1.0.0",
     "@sanity/asset-utils": "^1.2.3",
     "@sanity/client": "^3.3.2",
     "@sanity/image-url": "^1.0.1",
