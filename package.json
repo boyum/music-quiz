@@ -13,7 +13,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "lerna": "^5.5.2",
+    "lerna": "^5.5.4",
     "postcss": "^8.4.16"
   }
 }
