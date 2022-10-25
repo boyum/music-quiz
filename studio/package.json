@@ -31,6 +31,7 @@
     "styled-components": "^5.3.6"
   },
   "devDependencies": {
+    "@sanity/types": "^2.35.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^8.25.0",
     "eslint-config-standard": "^17.0.0",
