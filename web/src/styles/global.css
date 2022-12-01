@@ -17,6 +17,10 @@ html {
   box-shadow: inset 0 0 64px var(--hatch-color-2);
 }
 
+.hatch-locked {
+  pointer-events: none;
+}
+
 .hatch-unlocked {
   background-color: var(--hatch-color-3);
 }
