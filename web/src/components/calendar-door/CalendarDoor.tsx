@@ -19,8 +19,8 @@ export const CalendarDoor: FC<CalendarDoorProps> = ({
     >
       <a
         className={`${
-          isUnlocked ? 'hatch-unlocked text-shadow-unlocked ' : 'hatch-locked'
-        }flex items-center justify-center rounded-lg text-3xl font-bold text-white shadow-inner transition duration-150 ease-in-out hover:bg-blue-900 focus:bg-blue-900 xl:text-4xl`}
+          isUnlocked ? 'hatch-unlocked text-shadow-unlocked' : 'hatch-locked'
+        } flex items-center justify-center rounded-lg text-3xl font-bold text-white shadow-inner transition duration-150 ease-in-out hover:bg-blue-900 focus:bg-blue-900 xl:text-4xl`}
         href={`/day/${index}`}
         tabIndex={index}
       >
