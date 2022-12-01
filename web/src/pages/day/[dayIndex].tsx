@@ -29,6 +29,7 @@ export type DayPageProps = {
   dayPreview: CalendarDayPreview;
   artistPlaceholder: string;
   songTitlePlaceholder: string;
+  date: number;
 };
 
 /** Messages which are cycled upon 0% correctness */
@@ -48,7 +49,12 @@ const DayPage: NextPage<DayPageProps> = ({
   dayPreview,
   artistPlaceholder,
   songTitlePlaceholder,
+  date,
 }: DayPageProps) => {
+  if (date < dayPreview.dayIndex) {
+    window.location.href = window.location.protocol + window.location.hostname;
+  }
+  
   const [day, setDay] = useState<CalendarDay | null>(null);
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
@@ -402,6 +408,7 @@ const DayPage: NextPage<DayPageProps> = ({
 
 export const getServerSideProps: GetServerSideProps<DayPageProps> = async context => {
   let dayIndexString = context.query.dayIndex;
+  const date = new Date().getDate();
 
   if (!dayIndexString) {
     throw new Error("No question id");
@@ -446,6 +453,7 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
       dayPreview: day,
       artistPlaceholder,
       songTitlePlaceholder,
+      date,
     },
   };
 };
