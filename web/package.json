@@ -33,7 +33,7 @@
     "eslint-config-prettier": "^8.8.0",
     "jest": "^29.5.0",
     "postcss": "^8.4.21",
-    "prettier": "^2.8.5",
+    "prettier": "^2.8.6",
     "prettier-plugin-tailwindcss": "^0.2.5",
     "puppeteer": "^19.7.5",
     "puppeteer-core": "^19.7.0",
