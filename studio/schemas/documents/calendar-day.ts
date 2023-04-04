@@ -11,7 +11,7 @@ const getNextQuestionIndex = async () => {
   return (numberOfExistingQuestions + 1).toString();
 };
 
-const contentType: StringSchemaType = {
+export const calendarDay: StringSchemaType = {
   title: "Calendar day",
   name,
   // @ts-expect-error `'document'` is a valid type
@@ -99,5 +99,3 @@ const contentType: StringSchemaType = {
     },
   },
 };
-
-export default contentType;

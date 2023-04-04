@@ -1,4 +1,4 @@
-export default {
+export const siteSettings = {
   name: 'siteSettings',
   type: 'document',
   title: 'Site Settings',

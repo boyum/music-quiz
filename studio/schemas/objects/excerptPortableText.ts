@@ -1,4 +1,4 @@
-export default {
+export const excerptPortableText = {
   name: 'excerptPortableText',
   type: 'array',
   title: 'Excerpt',
