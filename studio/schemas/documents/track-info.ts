@@ -1,4 +1,4 @@
-export default {
+export const trackInfo = {
   title: "Track info",
   name: "track-info",
   type: "document",

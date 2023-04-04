@@ -1,4 +1,4 @@
-export default {
+export const bioPortableText ={
   name: 'bioPortableText',
   type: 'array',
   title: 'Excerpt',
