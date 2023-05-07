@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from "react";
-import { Footer } from "../components/footer/Footer";
 import "tailwindcss/tailwind.css";
+import { Footer } from "../components/footer/Footer";
 import "../styles/global.css";
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
@@ -27,7 +27,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         <script src="https://www.googletagmanager.com/gtag/js?id=G-GGY21QWYBC"></script>
         <script dangerouslySetInnerHTML={{ __html: tagManagerScript }}></script>
       </head>
-      <body>
+      <body className="bg-blue-200">
         {children}
         <Footer />
       </body>
