@@ -45,7 +45,9 @@ export const getLocalStorageFinishedDays = (): Array<number> => {
   return finishedDays;
 };
 
-export const setLocalStorageFinishedDays = (finishedDays: Array<number>): void => {
+export const setLocalStorageFinishedDays = (
+  finishedDays: Array<number>,
+): void => {
   window.localStorage.setItem(FINISHED_DAYS_KEY, JSON.stringify(finishedDays));
 };
 

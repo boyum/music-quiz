@@ -9,8 +9,6 @@ import { excerptPortableText } from "./schemas/objects/excerptPortableText";
 import { mainImage } from "./schemas/objects/mainImage";
 import { dataset, projectId } from "./utils/client.utils";
 
-
-
 export default defineConfig({
   name: "music-quiz",
   projectId,
@@ -19,7 +17,9 @@ export default defineConfig({
     deskTool({
       structure: (S: StructureBuilder) => {
         const hiddenDocTypes = (listItem: { getId(): string }) =>
-          !["question", "calendar-day", "siteSettings"].includes(listItem.getId());
+          !["question", "calendar-day", "siteSettings"].includes(
+            listItem.getId(),
+          );
 
         return S.list()
           .title("Content")
@@ -28,12 +28,17 @@ export default defineConfig({
               .title("Settings")
               .icon(MdSettings)
               .child(
-                S.editor().id("siteSettings").schemaType("siteSettings").documentId("siteSettings"),
+                S.editor()
+                  .id("siteSettings")
+                  .schemaType("siteSettings")
+                  .documentId("siteSettings"),
               ),
             S.listItem()
               .title("Advent calendar")
               .icon(MdAudiotrack)
-              .child(S.documentTypeList("calendar-day").title("Advent calendar")),
+              .child(
+                S.documentTypeList("calendar-day").title("Advent calendar"),
+              ),
             ...S.documentTypeListItems().filter(hiddenDocTypes),
           ]);
       },

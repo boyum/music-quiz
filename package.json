@@ -5,7 +5,8 @@
   "scripts": {
     "build": "lerna run build --parallel",
     "dev": "lerna run dev --parallel",
-    "format": "lerna run format",
+    "format:check": "lerna run format:check",
+    "format:fix": "lerna run format:fix",
     "build-studio": "lerna bootstrap && cd studio && npm run build",
     "build-web": "cross-env NODE_ENV=production && lerna bootstrap && cd web && npm run build",
     "lint": "lerna run lint",

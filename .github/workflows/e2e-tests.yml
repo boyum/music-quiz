@@ -14,6 +14,13 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - uses: actions/checkout@v3
+
+      - run: cd web
+      
+      - name: Install npm packages
+        uses: bahmutov/npm-install@v1
+
       - name: Store DEPLOY_URL in env file
         run: |
           touch .env

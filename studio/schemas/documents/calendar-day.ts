@@ -85,7 +85,11 @@ export const calendarDay: StringSchemaType = {
       songTitles: "songTitles",
       artists: "artists",
     },
-    prepare(selection: { dayIndex: string; songTitles: Array<string>; artists: Array<string> }) {
+    prepare(selection: {
+      dayIndex: string;
+      songTitles: Array<string>;
+      artists: Array<string>;
+    }) {
       const { dayIndex, songTitles, artists } = selection;
 
       const hasArtist = artists && artists.length > 0;

@@ -32,7 +32,11 @@ export const Hints: React.FC<HintsProps> = ({ hints }) => {
         })}
       </ol>
       {hints.length > numberOfShownHints ? (
-        <button type="button" className="rounded bg-blue-900 px-3 py-2 shadow" onClick={openHint}>
+        <button
+          type="button"
+          className="rounded bg-blue-900 px-3 py-2 shadow"
+          onClick={openHint}
+        >
           {numberOfShownHints === 0 ? "Stuck? Get a hint" : "Show next hint"}
         </button>
       ) : null}

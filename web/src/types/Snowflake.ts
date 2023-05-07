@@ -11,13 +11,24 @@ export class Snowflake {
   dAlpha: number;
 
   constructor(canvasWidth: number, canvasHeight: number) {
-    const radius = Math.random() * (Math.max(canvasWidth, canvasHeight) * 0.0025) + 3;
+    const radius =
+      Math.random() * (Math.max(canvasWidth, canvasHeight) * 0.0025) + 3;
 
     this.x = Snowflake.randomXPosition(canvasWidth);
     this.y = Snowflake.randomYPosition(canvasHeight);
-    this.originalXVelocity = Snowflake.randomVelocity(canvasWidth, canvasHeight, radius, true);
+    this.originalXVelocity = Snowflake.randomVelocity(
+      canvasWidth,
+      canvasHeight,
+      radius,
+      true,
+    );
     this.xVelocity = this.originalXVelocity;
-    this.originalYVelocity = Snowflake.randomVelocity(canvasWidth, canvasHeight, radius, false);
+    this.originalYVelocity = Snowflake.randomVelocity(
+      canvasWidth,
+      canvasHeight,
+      radius,
+      false,
+    );
     this.yVelocity = this.originalYVelocity;
     this.radius = radius;
 
@@ -78,7 +89,8 @@ export class Snowflake {
 
     const snowflakeIsOutOfHorizontalBounds =
       this.x + this.radius < 0 || this.x - this.radius > canvasWidth;
-    const snowflakeIsOutOfVerticalBounds = this.y - this.radius * 2 > canvasHeight;
+    const snowflakeIsOutOfVerticalBounds =
+      this.y - this.radius * 2 > canvasHeight;
     const isInvisible = this.alpha <= 0;
 
     if (snowflakeIsOutOfHorizontalBounds || snowflakeIsOutOfVerticalBounds) {
@@ -102,7 +114,15 @@ export class Snowflake {
   draw(context: CanvasRenderingContext2D): void {
     context.fillStyle = this.color;
     context.beginPath();
-    context.ellipse(this.x, this.y, this.radius, this.radius, 0, 0, 2 * Math.PI);
+    context.ellipse(
+      this.x,
+      this.y,
+      this.radius,
+      this.radius,
+      0,
+      0,
+      2 * Math.PI,
+    );
     context.fill();
   }
 }

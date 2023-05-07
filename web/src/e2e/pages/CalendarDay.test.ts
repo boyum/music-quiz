@@ -42,13 +42,17 @@ describe("CalendarDay", () => {
 
     // Capture guess response
     await page.setRequestInterception(true);
-    const httpResponse = await page.waitForResponse(`${GUESS_API_ENDPOINT}/${DAY_INDEX}`);
+    const httpResponse = await page.waitForResponse(
+      `${GUESS_API_ENDPOINT}/${DAY_INDEX}`,
+    );
 
     const successResponse: SuccessResponse = await httpResponse.json();
     expect(successResponse.correctness).toBe(1);
 
     // Verify that correct answer message is showing
-    const $correctAnswerMessage = await page.$(`[data-test-id="correct-answer-message"]`);
+    const $correctAnswerMessage = await page.$(
+      `[data-test-id="correct-answer-message"]`,
+    );
     expect($correctAnswerMessage).toBeTruthy();
   });
 
@@ -70,13 +74,17 @@ describe("CalendarDay", () => {
 
     // Capture guess response
     await page.setRequestInterception(true);
-    const httpResponse = await page.waitForResponse(`${GUESS_API_ENDPOINT}/${DAY_INDEX}`);
+    const httpResponse = await page.waitForResponse(
+      `${GUESS_API_ENDPOINT}/${DAY_INDEX}`,
+    );
 
     const successResponse: SuccessResponse = await httpResponse.json();
     expect(successResponse.correctness).toBe(0);
 
     // Verify that incorrect answer message is showing
-    const $incorrectAnswerMessage = await page.$(`[data-test-id="incorrect-answer-message"]`);
+    const $incorrectAnswerMessage = await page.$(
+      `[data-test-id="incorrect-answer-message"]`,
+    );
     expect($incorrectAnswerMessage).toBeTruthy();
   });
 
@@ -98,13 +106,17 @@ describe("CalendarDay", () => {
 
     // Capture guess response
     await page.setRequestInterception(true);
-    const httpResponse = await page.waitForResponse(`${GUESS_API_ENDPOINT}/${DAY_INDEX}`);
+    const httpResponse = await page.waitForResponse(
+      `${GUESS_API_ENDPOINT}/${DAY_INDEX}`,
+    );
 
     const successResponse: SuccessResponse = await httpResponse.json();
     expect(successResponse.correctness).toBe(0.5);
 
     // Verify that incorrect answer message is showing
-    const $incorrectAnswerMessage = await page.$(`[data-test-id="incorrect-answer-message"]`);
+    const $incorrectAnswerMessage = await page.$(
+      `[data-test-id="incorrect-answer-message"]`,
+    );
     expect($incorrectAnswerMessage).toBeTruthy();
   });
 
@@ -126,13 +138,17 @@ describe("CalendarDay", () => {
 
     // Capture guess response
     await page.setRequestInterception(true);
-    const httpResponse = await page.waitForResponse(`${GUESS_API_ENDPOINT}/${DAY_INDEX}`);
+    const httpResponse = await page.waitForResponse(
+      `${GUESS_API_ENDPOINT}/${DAY_INDEX}`,
+    );
 
     const successResponse: SuccessResponse = await httpResponse.json();
     expect(successResponse.correctness).toBe(0.5);
 
     // Verify that incorrect answer message is showing
-    const $incorrectAnswerMessage = await page.$(`[data-test-id="incorrect-answer-message"]`);
+    const $incorrectAnswerMessage = await page.$(
+      `[data-test-id="incorrect-answer-message"]`,
+    );
     expect($incorrectAnswerMessage).toBeTruthy();
   });
 

@@ -42,7 +42,9 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
   hasArtists: artists && artists.length > 0 ? true : false,
 });
 
-export const getCalendarDay = async (dayIndex: number): Promise<CalendarDay | null> => {
+export const getCalendarDay = async (
+  dayIndex: number,
+): Promise<CalendarDay | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
   const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
@@ -113,7 +115,9 @@ export const getTrackIdFromUrl = (url: string) => {
     throw new Error(`'${url}' is not a valid Spotify url`);
   }
 
-  const trackId = url.replace("https://open.spotify.com/track/", "").split("?")[0];
+  const trackId = url
+    .replace("https://open.spotify.com/track/", "")
+    .split("?")[0];
   return trackId;
 };
 
@@ -127,14 +131,18 @@ export const getTrackIdFromUri = (uri: string) => {
   return trackId;
 };
 
-export async function tryGuess(day: CalendarDay, guess: Guess): Promise<0 | 0.5 | 1> {
+export async function tryGuess(
+  day: CalendarDay,
+  guess: Guess,
+): Promise<0 | 0.5 | 1> {
   let correctness = 0;
 
   if (isSpotifyGuess(guess)) {
     const spotifyGuess = guess.spotify ?? "";
     const normalizedSpotifyGuess = spotifyGuess.trim();
     const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith("https://");
-    const answerIsSpotifyUri = normalizedSpotifyGuess.startsWith("spotify:track:");
+    const answerIsSpotifyUri =
+      normalizedSpotifyGuess.startsWith("spotify:track:");
 
     if (answerIsSpotifyUrl) {
       const trackId = getTrackIdFromUrl(normalizedSpotifyGuess);

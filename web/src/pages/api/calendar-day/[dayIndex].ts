@@ -5,7 +5,10 @@ import { ResponseData } from "../../../types/ResponseData";
 import { getCalendarDay, tryGuess } from "../../../utils/calendar-day.utils";
 import { getDayStats, postDayStats } from "../../../utils/firebase.utils";
 
-const dayHandler: NextApiHandler<ResponseData> = async (request, response): Promise<void> => {
+const dayHandler: NextApiHandler<ResponseData> = async (
+  request,
+  response,
+): Promise<void> => {
   const dayIndexString = request.query.dayIndex;
   const method = request.method ?? "GET";
 
@@ -54,12 +57,16 @@ const dayHandler: NextApiHandler<ResponseData> = async (request, response): Prom
       }
 
       const correctness = await tryGuess(day, guess);
-      await postDayStats(dayIndex, correctness === 1, dayStats, guess);
+      const isCorrect = correctness === 1;
 
-      if (correctness === 1) {
-        response
-          .status(200)
-          .send({ correctness, successfulAttempts: dayStats.successfulAttempts + 1, day });
+      await postDayStats(dayIndex, isCorrect, dayStats, guess);
+
+      if (isCorrect) {
+        response.status(200).send({
+          correctness,
+          successfulAttempts: dayStats.successfulAttempts + 1,
+          day,
+        });
       } else {
         response.status(200).send({ correctness });
       }

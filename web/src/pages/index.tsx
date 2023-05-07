@@ -1,9 +1,9 @@
-import type { GetServerSideProps, NextPage } from 'next';
-import Head from 'next/head';
-import { useEffect, useState } from 'react';
-import { AdventCalendar } from '../components/advent-calendar/AdventCalendar';
-import { getLocalStorageFinishedDays } from '../utils/local-storage.utils';
-import { sanityIsProduction } from '../utils/meta.utils';
+import type { GetServerSideProps, NextPage } from "next";
+import Head from "next/head";
+import { useEffect, useState } from "react";
+import { AdventCalendar } from "../components/advent-calendar/AdventCalendar";
+import { getLocalStorageFinishedDays } from "../utils/local-storage.utils";
+import { sanityIsProduction } from "../utils/meta.utils";
 
 export type HomeProps = {
   isProduction: boolean;
@@ -37,9 +37,9 @@ const Home: NextPage<HomeProps> = ({ isProduction, date }: HomeProps) => {
 // eslint-disable-next-line import/no-default-export
 export default Home;
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
-  context,
-) => {
+export const getServerSideProps: GetServerSideProps<
+  HomeProps
+> = async context => {
   const date = new Date().getDate();
 
   return {

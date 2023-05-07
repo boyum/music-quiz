@@ -2,10 +2,21 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
-import { adjectives, animals, colors, uniqueNamesGenerator } from "unique-names-generator";
+import {
+  adjectives,
+  animals,
+  colors,
+  uniqueNamesGenerator,
+} from "unique-names-generator";
 import { Hints } from "../../components/hints/Hints";
 import { LoadIcon, PauseIcon, PlayIcon } from "../../components/icons/Icons";
 import { WinFeedback } from "../../components/win-feedback/WinFeedback";
@@ -54,16 +65,19 @@ const DayPage: NextPage<DayPageProps> = ({
   if (date < dayPreview.dayIndex) {
     window.location.href = window.location.protocol + window.location.hostname;
   }
-  
+
   const [day, setDay] = useState<CalendarDay | null>(null);
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] = useState(false);
+  const [showCorrectFeedbackMessage, setShowCorrectFeedbackMessage] =
+    useState(false);
   const [inputMode, setInputMode] = useState<FormInputMode>("artist+song");
   const [isGuessing, setIsGuessing] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<SuccessResponse>();
-  const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(null);
+  const [wrongAnswerMessage, setWrongAnswerMessage] = useState<string | null>(
+    null,
+  );
   const [finishedDays, setFinishedDays] = useState<Array<number>>([]);
   const [showEndCredits, setShowEndCredits] = useState(true);
 
@@ -215,10 +229,16 @@ const DayPage: NextPage<DayPageProps> = ({
         <header className="mb-6 w-full">
           <h1 className="text-3xl text-blue-900">{title}</h1>
         </header>
-        {showCorrectFeedbackMessage && responseData?.correctness === 1 && day ? (
+        {showCorrectFeedbackMessage &&
+        responseData?.correctness === 1 &&
+        day ? (
           <>
-            <WinFeedback day={day} successfulAttempts={responseData.successfulAttempts} />
-            {(day.dayIndex === 24 || finishedDays.length === 24) && showEndCredits ? (
+            <WinFeedback
+              day={day}
+              successfulAttempts={responseData.successfulAttempts}
+            />
+            {(day.dayIndex === 24 || finishedDays.length === 24) &&
+            showEndCredits ? (
               <div
                 className={`${styles.day24} absolute inset-0 flex items-center justify-center bg-gray-900`}
               >
@@ -230,7 +250,9 @@ const DayPage: NextPage<DayPageProps> = ({
                     <br />
                     <br /> You did {getAdjective(finishedDays.length)}
                     <br /> You answered correct on{" "}
-                    <span className="text-lg">{finishedDays.length} out of 24 days</span>
+                    <span className="text-lg">
+                      {finishedDays.length} out of 24 days
+                    </span>
                     {finishedDays.length === 24 ? (
                       "!"
                     ) : (
@@ -249,13 +271,16 @@ const DayPage: NextPage<DayPageProps> = ({
                     <br /> and we will hopefully meet again next year!
                     <br /> This music quiz might become a regular thing,
                     <br /> so please follow along on{" "}
-                    <a className="underline" href="https://twitter.com/sindreboyum">
+                    <a
+                      className="underline"
+                      href="https://twitter.com/sindreboyum"
+                    >
                       Sindre&apos;s Twitter
                     </a>
                     <br /> for updates ✨
                   </p>
                   <button
-                    className="absolute top-2 right-2"
+                    className="absolute right-2 top-2"
                     type="button"
                     onClick={() => setShowEndCredits(false)}
                   >
@@ -293,9 +318,13 @@ const DayPage: NextPage<DayPageProps> = ({
               </button>
             </div>
             <div className="my-4 flex flex-col gap-2">
-              <h2 className="text-2xl font-semibold text-blue-900">What song might this be?</h2>
+              <h2 className="text-2xl font-semibold text-blue-900">
+                What song might this be?
+              </h2>
               <div className="my-4 flex flex-col">
-                <h3 className="text-md mb-2 text-blue-900">Choose how you want to answer:</h3>
+                <h3 className="text-md mb-2 text-blue-900">
+                  Choose how you want to answer:
+                </h3>
                 <label className="text-md text-blue-900">
                   <input
                     className="mr-1"
@@ -353,7 +382,9 @@ const DayPage: NextPage<DayPageProps> = ({
                   />
                 </label>
                 <label
-                  className={`mt-6 flex flex-col gap-2${inputMode === "spotify" ? "" : " hidden"}`}
+                  className={`mt-6 flex flex-col gap-2${
+                    inputMode === "spotify" ? "" : " hidden"
+                  }`}
                 >
                   <p className="text-md text-blue-900">Spotify url</p>
                   <input
@@ -368,11 +399,20 @@ const DayPage: NextPage<DayPageProps> = ({
                   className="mt-2 w-full rounded bg-blue-900 px-3 py-2 shadow"
                   onClick={answer}
                 >
-                  {isGuessing ? <LoadIcon className="mx-auto h-6 w-6" /> : <>Have a guess</>}
+                  {isGuessing ? (
+                    <LoadIcon className="mx-auto h-6 w-6" />
+                  ) : (
+                    <>Have a guess</>
+                  )}
                 </button>
                 {wrongAnswerMessage ? (
-                  <div className="text-md mt-4" data-test-id="incorrect-answer-message">
-                    <p className="text-md text-blue-900">{wrongAnswerMessage}</p>
+                  <div
+                    className="text-md mt-4"
+                    data-test-id="incorrect-answer-message"
+                  >
+                    <p className="text-md text-blue-900">
+                      {wrongAnswerMessage}
+                    </p>
                   </div>
                 ) : null}
               </form>
@@ -406,7 +446,9 @@ const DayPage: NextPage<DayPageProps> = ({
   );
 };
 
-export const getServerSideProps: GetServerSideProps<DayPageProps> = async context => {
+export const getServerSideProps: GetServerSideProps<
+  DayPageProps
+> = async context => {
   let dayIndexString = context.query.dayIndex;
   const date = new Date().getDate();
 
@@ -415,7 +457,9 @@ export const getServerSideProps: GetServerSideProps<DayPageProps> = async contex
   }
 
   if (Array.isArray(dayIndexString)) {
-    console.warn("Multiple day indeces found. Only one is supported. The first index is used.");
+    console.warn(
+      "Multiple day indeces found. Only one is supported. The first index is used.",
+    );
     dayIndexString = dayIndexString[0];
   }
 

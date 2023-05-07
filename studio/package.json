@@ -6,17 +6,17 @@
   "author": "Sanity <hello@sanity.io>",
   "scripts": {
     "dev": "sanity dev",
-    "format": "prettier-eslint --write \"**/*.js\" \"!node_modules/**\"",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
     "build": "sanity build",
     "graphql-deploy": "sanity graphql deploy --playground",
-    "lint": "eslint .",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "test": "sanity check"
   },
   "dependencies": {
     "@sanity/cli": "^3.10.0",
     "@sanity/client": "^6.0.1",
     "date-fns": "^2.30.0",
-    "eslint-config": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
@@ -25,15 +25,19 @@
   },
   "devDependencies": {
     "@sanity/types": "^3.10.0",
-    "babel-eslint": "^10.1.0",
+    "@typescript-eslint/parser": "^5.59.2",
     "eslint": "^8.40.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-standard": "^5.0.0",
-    "prettier-eslint-cli": "^7.1.0",
+    "prettier": "^2.8.8",
+    "prettier-config": "github:boyum/prettier-config",
     "typescript": "^5.0.4"
-  }
+  },
+  "prettier": "prettier-config"
 }
