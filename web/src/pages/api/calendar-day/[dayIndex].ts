@@ -57,16 +57,16 @@ const dayHandler: NextApiHandler<ResponseData> = async (
       }
 
       const correctness = await tryGuess(day, guess);
-      await postDayStats(dayIndex, correctness === 1, dayStats, guess);
+      const isCorrect = correctness === 1;
 
-      if (correctness === 1) {
-        response
-          .status(200)
-          .send({
-            correctness,
-            successfulAttempts: dayStats.successfulAttempts + 1,
-            day,
-          });
+      await postDayStats(dayIndex, isCorrect, dayStats, guess);
+
+      if (isCorrect) {
+        response.status(200).send({
+          correctness,
+          successfulAttempts: dayStats.successfulAttempts + 1,
+          day,
+        });
       } else {
         response.status(200).send({ correctness });
       }
