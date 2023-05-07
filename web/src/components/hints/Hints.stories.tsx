@@ -4,7 +4,6 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import { Hints } from "./Hints";
 
-// eslint-disable-next-line import/no-default-export
 export default {
   title: "Molecules/Hints",
   component: Hints,

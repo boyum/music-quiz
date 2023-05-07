@@ -1,8 +1,8 @@
 import ordinal from "ordinal";
-import { CalendarDay } from "../../types/CalendarDay";
+import { CalendarDayData } from "../../types/CalendarDayData";
 
 export type WinFeedbackProps = {
-  day: CalendarDay;
+  day: CalendarDayData;
   successfulAttempts: number;
 };
 

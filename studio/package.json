@@ -11,6 +11,7 @@
     "build": "sanity build",
     "graphql-deploy": "sanity graphql deploy --playground",
     "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint:fix": "npm run lint -- --fix",
     "test": "sanity check"
   },
   "dependencies": {

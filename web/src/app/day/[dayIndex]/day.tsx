@@ -1,72 +1,61 @@
+"use client";
+
 import { Cross2Icon } from "@radix-ui/react-icons";
-import type { GetServerSideProps, NextPage } from "next";
-import Head from "next/head";
 import Link from "next/link";
-import React, {
+import {
+  ChangeEvent,
+  FC,
   useCallback,
   useEffect,
-  useMemo,
   useRef,
   useState,
 } from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
-import {
-  adjectives,
-  animals,
-  colors,
-  uniqueNamesGenerator,
-} from "unique-names-generator";
-import { Hints } from "../../components/hints/Hints";
-import { LoadIcon, PauseIcon, PlayIcon } from "../../components/icons/Icons";
-import { WinFeedback } from "../../components/win-feedback/WinFeedback";
-import { CalendarDay } from "../../types/CalendarDay";
-import { CalendarDayPreview } from "../../types/CalendarDayPreview";
-import { FormInputMode } from "../../types/FormInputMode";
-import { Guess } from "../../types/Guess";
-import { SuccessResponse } from "../../types/ResponseData";
-import { randomElement } from "../../utils/array.utils";
-import { getCalendarDayPreview } from "../../utils/calendar-day.utils";
+import { Hints } from "../../../components/hints/Hints";
+import { LoadIcon, PauseIcon, PlayIcon } from "../../../components/icons/Icons";
+import { WinFeedback } from "../../../components/win-feedback/WinFeedback";
+import { CalendarDayData } from "../../../types/CalendarDayData";
+import { CalendarDayPreviewData } from "../../../types/CalendarDayPreviewData";
+import { FormInputMode } from "../../../types/FormInputMode";
+import { Guess } from "../../../types/Guess";
+import { SuccessResponse } from "../../../types/ResponseData";
+import { randomElement } from "../../../utils/array.utils";
 import {
   getLocalStorageFinishedDays,
   getLocalStorageInputMode,
   isInputMode,
   setLocalStorageFinishedDay,
   setLocalStorageInputMode,
-} from "../../utils/local-storage.utils";
+} from "../../../utils/local-storage.utils";
 import styles from "./day.module.scss";
-
-export type DayPageProps = {
-  dayPreview: CalendarDayPreview;
-  artistPlaceholder: string;
-  songTitlePlaceholder: string;
-  date: number;
-};
+import { EndCredits } from "./components/EndCredits/EndCredits";
 
 /** Messages which are cycled upon 0% correctness */
-const wrongAnswerMessages0: Readonly<Array<string>> = [
+const wrongAnswerMessages0 = [
   "Now you're just guessing!",
   "Are you sure you spelled it correctly?",
   "Keep guessing!",
-];
+] as const;
 
 /** Messages which are cycled upon 50% correctness */
-const wrongAnswerMessages50: Readonly<Array<string>> = [
+const wrongAnswerMessages50 = [
   "You're getting closer!",
   "Sorry, wrong answer. But I think you are close! Try again!",
-];
+] as const;
 
-const DayPage: NextPage<DayPageProps> = ({
-  dayPreview,
+type DayProps = {
+  dayPreviewData: CalendarDayPreviewData;
+  artistPlaceholder: string;
+  songTitlePlaceholder: string;
+};
+
+export const Day: FC<DayProps> = ({
+  dayPreviewData,
   artistPlaceholder,
   songTitlePlaceholder,
-  date,
-}: DayPageProps) => {
-  if (date < dayPreview.dayIndex) {
-    window.location.href = window.location.protocol + window.location.hostname;
-  }
-
-  const [day, setDay] = useState<CalendarDay | null>(null);
+}) => {
+  const [dayData, setDayData] = useState<CalendarDayData | null>(null);
   const [isPaused, setIsPaused] = useState(true);
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
@@ -123,12 +112,12 @@ const DayPage: NextPage<DayPageProps> = ({
     setIsGuessing(true);
 
     try {
-      const resData = (await (
-        await fetch(`/api/calendar-day/${dayPreview.dayIndex}`, {
+      const resData: SuccessResponse = await (
+        await fetch(`/api/calendar-day/${dayPreviewData.dayIndex}`, {
           method: "POST",
           body: JSON.stringify(guess),
         })
-      ).json()) as SuccessResponse;
+      ).json();
 
       setResponseData(resData);
 
@@ -137,13 +126,14 @@ const DayPage: NextPage<DayPageProps> = ({
           if (artistInputElement.current) {
             artistInputElement.current.value = "";
           }
+
           songTitleInputElement.current.value = "";
           spotifyInputElement.current.value = "";
           setShowConfetti(true);
           setShowCorrectFeedbackMessage(true);
-          setLocalStorageFinishedDay(dayPreview.dayIndex);
+          setLocalStorageFinishedDay(dayPreviewData.dayIndex);
           setFinishedDays(getLocalStorageFinishedDays());
-          setDay(resData.day);
+          setDayData(resData.day);
           break;
         }
 
@@ -162,12 +152,12 @@ const DayPage: NextPage<DayPageProps> = ({
     } finally {
       setIsGuessing(false);
     }
-  }, [dayPreview.dayIndex, inputMode]);
+  }, [dayPreviewData.dayIndex, inputMode]);
 
-  const title = `Day ${dayPreview.dayIndex}`;
+  const title = `Day ${dayPreviewData.dayIndex}`;
 
   const changeInputMode = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       const { value } = event.target;
 
       if (!isInputMode(value)) {
@@ -192,111 +182,45 @@ const DayPage: NextPage<DayPageProps> = ({
     setFinishedDays(getLocalStorageFinishedDays());
   }, []);
 
-  const getAdjective = (numberOfCorrect: number): string => {
-    if (numberOfCorrect < 6) {
-      return "not do so great, but we still love you.";
-    }
-
-    if (numberOfCorrect < 12) {
-      return "get quite a few correct!";
-    }
-
-    if (numberOfCorrect < 18) {
-      return "quite good!";
-    }
-
-    if (numberOfCorrect < 24) {
-      return "better than most!";
-    }
-
-    return "perfectly!!!";
-  };
-
-  const allDays = useMemo(
-    () =>
-      Array(24)
-        .fill(undefined)
-        .map((_, index) => index + 1),
-    [],
-  );
-
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
       <article className="flex min-h-screen flex-col items-center px-8 py-6 font-serif text-gray-100">
         <header className="mb-6 w-full">
           <h1 className="text-3xl text-blue-900">{title}</h1>
         </header>
         {showCorrectFeedbackMessage &&
         responseData?.correctness === 1 &&
-        day ? (
+        dayData ? (
           <>
             <WinFeedback
-              day={day}
+              day={dayData}
               successfulAttempts={responseData.successfulAttempts}
             />
-            {(day.dayIndex === 24 || finishedDays.length === 24) &&
-            showEndCredits ? (
-              <div
-                className={`${styles.day24} absolute inset-0 flex items-center justify-center bg-gray-900`}
-              >
-                <div className="relative px-10 py-4 text-center">
-                  <h2 className="mb-8 text-4xl">That&apos;s all Folks!</h2>
-                  <p>
-                    Thank you for participating in this year&apos;s
-                    <br /> music quiz advent calendar!
-                    <br />
-                    <br /> You did {getAdjective(finishedDays.length)}
-                    <br /> You answered correct on{" "}
-                    <span className="text-lg">
-                      {finishedDays.length} out of 24 days
-                    </span>
-                    {finishedDays.length === 24 ? (
-                      "!"
-                    ) : (
-                      <>
-                        ,
-                        <br /> but fear not! You can still go back
-                        <br /> and try your luck on the remaining days.
-                      </>
-                    )}
-                    <br />
-                    <br /> It has been a thrill creating this website,
-                    <br /> recording the pieces and
-                    <br /> seeing you all answer hilariously wrong 🎵
-                    <br />
-                    <br /> We wish you a 🎄merry Christmas and happy holidays 🎄
-                    <br /> and we will hopefully meet again next year!
-                    <br /> This music quiz might become a regular thing,
-                    <br /> so please follow along on{" "}
-                    <a
-                      className="underline"
-                      href="https://twitter.com/sindreboyum"
+            {(dayData.dayIndex === 24 || finishedDays.length === 24) &&
+              showEndCredits && (
+                <div
+                  className={`${styles.day24} absolute inset-0 flex items-center justify-center bg-gray-900`}
+                >
+                  <div className="relative px-10 py-4 text-center">
+                    <EndCredits finishedDays={finishedDays} />
+                    <button
+                      className="absolute right-2 top-2"
+                      type="button"
+                      onClick={() => setShowEndCredits(false)}
                     >
-                      Sindre&apos;s Twitter
-                    </a>
-                    <br /> for updates ✨
-                  </p>
-                  <button
-                    className="absolute right-2 top-2"
-                    type="button"
-                    onClick={() => setShowEndCredits(false)}
-                  >
-                    <span className="sr-only">Close end credits</span>
-                    <Cross2Icon width={22} height={22} />
-                  </button>
+                      <span className="sr-only">Close end credits</span>
+                      <Cross2Icon width={22} height={22} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ) : null}
+              )}
           </>
         ) : (
           <div className="mb-16 w-full max-w-sm grow">
             <audio
               ref={audioElement}
               className="sr-only"
-              src={dayPreview.audioTrackUrl}
+              src={dayPreviewData.audioTrackUrl}
               controls
               preload="metadata"
               onChange={togglePlayPause}
@@ -325,9 +249,8 @@ const DayPage: NextPage<DayPageProps> = ({
                 <h3 className="text-md mb-2 text-blue-900">
                   Choose how you want to answer:
                 </h3>
-                <label className="text-md text-blue-900">
+                <label className="text-md flex gap-2 text-blue-900 ">
                   <input
-                    className="mr-1"
                     name="input-mode"
                     type="radio"
                     checked={inputMode === "artist+song"}
@@ -336,9 +259,8 @@ const DayPage: NextPage<DayPageProps> = ({
                   />{" "}
                   Artist + song
                 </label>
-                <label className="text-md text-blue-900">
+                <label className="text-md flex gap-2 text-blue-900">
                   <input
-                    className="mr-1"
                     name="input-mode"
                     type="radio"
                     checked={inputMode !== "artist+song"}
@@ -349,7 +271,7 @@ const DayPage: NextPage<DayPageProps> = ({
                 </label>
               </div>
               <form onSubmit={event => event.preventDefault()}>
-                {dayPreview.hasArtists ? (
+                {dayPreviewData.hasArtists ? (
                   <label
                     className={`mt-6 flex flex-col gap-2${
                       inputMode === "artist+song" ? "" : " hidden"
@@ -418,10 +340,10 @@ const DayPage: NextPage<DayPageProps> = ({
               </form>
             </div>
 
-            {dayPreview.hints ? (
+            {dayPreviewData.hints ? (
               <>
                 <h2 className="mb-4 mt-16 text-2xl text-blue-900">Hints:</h2>
-                <Hints hints={dayPreview.hints} />
+                <Hints hints={dayPreviewData.hints} />
               </>
             ) : null}
           </div>
@@ -445,62 +367,3 @@ const DayPage: NextPage<DayPageProps> = ({
     </>
   );
 };
-
-export const getServerSideProps: GetServerSideProps<
-  DayPageProps
-> = async context => {
-  let dayIndexString = context.query.dayIndex;
-  const date = new Date().getDate();
-
-  if (!dayIndexString) {
-    throw new Error("No question id");
-  }
-
-  if (Array.isArray(dayIndexString)) {
-    console.warn(
-      "Multiple day indeces found. Only one is supported. The first index is used.",
-    );
-    dayIndexString = dayIndexString[0];
-  }
-
-  const dayIndex = Number.parseInt(dayIndexString);
-  if (Number.isNaN(dayIndex)) {
-    throw new Error(`Invalid day index '${dayIndexString}'`);
-  }
-
-  const day = await getCalendarDayPreview(dayIndex);
-  const questionWasNotFound = !day;
-  if (questionWasNotFound) {
-    return {
-      redirect: {
-        destination: "/",
-        permanent: false,
-      },
-    };
-  }
-
-  const songTitlePlaceholder = uniqueNamesGenerator({
-    dictionaries: [adjectives, animals],
-    style: "capital",
-    separator: " ",
-  });
-
-  const artistPlaceholder = uniqueNamesGenerator({
-    dictionaries: [adjectives, colors],
-    style: "capital",
-    separator: " ",
-    length: 2,
-  });
-
-  return {
-    props: {
-      dayPreview: day,
-      artistPlaceholder,
-      songTitlePlaceholder,
-      date,
-    },
-  };
-};
-
-// eslint-disable-next-line import/no-default-export
-export default DayPage;

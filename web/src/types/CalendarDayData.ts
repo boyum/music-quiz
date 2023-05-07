@@ -1,4 +1,4 @@
-export type CalendarDay = {
+export type CalendarDayData = {
   id: string;
   dayIndex: number;
   audioTrackUrl: string;

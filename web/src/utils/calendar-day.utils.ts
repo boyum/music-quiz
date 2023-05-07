@@ -1,7 +1,7 @@
 import groq from "groq";
 import leven from "leven";
-import { CalendarDay } from "../types/CalendarDay";
-import { CalendarDayPreview } from "../types/CalendarDayPreview";
+import { CalendarDayData } from "../types/CalendarDayData";
+import { CalendarDayPreviewData } from "../types/CalendarDayPreviewData";
 import { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
 import { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
 import { Guess, isSpotifyGuess } from "../types/Guess";
@@ -17,7 +17,7 @@ const mapCalendarDayDTOToCalendarDay = ({
   artists,
   spotifyIds,
   playedBy,
-}: CalendarDayDTO): CalendarDay => ({
+}: CalendarDayDTO): CalendarDayData => ({
   id: _id,
   dayIndex,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
@@ -34,7 +34,7 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
   audioTrack,
   hints,
   artists,
-}: CalendarDayPreviewDTO): CalendarDayPreview => ({
+}: CalendarDayPreviewDTO): CalendarDayPreviewData => ({
   id: _id,
   dayIndex,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
@@ -44,7 +44,7 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
 
 export const getCalendarDay = async (
   dayIndex: number,
-): Promise<CalendarDay | null> => {
+): Promise<CalendarDayData | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
   const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
@@ -79,7 +79,7 @@ export const getCalendarDay = async (
 
 export const getCalendarDayPreview = async (
   dayIndex: number,
-): Promise<CalendarDayPreview | null> => {
+): Promise<CalendarDayPreviewData | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
   const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
@@ -132,7 +132,7 @@ export const getTrackIdFromUri = (uri: string) => {
 };
 
 export async function tryGuess(
-  day: CalendarDay,
+  day: CalendarDayData,
   guess: Guess,
 ): Promise<0 | 0.5 | 1> {
   let correctness = 0;
