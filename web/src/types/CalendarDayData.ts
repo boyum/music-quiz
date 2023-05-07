@@ -1,5 +1,5 @@
-export type CalendarDay = {
-  id: string;
+export type CalendarDayData = {
+id: string;
   dayIndex: number;
   audioTrackUrl: string;
   hints: Array<string> | null;

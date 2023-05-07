@@ -2,7 +2,6 @@
 import { Meta, StoryFn } from "@storybook/react";
 import { AdventCalendar } from "./AdventCalendar";
 
-// eslint-disable-next-line import/no-default-export
 export default {
   title: "Molecules/AdventCalendar",
   component: AdventCalendar,

@@ -11,5 +11,4 @@ const config: Config.InitialOptions = {
   roots: ["src/e2e"],
 };
 
-// eslint-disable-next-line import/no-default-export
 export default config;

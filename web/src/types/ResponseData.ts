@@ -1,4 +1,4 @@
-import { CalendarDay } from "./CalendarDay";
+import { CalendarDayData } from "./CalendarDayData";
 import { CalendarDayStats } from "./CalendarDayStats";
 import { ErrorResponse } from "./ErrorResponse";
 
@@ -9,7 +9,7 @@ export type SuccessResponse =
   | {
       correctness: 1;
       successfulAttempts: number;
-      day: CalendarDay;
+      day: CalendarDayData;
     };
 
 export type ResponseData =
