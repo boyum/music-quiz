@@ -182,10 +182,6 @@ export const Day: FC<DayProps> = ({
     setFinishedDays(getLocalStorageFinishedDays());
   }, []);
 
-  useEffect(() => {
-    console.log({inputMode})
-  })
-
   return (
     <>
       <article className="flex min-h-screen flex-col items-center px-8 py-6 font-serif text-gray-100">
