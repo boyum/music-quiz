@@ -5,11 +5,12 @@
   "scripts": {
     "build": "lerna run build --parallel",
     "dev": "lerna run dev --parallel",
-    "format:check": "lerna run format:check",
-    "format:fix": "lerna run format:fix",
+    "format:check": "lerna run format:check --parallel",
+    "format:fix": "lerna run format:fix --parallel",
     "build-studio": "lerna bootstrap && cd studio && npm run build",
     "build-web": "cross-env NODE_ENV=production && lerna bootstrap && cd web && npm run build",
-    "lint": "lerna run lint",
+    "lint": "lerna run lint --parallel",
+    "lint:fix": "lerna run lint:fix --parallel",
     "postinstall": "lerna bootstrap",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
