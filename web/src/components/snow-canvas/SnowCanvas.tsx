@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
 import { Snowflake } from "../../types/Snowflake";
 
@@ -57,7 +59,7 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
 
     const ctx = canvas.current.getContext("2d");
     if (!ctx) {
-      throw new Error("Failed  to get canvas context");
+      throw new Error("Failed to get canvas context");
     }
 
     const noSnowflakes = snowflakes.current.length === 0;
@@ -76,15 +78,19 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
     }
   }, [isRunning, windowHeight, windowWidth]);
 
-  useEffect(() => {
-    const resize = () => {
-      setWindowWidth(window.innerWidth);
-      setWindowHeight(window.innerHeight);
-    };
+  const resize = () => {
+    setWindowWidth(window.innerWidth);
+    setWindowHeight(window.innerHeight);
+  };
 
+  useEffect(() => {
     resize();
 
     window.addEventListener("resize", resize);
+
+    return () => {
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   return (

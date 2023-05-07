@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren } from "react";
 import "tailwindcss/tailwind.css";
 import { Footer } from "../components/footer/Footer";
+import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
@@ -28,7 +29,19 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         <script dangerouslySetInnerHTML={{ __html: tagManagerScript }}></script>
       </head>
       <body className="bg-blue-200">
-        {children}
+        <noscript>
+          <iframe
+            src="https://www.googletagmanager.com/ns.html?id=GTM-WLD4SPB"
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          ></iframe>
+        </noscript>
+
+        <SnowCanvas />
+
+        <div className="relative z-10">{children}</div>
+
         <Footer />
       </body>
     </html>
