@@ -8,42 +8,10 @@ import {
 import { getCalendarDayPreview } from "../../../utils/calendar-day.utils";
 import { Day } from "./day";
 
-// /** Messages which are cycled upon 0% correctness */
-// const wrongAnswerMessages0 = [
-//   "Now you're just guessing!",
-//   "Are you sure you spelled it correctly?",
-//   "Keep guessing!",
-// ] as const;
-
-// /** Messages which are cycled upon 50% correctness */
-// const wrongAnswerMessages50 = [
-//   "You're getting closer!",
-//   "Sorry, wrong answer. But I think you are close! Try again!",
-// ] as const;
-
-// const getAdjective = (numberOfCorrect: number): string => {
-//   if (numberOfCorrect < 6) {
-//     return "not do so great, but we still love you.";
-//   }
-
-//   if (numberOfCorrect < 12) {
-//     return "get quite a few correct!";
-//   }
-
-//   if (numberOfCorrect < 18) {
-//     return "quite good!";
-//   }
-
-//   if (numberOfCorrect < 24) {
-//     return "better than most!";
-//   }
-
-//   return "perfectly!!!";
-// };
-
 type DayPageParams = {
   dayIndex: string;
 };
+
 type DayPageProps = {
   params: DayPageParams;
 };
