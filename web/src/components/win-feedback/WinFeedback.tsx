@@ -6,15 +6,25 @@ export type WinFeedbackProps = {
   successfulAttempts: number;
 };
 
-export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempts }) => {
+export const WinFeedback: React.FC<WinFeedbackProps> = ({
+  day,
+  successfulAttempts,
+}) => {
   return (
-    <div className="w-full max-w-sm grow py-20" data-test-id="correct-answer-message">
-      <h2 className="text-4xl text-blue-900">Congratulations, you are correct!</h2>
+    <div
+      className="w-full max-w-sm grow py-20"
+      data-test-id="correct-answer-message"
+    >
+      <h2 className="text-4xl text-blue-900">
+        Congratulations, you are correct!
+      </h2>
       <p className="text-md my-10 text-blue-900">
         The song was:
         <div className="mt-2">
           <span className="text-xl underline">{day.songTitles[0]}</span>
-          {day.artists ? <span className="text-xl underline"> by {day.artists[0]}</span> : null}
+          {day.artists ? (
+            <span className="text-xl underline"> by {day.artists[0]}</span>
+          ) : null}
           {day.playedBy ? <>, and was played by {day.playedBy}</> : null}.
         </div>
         <iframe
@@ -29,16 +39,19 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({ day, successfulAttempt
       </p>
 
       <p className="mt-8 text-xl text-blue-900">
-        You were the <span className="underline">{ordinal(successfulAttempts)}</span> person to
-        guess it right!
+        You were the{" "}
+        <span className="underline">{ordinal(successfulAttempts)}</span> person
+        to guess it right!
       </p>
 
       {day.dayIndex < 24 ? (
-        <p className="mt-2 text-xl text-blue-900">Get ready for a new task tomorrow 🎁</p>
+        <p className="mt-2 text-xl text-blue-900">
+          Get ready for a new task tomorrow 🎁
+        </p>
       ) : (
         <p className="mt-2 text-xl text-blue-900">
-          Sadly there won&apos;t be a new piece tomorrow, but we&apos;ll see eachother again next
-          year ✨
+          Sadly there won&apos;t be a new piece tomorrow, but we&apos;ll see
+          eachother again next year ✨
         </p>
       )}
     </div>

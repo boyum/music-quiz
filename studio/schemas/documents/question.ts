@@ -1,9 +1,8 @@
-
 import { StringSchemaType } from "@sanity/types";
 import { getClient } from "../../utils/client.utils";
 
 const name = "question";
-console.log("hei")
+console.log("hei");
 const client = getClient();
 console.log(2);
 

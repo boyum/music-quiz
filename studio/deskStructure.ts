@@ -11,7 +11,12 @@ export default () =>
       S.listItem()
         .title("Settings")
         .icon(MdSettings)
-        .child(S.editor().id("siteSettings").schemaType("siteSettings").documentId("siteSettings")),
+        .child(
+          S.editor()
+            .id("siteSettings")
+            .schemaType("siteSettings")
+            .documentId("siteSettings"),
+        ),
       S.listItem()
         .title("Questions")
         .icon(MdAudiotrack)

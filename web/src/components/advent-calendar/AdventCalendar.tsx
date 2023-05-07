@@ -1,5 +1,5 @@
-import shuffle from 'shuffle-seed';
-import { CalendarDoor } from '../calendar-door/CalendarDoor';
+import shuffle from "shuffle-seed";
+import { CalendarDoor } from "../calendar-door/CalendarDoor";
 
 export type AdventCalendarProps = {
   finishedDays: Array<number>;
@@ -18,7 +18,7 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
       isUnlocked: date > index,
     }));
 
-  days = shuffle.shuffle(days, '🎄🎄🎄');
+  days = shuffle.shuffle(days, "🎄🎄🎄");
 
   return (
     <>

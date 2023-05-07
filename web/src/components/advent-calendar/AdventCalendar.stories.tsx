@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from "react";
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import { Meta, StoryFn } from "@storybook/react";
 import { AdventCalendar } from "./AdventCalendar";
 
 // eslint-disable-next-line import/no-default-export
@@ -9,9 +7,14 @@ export default {
   title: "Molecules/AdventCalendar",
   component: AdventCalendar,
   args: {},
-} as ComponentMeta<typeof AdventCalendar>;
+} satisfies Meta<typeof AdventCalendar>;
 
-const Template: ComponentStory<typeof AdventCalendar> = args => <AdventCalendar {...args} />;
+const Template: StoryFn<typeof AdventCalendar> = args => (
+  <AdventCalendar {...args} />
+);
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  finishedDays: [1, 2, 3, 4],
+  date: new Date("2000-12-16").getTime(),
+};

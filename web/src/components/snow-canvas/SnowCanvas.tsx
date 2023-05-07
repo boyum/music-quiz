@@ -3,13 +3,20 @@ import { Snowflake } from "../../types/Snowflake";
 
 export type SnowCanvasProps = {};
 
-const update = (canvasWidth: number, canvasHeight: number, snowflakes: Array<Snowflake>): void => {
+const update = (
+  canvasWidth: number,
+  canvasHeight: number,
+  snowflakes: Array<Snowflake>,
+): void => {
   for (const snowflake of snowflakes) {
     snowflake.update(canvasWidth, canvasHeight);
   }
 };
 
-const draw = (context: CanvasRenderingContext2D, snowflakes: Array<Snowflake>): void => {
+const draw = (
+  context: CanvasRenderingContext2D,
+  snowflakes: Array<Snowflake>,
+): void => {
   for (const snowflake of snowflakes) {
     snowflake.draw(context);
   }
@@ -25,7 +32,9 @@ const tick = (
   update(canvasWidth, canvasHeight, snowflakes);
   draw(context, snowflakes);
 
-  window.requestAnimationFrame(() => tick(context, canvasWidth, canvasHeight, snowflakes));
+  window.requestAnimationFrame(() =>
+    tick(context, canvasWidth, canvasHeight, snowflakes),
+  );
 };
 
 export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {

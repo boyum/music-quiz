@@ -13,7 +13,9 @@ const MusicQuiz: React.FC<AppProps> = ({ Component, pageProps }) => {
         <>
           {/* eslint-disable-next-line @next/next/no-sync-scripts */}
           <script src="https://www.googletagmanager.com/gtag/js?id=G-GGY21QWYBC"></script>
-          <script dangerouslySetInnerHTML={{ __html: tagManagerScript }}></script>
+          <script
+            dangerouslySetInnerHTML={{ __html: tagManagerScript }}
+          ></script>
         </>
       </Head>
 

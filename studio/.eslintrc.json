@@ -1,0 +1,10 @@
+{
+  "extends": ["standard", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "settings": {
+    "react": {
+      "pragma": "React",
+      "version": "18.2.0"
+    }
+  }
+}

@@ -19,7 +19,8 @@ if (!admin.apps.length) {
         private_key: process.env.FIREBASE_PRIVATE_KEY,
       },
     ),
-    databaseURL: "https://music-quiz-e2298-default-rtdb.europe-west1.firebasedatabase.app",
+    databaseURL:
+      "https://music-quiz-e2298-default-rtdb.europe-west1.firebasedatabase.app",
   });
 }
 

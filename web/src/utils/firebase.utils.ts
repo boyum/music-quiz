@@ -3,9 +3,13 @@ import { CalendarDayStats } from "../types/CalendarDayStats";
 import { ErrorResponse } from "../types/ErrorResponse";
 import { Guess } from "../types/Guess";
 
-const CALENDAR_DAY_COLLECTION = `calendar-day-${process.env.SANITY_DATASET ?? "test"}`;
+const CALENDAR_DAY_COLLECTION = `calendar-day-${
+  process.env.SANITY_DATASET ?? "test"
+}`;
 
-export async function getDayStats(dayIndex: number): Promise<CalendarDayStats | ErrorResponse> {
+export async function getDayStats(
+  dayIndex: number,
+): Promise<CalendarDayStats | ErrorResponse> {
   const document = await firebase
     .collection(CALENDAR_DAY_COLLECTION)
     .doc(dayIndex.toString())
@@ -35,7 +39,10 @@ export async function postDayStats(
     successfulAttempts: day.successfulAttempts + (isCorrect ? 1 : 0),
   };
 
-  await firebase.collection(CALENDAR_DAY_COLLECTION).doc(dayIndex.toString()).set({
-    day: updatedDay,
-  });
+  await firebase
+    .collection(CALENDAR_DAY_COLLECTION)
+    .doc(dayIndex.toString())
+    .set({
+      day: updatedDay,
+    });
 }
