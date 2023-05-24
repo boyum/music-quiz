@@ -25,7 +25,7 @@
     "styled-components": "^5.3.10"
   },
   "devDependencies": {
-    "@sanity/types": "^3.10.3",
+    "@sanity/types": "^3.11.1",
     "@typescript-eslint/parser": "^5.59.7",
     "eslint": "^8.40.0",
     "eslint-config": "^0.3.0",
