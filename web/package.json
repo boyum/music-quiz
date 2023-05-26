@@ -41,7 +41,7 @@
     "prettier": "^2.8.8",
     "prettier-config": "github:boyum/prettier-config",
     "prettier-plugin-tailwindcss": "^0.3.0",
-    "puppeteer": "^20.3.0",
+    "puppeteer": "^20.4.0",
     "puppeteer-core": "^20.4.0",
     "sass": "^1.62.1",
     "storybook": "^7.0.17",
