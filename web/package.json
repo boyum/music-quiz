@@ -16,7 +16,7 @@
     "format:fix": "prettier --write ."
   },
   "devDependencies": {
-    "@babel/core": "^7.22.5",
+    "@babel/core": "^7.22.6",
     "@sanity/types": "^3.12.2",
     "@storybook/addon-essentials": "^7.0.25",
     "@storybook/addon-links": "^7.0.25",
