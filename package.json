@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "lerna": "^7.1.1",
-    "postcss": "^8.4.24"
+    "postcss": "^8.4.25"
   },
   "workspaces": [
     "studio",
