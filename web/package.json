@@ -40,7 +40,7 @@
     "postcss": "^8.4.25",
     "prettier": "^3.0.0",
     "prettier-config": "github:boyum/prettier-config",
-    "prettier-plugin-tailwindcss": "^0.3.0",
+    "prettier-plugin-tailwindcss": "^0.4.0",
     "puppeteer": "^20.8.1",
     "puppeteer-core": "^20.8.1",
     "sass": "^1.63.6",
