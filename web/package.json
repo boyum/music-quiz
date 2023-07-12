@@ -57,7 +57,7 @@
     "@sanity/image-url": "^1.0.2",
     "firebase": "^10.0.0",
     "firebase-admin": "^11.9.0",
-    "groq": "^3.14.1",
+    "groq": "^3.14.2",
     "leven": "^4.0.0",
     "next": "^13.4.9",
     "ordinal": "^1.0.3",
