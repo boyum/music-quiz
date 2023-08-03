@@ -22,7 +22,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
     "sanity": "^3.14.4",
-    "styled-components": "5"
+    "styled-components": "6.0.6"
   },
   "devDependencies": {
     "@sanity/types": "^3.14.4",
