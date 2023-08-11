@@ -13,17 +13,17 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/cli": "^3.14.5",
-    "@sanity/client": "^6.4.4",
+    "@sanity/cli": "^3.15.1",
+    "@sanity/client": "^6.4.5",
     "date-fns": "^2.30.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
-    "sanity": "^3.14.5",
+    "sanity": "^3.15.1",
     "styled-components": "5"
   },
   "devDependencies": {
-    "@sanity/types": "^3.14.5",
+    "@sanity/types": "^3.15.1",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.46.0",
     "eslint-config": "^0.3.0",
