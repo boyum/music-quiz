@@ -6,8 +6,6 @@
   "author": "Sanity <hello@sanity.io>",
   "scripts": {
     "dev": "sanity dev",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write .",
     "build": "sanity build",
     "graphql-deploy": "sanity graphql deploy --playground",
     "lint": "eslint . --ext .js,.ts,.tsx",
@@ -36,9 +34,6 @@
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.33.1",
     "eslint-plugin-standard": "^5.0.0",
-    "prettier": "^3.0.1",
-    "prettier-config": "github:boyum/prettier-config",
     "typescript": "^5.1.6"
-  },
-  "prettier": "prettier-config"
+  }
 }

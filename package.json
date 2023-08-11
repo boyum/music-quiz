@@ -3,22 +3,23 @@
   "name": "music-quiz",
   "version": "1.0.0",
   "scripts": {
-    "build": "lerna run build --parallel",
-    "dev": "lerna run dev --parallel",
-    "format:check": "lerna run format:check --parallel",
-    "format:fix": "lerna run format:fix --parallel",
-    "build-studio": "lerna bootstrap && cd studio && npm run build",
-    "build-web": "cross-env NODE_ENV=production && lerna bootstrap && cd web && npm run build",
-    "lint": "lerna run lint --parallel",
-    "lint:fix": "lerna run lint:fix --parallel",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "build-studio": "cd studio && npm run build",
+    "build-web": "cross-env NODE_ENV=production && cd web && npm run build",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix"
   },
   "devDependencies": {
-    "lerna": "^7.1.4",
-    "postcss": "^8.4.27"
+    "prettier": "^3.0.1",
+    "prettier-config": "github:boyum/prettier-config",
+    "turbo": "^1.10.12"
   },
   "workspaces": [
     "studio",
     "web"
-  ]
+  ],
+  "prettier": "prettier-config"
 }
