@@ -27,7 +27,7 @@
     "@types/puppeteer": "^7.0.4",
     "@types/react": "18.2.20",
     "@types/shuffle-seed": "^1.1.0",
-    "autoprefixer": "^10.4.14",
+    "autoprefixer": "^10.4.15",
     "cross-env": "^7.0.3",
     "css-loader": "^6.8.1",
     "eslint": "8.47.0",
