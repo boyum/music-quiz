@@ -23,7 +23,7 @@
     "styled-components": "5"
   },
   "devDependencies": {
-    "@sanity/types": "^3.15.1",
+    "@sanity/types": "^3.16.2",
     "@typescript-eslint/parser": "^6.5.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
