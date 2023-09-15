@@ -9,6 +9,17 @@ updates:
         patterns:
           - ^@storybook/.*
           - ^storybook$
+      sanity:
+        patterns:
+          - ^@sanity/.*
+          - ^groq$
+          - ^sanity$
+      puppeteer:
+        patterns:
+          - ^@types/jest-environment-puppeteer$
+          - ^@types/puppeteer$
+          - ^puppeteer-core$
+          - ^puppeteer$
 
   - package-ecosystem: github-actions
     directory: /
