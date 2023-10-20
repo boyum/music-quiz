@@ -15,7 +15,7 @@
   "devDependencies": {
     "prettier": "^3.0.3",
     "prettier-config": "github:boyum/prettier-config",
-    "turbo": "^1.10.15"
+    "turbo": "^1.10.16"
   },
   "workspaces": [
     "studio",
