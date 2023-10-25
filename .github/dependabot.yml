@@ -7,11 +7,11 @@ updates:
     groups:
       storybook:
         patterns:
-          - ^@storybook/.*
+          - ^@storybook/*
           - ^storybook$
       sanity:
         patterns:
-          - ^@sanity/.*
+          - ^@sanity/*
           - ^groq$
           - ^sanity$
       puppeteer:
