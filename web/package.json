@@ -14,7 +14,7 @@
     "ci-test:e2e": "jest --config jest.config.e2e.ts --coverage"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.2",
+    "@babel/core": "^7.23.3",
     "@sanity/types": "^3.19.1",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
