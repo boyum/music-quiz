@@ -13,7 +13,7 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/cli": "^3.19.2",
+    "@sanity/cli": "^3.19.3",
     "@sanity/client": "^6.8.6",
     "date-fns": "^2.30.0",
     "react": "^18.2.0",

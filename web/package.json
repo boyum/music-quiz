@@ -38,7 +38,7 @@
     "postcss": "^8.4.31",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "puppeteer": "^21.5.2",
-    "puppeteer-core": "^21.4.1",
+    "puppeteer-core": "^21.5.2",
     "sass": "^1.69.5",
     "storybook": "^7.5.3",
     "tailwindcss": "^3.3.5",
@@ -55,13 +55,12 @@
     "firebase-admin": "^11.11.0",
     "groq": "^3.19.3",
     "leven": "^4.0.0",
-    "next": "^14.0.1",
+    "next": "^14.0.2",
     "ordinal": "^1.0.3",
     "react": "18.2.0",
     "react-confetti": "^6.1.0",
     "react-dom": "18.2.0",
     "react-use": "^17.4.0",
-    "shuffle-seed": "^1.1.6",
     "unique-names-generator": "^4.7.1"
   }
 }
