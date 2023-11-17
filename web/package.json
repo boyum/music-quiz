@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.23.3",
-    "@sanity/types": "^3.19.3",
+    "@sanity/types": "^3.20.0",
     "@storybook/addon-essentials": "^7.5.3",
     "@storybook/addon-links": "^7.5.3",
     "@storybook/addon-postcss": "^2.0.0",
