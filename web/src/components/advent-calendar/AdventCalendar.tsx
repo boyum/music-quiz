@@ -2,11 +2,13 @@ import { CalendarDoor } from "../calendar-door/CalendarDoor";
 
 export type AdventCalendarProps = {
   finishedDays: Array<number>;
+  month: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
   date: number;
 };
 
 export const AdventCalendar: React.FC<AdventCalendarProps> = ({
   finishedDays,
+  month,
   date,
 }) => {
   const dayIndeces = [
@@ -14,10 +16,12 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
     22, 1, 20,
   ];
 
+  const isNovember = month === 10;
+
   const days = dayIndeces.map(index => ({
     index: index + 1,
     isFinished: finishedDays.includes(index + 1),
-    isUnlocked: date > index,
+    isUnlocked: date > index && !isNovember,
   }));
 
   return (
