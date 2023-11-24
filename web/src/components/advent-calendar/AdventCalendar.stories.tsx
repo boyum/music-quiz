@@ -15,5 +15,6 @@ const Template: StoryFn<typeof AdventCalendar> = args => (
 export const Primary = Template.bind({});
 Primary.args = {
   finishedDays: [1, 2, 3, 4],
+  month: 11,
   date: new Date("2000-12-16").getTime(),
 };

@@ -31,9 +31,10 @@ export default async function DayPage({
   }
 
   const date = new Date();
+  const isNovember = new Date().getMonth() === 10;
   const isDecember = date.getMonth() === 11;
   const todaysDate = date.getDate();
-  const dayIsLocked = isDecember && dayIndex > todaysDate;
+  const dayIsLocked = isNovember || (isDecember && dayIndex > todaysDate);
   if (dayIsLocked) {
     notFound();
   }
