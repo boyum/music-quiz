@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import { HomePage } from "./home-page";
 
 export const dynamic = "force-dynamic";
+export const runtime = "edge";
 
 const Home: NextPage = () => {
   const today = new Date();
