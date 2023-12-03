@@ -16,6 +16,8 @@ type DayPageProps = {
   params: DayPageParams;
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function DayPage({
   params,
 }: DayPageProps): Promise<JSX.Element | null> {
