@@ -38,7 +38,7 @@
     "postcss": "^8.4.32",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "puppeteer": "^21.5.2",
-    "puppeteer-core": "^21.5.2",
+    "puppeteer-core": "^21.6.0",
     "sass": "^1.69.5",
     "storybook": "^7.6.3",
     "tailwindcss": "^3.3.6",
