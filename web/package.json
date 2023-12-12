@@ -19,7 +19,7 @@
     "@storybook/addon-essentials": "^7.6.4",
     "@storybook/addon-links": "^7.6.4",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/nextjs": "^7.6.3",
+    "@storybook/nextjs": "^7.6.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/jest": "^29.5.11",
     "@types/jest-environment-puppeteer": "^5.0.6",
