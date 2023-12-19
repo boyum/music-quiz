@@ -1,17 +1,34 @@
 {
   "name": "web",
-  "private": true,
   "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "build-storybook": "storybook build",
+    "ci-test:e2e": "jest --config jest.config.e2e.ts --coverage",
+    "dev": "next dev",
     "lint": "next lint",
     "lint:fix": "next lint -- --fix",
+    "start": "next start",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "test:e2e": "jest --watch --config jest.config.e2e.ts",
-    "ci-test:e2e": "jest --config jest.config.e2e.ts --coverage"
+    "test:e2e": "jest --watch --config jest.config.e2e.ts"
+  },
+  "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
+    "@sanity/asset-utils": "^1.3.0",
+    "@sanity/client": "^6.10.0",
+    "@sanity/image-url": "^1.0.2",
+    "firebase": "^10.7.1",
+    "firebase-admin": "^12.0.0",
+    "groq": "^3.21.3",
+    "leven": "^4.0.0",
+    "next": "^14.0.4",
+    "ordinal": "^1.0.3",
+    "react": "18.2.0",
+    "react-confetti": "^6.1.0",
+    "react-dom": "18.2.0",
+    "react-use": "^17.4.2",
+    "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
@@ -45,22 +62,5 @@
     "ts-jest": "^29.1.1",
     "ts-node": "^10.9.2",
     "typescript": "5.3.3"
-  },
-  "dependencies": {
-    "@radix-ui/react-icons": "^1.3.0",
-    "@sanity/asset-utils": "^1.3.0",
-    "@sanity/client": "^6.10.0",
-    "@sanity/image-url": "^1.0.2",
-    "firebase": "^10.7.1",
-    "firebase-admin": "^12.0.0",
-    "groq": "^3.21.3",
-    "leven": "^4.0.0",
-    "next": "^14.0.4",
-    "ordinal": "^1.0.3",
-    "react": "18.2.0",
-    "react-confetti": "^6.1.0",
-    "react-dom": "18.2.0",
-    "react-use": "^17.4.2",
-    "unique-names-generator": "^4.7.1"
   }
 }

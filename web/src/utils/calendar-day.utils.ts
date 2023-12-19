@@ -2,9 +2,9 @@ import groq from "groq";
 import leven from "leven";
 import { CalendarDayData } from "../types/CalendarDayData";
 import { CalendarDayPreviewData } from "../types/CalendarDayPreviewData";
+import { Guess, isSpotifyGuess } from "../types/Guess";
 import { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
 import { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
-import { Guess, isSpotifyGuess } from "../types/Guess";
 import { getSanityFile } from "./image-url";
 import { sanityClient } from "./sanity-client";
 
@@ -135,7 +135,7 @@ export async function tryGuess(
   day: CalendarDayData,
   guess: Guess,
 ): Promise<0 | 0.5 | 1> {
-  let correctness = 0;
+  let correctness: 0 | 0.5 | 1 = 0;
 
   if (isSpotifyGuess(guess)) {
     const spotifyGuess = guess.spotify ?? "";
@@ -184,5 +184,5 @@ export async function tryGuess(
     correctness += isCorrectArtist ? 0.5 : 0;
   }
 
-  return <0 | 0.5 | 1>correctness;
+  return correctness as 0 | 0.5 | 1;
 }
