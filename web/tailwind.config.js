@@ -1,5 +1,4 @@
 // @ts-check
-
 import aspectRatioPlugin from "@tailwindcss/aspect-ratio";
 
 /** @type {import("tailwindcss").Config} */
