@@ -1,7 +1,9 @@
 // @ts-check
 
+import aspectRatioPlugin from "@tailwindcss/aspect-ratio";
+
 /** @type {import("tailwindcss").Config} */
-module.exports = {
+const config = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx}",
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -12,5 +14,7 @@ module.exports = {
       serif: ["Lora", "ui-serif", "Georgia", "Cambria", "serif"],
     },
   },
-  plugins: [require("@tailwindcss/aspect-ratio")],
+  plugins: [aspectRatioPlugin],
 };
+
+export default config;
