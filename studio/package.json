@@ -3,6 +3,7 @@
   "version": "1.0.12",
   "private": true,
   "author": "Sanity <hello@sanity.io>",
+  "type": "module",
   "main": "package.json",
   "scripts": {
     "build": "sanity build",
