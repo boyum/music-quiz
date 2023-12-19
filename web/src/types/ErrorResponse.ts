@@ -7,5 +7,5 @@ export type ErrorResponse = {
 export const isError = (
   value: CalendarDayStats | ErrorResponse,
 ): value is ErrorResponse => {
-  return (<ErrorResponse>value).error !== undefined;
+  return "error" in value;
 };

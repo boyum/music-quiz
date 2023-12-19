@@ -28,8 +28,8 @@ import {
   setLocalStorageFinishedDay,
   setLocalStorageInputMode,
 } from "../../../utils/local-storage.utils";
-import styles from "./day.module.scss";
 import { EndCredits } from "./components/EndCredits/EndCredits";
+import styles from "./day.module.scss";
 
 /** Messages which are cycled upon 0% correctness */
 const wrongAnswerMessages0 = [

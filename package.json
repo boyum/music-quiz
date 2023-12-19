@@ -1,25 +1,25 @@
 {
-  "private": true,
   "name": "music-quiz",
   "version": "1.0.0",
-  "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "format:check": "prettier --check .",
-    "format:fix": "prettier --write .",
-    "build-studio": "cd studio && npm run build",
-    "build-web": "cross-env NODE_ENV=production && cd web && npm run build",
-    "lint": "turbo run lint",
-    "lint:fix": "turbo run lint:fix"
-  },
-  "devDependencies": {
-    "prettier": "^3.1.1",
-    "prettier-config": "github:boyum/prettier-config",
-    "turbo": "^1.11.2"
-  },
+  "private": true,
   "workspaces": [
     "studio",
     "web"
   ],
-  "prettier": "prettier-config"
+  "scripts": {
+    "build": "turbo run build",
+    "build-studio": "cd studio && npm run build",
+    "build-web": "cross-env NODE_ENV=production && cd web && npm run build",
+    "dev": "turbo run dev",
+    "format:check": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix"
+  },
+  "prettier": "prettier-config",
+  "devDependencies": {
+    "prettier": "^3.1.1",
+    "prettier-config": "github:boyum/prettier-config",
+    "turbo": "^1.11.2"
+  }
 }

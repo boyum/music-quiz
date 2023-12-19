@@ -1,12 +1,12 @@
 {
-  "private": true,
   "name": "music-quiz-studio",
   "version": "1.0.12",
-  "main": "package.json",
+  "private": true,
   "author": "Sanity <hello@sanity.io>",
+  "main": "package.json",
   "scripts": {
-    "dev": "sanity dev",
     "build": "sanity build",
+    "dev": "sanity dev",
     "graphql-deploy": "sanity graphql deploy --playground",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "lint:fix": "npm run lint -- --fix",

@@ -10,5 +10,5 @@ export type SongTitleGuess = {
 export type Guess = SpotifyGuess | SongTitleGuess;
 
 export const isSpotifyGuess = (guess: Guess): guess is SpotifyGuess => {
-  return (<SpotifyGuess>guess).spotify !== undefined;
+  return "spotify" in guess;
 };

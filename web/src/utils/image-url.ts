@@ -1,7 +1,7 @@
-import imageUrl from "@sanity/image-url";
 import { getFile } from "@sanity/asset-utils";
-import { sanityClient } from "./sanity-client";
+import imageUrl from "@sanity/image-url";
 import { sanity as sanityConfig } from "../../client-config";
+import { sanityClient } from "./sanity-client";
 
 // Learn more: https://www.sanity.io/docs/asset-pipeline/image-urls
 export function getImageUrl(source: string) {

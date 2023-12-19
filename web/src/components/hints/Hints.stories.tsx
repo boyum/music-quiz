@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import * as React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import * as React from "react";
 import { Hints } from "./Hints";
 
 export default {
