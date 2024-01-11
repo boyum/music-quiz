@@ -14,13 +14,13 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/cli": "^3.23.4",
-    "@sanity/client": "^6.11.0",
+    "@sanity/cli": "^3.24.1",
+    "@sanity/client": "^6.11.1",
     "date-fns": "^3.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.0.0",
-    "sanity": "^3.23.4",
+    "sanity": "^3.24.1",
     "styled-components": "6"
   },
   "devDependencies": {
