@@ -39,7 +39,7 @@
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/nextjs": "^7.6.12",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@types/jest": "^29.5.11",
+    "@types/jest": "^29.5.12",
     "@types/jest-environment-puppeteer": "^5.0.6",
     "@types/node": "20.11.15",
     "@types/puppeteer": "^7.0.4",
