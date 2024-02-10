@@ -2,10 +2,10 @@
   "include": [
     "./node_modules/@sanity/base/types/**/*.ts",
     "./**/*.ts",
-    "./**/*.tsx",
+    "./**/*.tsx"
   ],
   "compilerOptions": {
     "jsx": "react",
-    "resolveJsonModule": true,
-  },
+    "resolveJsonModule": true
+  }
 }
