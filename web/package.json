@@ -23,7 +23,7 @@
     "firebase-admin": "^12.0.0",
     "groq": "^3.30.1",
     "leven": "^4.0.0",
-    "next": "^14.1.1",
+    "next": "^14.1.2",
     "ordinal": "^1.0.3",
     "react": "18.2.0",
     "react-confetti": "^6.1.0",
