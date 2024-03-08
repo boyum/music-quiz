@@ -21,6 +21,6 @@
   "devDependencies": {
     "prettier": "^3.2.5",
     "prettier-config": "github:boyum/prettier-config",
-    "turbo": "^1.12.4"
+    "turbo": "^1.12.5"
   }
 }
