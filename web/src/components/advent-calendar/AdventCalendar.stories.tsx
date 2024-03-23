@@ -1,5 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { Meta, StoryFn } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 import { AdventCalendar } from "./AdventCalendar";
 
 export default {
@@ -8,13 +7,12 @@ export default {
   args: {},
 } satisfies Meta<typeof AdventCalendar>;
 
-const Template: StoryFn<typeof AdventCalendar> = args => (
-  <AdventCalendar {...args} />
-);
+type Story = StoryObj<typeof AdventCalendar>;
 
-export const Primary = Template.bind({});
-Primary.args = {
-  finishedDays: [1, 2, 3, 4],
-  month: 11,
-  date: new Date("2000-12-16").getTime(),
+export const Primary: Story = {
+  args: {
+    finishedDays: [1, 2, 3, 4],
+    month: 11,
+    date: new Date("2000-12-16").getTime(),
+  },
 };
