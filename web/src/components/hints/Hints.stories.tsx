@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import { ComponentStory, ComponentMeta } from "@storybook/react";
-import * as React from "react";
+import { Meta, StoryObj } from "@storybook/react";
 import { Hints } from "./Hints";
 
 export default {
@@ -13,9 +11,10 @@ export default {
       "Let's have a nice tree right here. It just happens - whether or not you worried about it or tried to plan it.",
     ],
   },
-} as ComponentMeta<typeof Hints>;
+} satisfies Meta<typeof Hints>;
 
-const Template: ComponentStory<typeof Hints> = args => <Hints {...args} />;
+type Story = StoryObj<typeof Hints>;
 
-export const Primary = Template.bind({});
-Primary.args = {};
+export const Primary: Story = {
+  args: {},
+};
