@@ -1,5 +1,4 @@
 import { FC, PropsWithChildren } from "react";
-import "tailwindcss/tailwind.css";
 import { Footer } from "../components/footer/Footer";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
