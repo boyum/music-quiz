@@ -7,7 +7,7 @@ export default {
     getAbsolutePath("@storybook/addon-links"),
     getAbsolutePath("@storybook/addon-essentials"),
     "@storybook/addon-styling-webpack",
-    "@storybook/addon-themes"
+    "@storybook/addon-themes",
   ],
   framework: {
     name: "@storybook/nextjs",
