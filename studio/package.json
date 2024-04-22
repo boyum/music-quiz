@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@sanity/cli": "^3.38.0",
-    "@sanity/client": "^6.15.17",
+    "@sanity/client": "^6.15.19",
     "date-fns": "^3.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
