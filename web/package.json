@@ -32,7 +32,7 @@
     "unique-names-generator": "^4.7.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
+    "@babel/core": "^7.24.7",
     "@sanity/types": "^3.35.2",
     "@storybook/addon-essentials": "^8.1.10",
     "@storybook/addon-links": "^8.1.10",
