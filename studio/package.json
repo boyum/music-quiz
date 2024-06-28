@@ -14,18 +14,18 @@
     "test": "sanity check"
   },
   "dependencies": {
-    "@sanity/cli": "^3.47.1",
-    "@sanity/client": "^6.18.1",
+    "@sanity/cli": "^3.48.1",
+    "@sanity/client": "^6.20.1",
     "date-fns": "^3.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
-    "sanity": "^3.47.1",
-    "styled-components": "6"
+    "sanity": "^3.48.1",
+    "styled-components": "^6.1.11"
   },
   "devDependencies": {
-    "@sanity/types": "^3.35.2",
-    "@typescript-eslint/parser": "^7.10.0",
+    "@sanity/types": "^3.48.1",
+    "@typescript-eslint/parser": "^7.14.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
@@ -33,6 +33,6 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.2.0",
     "eslint-plugin-react": "^7.34.3",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   }
 }
