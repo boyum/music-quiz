@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { FC, PropsWithChildren } from "react";
 import { Footer } from "../components/footer/Footer";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
@@ -19,12 +20,12 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Lora&display=swap"
           rel="stylesheet"
         />
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="https://www.googletagmanager.com/gtag/js?id=G-GGY21QWYBC"></script>
+        <GoogleAnalytics gaId="G-GGY21QWYBC" />
         <script dangerouslySetInnerHTML={{ __html: tagManagerScript }}></script>
       </head>
       <body className="bg-blue-200">
