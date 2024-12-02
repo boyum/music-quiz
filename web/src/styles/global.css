@@ -5,6 +5,7 @@ html {
   --hatch-color-1: #4986ca;
   --hatch-color-2: #93c5fd;
   --hatch-color-3: #6ca8ec;
+  --hatch-color-4: hsl(212, 77%, 80%);
 }
 
 .text-shadow {
@@ -20,6 +21,7 @@ html {
 }
 
 .hatch-locked {
+  background-color: var(--hatch-color-4);
   pointer-events: none;
 }
 

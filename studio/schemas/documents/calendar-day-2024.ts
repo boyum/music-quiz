@@ -1,7 +1,7 @@
 import { StringSchemaType } from "@sanity/types";
 import { getClient } from "../../utils/client.utils";
 
-const name = "calendar-day";
+const name = "calendar-day-2024";
 const client = getClient();
 
 const getNextQuestionIndex = async () => {
@@ -11,7 +11,7 @@ const getNextQuestionIndex = async () => {
   return (numberOfExistingQuestions + 1).toString();
 };
 
-export const calendarDay: StringSchemaType = {
+export const calendarDay2024: StringSchemaType = {
   title: "Calendar day",
   name,
   // @ts-expect-error `'document'` is a valid type

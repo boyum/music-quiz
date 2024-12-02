@@ -42,11 +42,13 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
   hasArtists: artists && artists.length > 0 ? true : false,
 });
 
+const calendarDaySchemaId = "calendar-day-2024";
+
 export const getCalendarDay = async (
   dayIndex: number,
 ): Promise<CalendarDayData | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
-  const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
+  const filter = groq`*[_type == "${calendarDaySchemaId}" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
     _id,
     audioTrack,
@@ -81,7 +83,7 @@ export const getCalendarDayPreview = async (
   dayIndex: number,
 ): Promise<CalendarDayPreviewData | null> => {
   // Learn more: https://www.sanity.io/docs/data-store/how-queries-work
-  const filter = groq`*[_type == "calendar-day" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
+  const filter = groq`*[_type == "${calendarDaySchemaId}" && publishedAt < now() && dayIndex == ${dayIndex}][0]`;
   const projection = groq`{
     _id,
     audioTrack,
