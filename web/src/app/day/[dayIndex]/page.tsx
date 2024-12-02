@@ -62,13 +62,11 @@ export default async function DayPage({
   });
 
   return (
-    <>
-      <Day
-        dayPreviewData={dayPreview}
-        artistPlaceholder={artistPlaceholder}
-        songTitlePlaceholder={songTitlePlaceholder}
-      />
-    </>
+    <Day
+      dayPreviewData={dayPreview}
+      artistPlaceholder={artistPlaceholder}
+      songTitlePlaceholder={songTitlePlaceholder}
+    />
   );
 }
 
