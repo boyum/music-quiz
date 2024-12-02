@@ -29,7 +29,10 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({
         </div>
         <iframe
           className="mt-8 block w-full"
-          src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`}
+          src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`.replaceAll(
+            "https://open.spotify.com/embed/track/https://open.spotify.com/embed/track",
+            "https://open.spotify.com/embed/track",
+          )}
           width="300"
           height="80"
           frameBorder="0"
