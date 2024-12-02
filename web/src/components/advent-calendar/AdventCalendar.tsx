@@ -28,11 +28,9 @@ export const AdventCalendar: React.FC<AdventCalendarProps> = ({
     <>
       <div className="min-h-screen p-6">
         <h1 className="mb-4 mt-4 text-center text-3xl text-blue-900 md:mb-10 md:mt-6 md:text-5xl lg:mb-12 lg:mt-16 xl:text-6xl">
-          🎄 Jingle Bell Rock 🎄
+          🎄 Jingle Bell Rock 2024 🎄
         </h1>
-        <p className="mb-8 text-center text-xl text-blue-900">
-          Can you guess them all?
-        </p>
+
         <div className="mx-auto grid max-w-5xl grid-cols-3 gap-2 sm:grid-cols-4 sm:gap-4 lg:grid-cols-6">
           {days.map(({ index, isFinished, isUnlocked }) => (
             <CalendarDoor

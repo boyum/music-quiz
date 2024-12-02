@@ -22,9 +22,15 @@ export default () =>
         .icon(MdAudiotrack)
         .child(S.documentTypeList("question").title("Questions")),
       S.listItem()
-        .title("Advent calendar")
+        .title("Advent calendar 2021")
         .icon(MdAudiotrack)
         .child(S.documentTypeList("calendar-day").title("Advent calendar")),
+      S.listItem()
+        .title("Advent calendar 2024")
+        .icon(MdAudiotrack)
+        .child(
+          S.documentTypeList("calendar-day-2024").title("Advent calendar"),
+        ),
       // This returns an array of all the document types
       // defined in schema.js. We filter out those that we have
       // defined the structure above

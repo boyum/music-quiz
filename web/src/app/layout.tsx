@@ -1,5 +1,5 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from "react";
 import { Footer } from "../components/footer/Footer";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
@@ -26,7 +26,8 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           rel="stylesheet"
         />
         <GoogleAnalytics gaId="G-GGY21QWYBC" />
-        <script dangerouslySetInnerHTML={{ __html: tagManagerScript }}></script>
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: It's easier to work with GTM as a native script */}
+        <script dangerouslySetInnerHTML={{ __html: tagManagerScript }} />
       </head>
       <body className="bg-blue-200">
         <noscript>
@@ -35,7 +36,8 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
             height="0"
             width="0"
             style={{ display: "none", visibility: "hidden" }}
-          ></iframe>
+            title="GTM"
+          />
         </noscript>
 
         <SnowCanvas />
