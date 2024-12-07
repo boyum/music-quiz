@@ -2,9 +2,7 @@ import { StringSchemaType } from "@sanity/types";
 import { getClient } from "../../utils/client.utils";
 
 const name = "question";
-console.log("hei");
 const client = getClient();
-console.log(2);
 
 const getNextQuestionIndex = async () => {
   const query = `count(*[_type=="${name}"]{_id})`;
