@@ -9,7 +9,7 @@
     "ci-test:e2e": "jest --config jest.config.e2e.ts --coverage",
     "dev": "next dev",
     "lint": "next lint",
-    "lint:fix": "next lint -- --fix",
+    "lint:fix": "next lint --fix",
     "start": "next start",
     "storybook": "storybook dev -p 6006",
     "test:e2e": "jest --watch --config jest.config.e2e.ts"
