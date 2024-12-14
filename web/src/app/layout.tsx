@@ -1,4 +1,5 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { Analytics } from "@vercel/analytics/next";
 import type { FC, PropsWithChildren } from "react";
 import { Footer } from "../components/footer/Footer";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
@@ -45,6 +46,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         <div className="relative z-10">{children}</div>
 
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
