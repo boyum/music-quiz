@@ -3,6 +3,8 @@ import type { FC, PropsWithChildren } from "react";
 import { Footer } from "../components/footer/Footer";
 import { SnowCanvas } from "../components/snow-canvas/SnowCanvas";
 import "../styles/global.css";
+import { Analytics } from "@vercel/analytics/next"
+
 
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   const tagManagerScript = `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-WLD4SPB');`;
@@ -45,6 +47,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         <div className="relative z-10">{children}</div>
 
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
