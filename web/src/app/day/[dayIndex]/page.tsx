@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import type { JSX } from "react";
 import {
   adjectives,
   animals,
@@ -7,8 +8,6 @@ import {
 } from "unique-names-generator";
 import { getCalendarDayPreview } from "../../../utils/calendar-day.utils";
 import { Day } from "./day";
-
-import type { JSX } from "react";
 
 type DayPageParams = {
   dayIndex: string;
@@ -21,7 +20,9 @@ type DayPageProps = {
 export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
-export default async function DayPage(props: DayPageProps): Promise<JSX.Element | null> {
+export default async function DayPage(
+  props: DayPageProps,
+): Promise<JSX.Element | null> {
   const params = await props.params;
   const dayIndexString = params.dayIndex;
 
