@@ -1,4 +1,4 @@
-import { FormInputMode } from "../types/FormInputMode";
+import type { FormInputMode } from "../types/FormInputMode";
 
 const INPUT_MODE_KEY = "input-mode";
 const FINISHED_DAYS_KEY = "finished-days";
@@ -10,11 +10,11 @@ export const isInputMode = (mode: string | null): mode is FormInputMode => {
 };
 
 export const setLocalStorageInputMode = (value: FormInputMode): void => {
-  window.localStorage.setItem(INPUT_MODE_KEY, value);
+  window.localStorage?.setItem(INPUT_MODE_KEY, value);
 };
 
-export const getLocalStorageInputMode = (): FormInputMode => {
-  const inputMode = window.localStorage.getItem(INPUT_MODE_KEY);
+export const getLocalStorageInputMode = (): FormInputMode => {  
+  const inputMode = window.localStorage?.getItem(INPUT_MODE_KEY);
 
   if (!isInputMode(inputMode)) {
     return fallbackInputMode;

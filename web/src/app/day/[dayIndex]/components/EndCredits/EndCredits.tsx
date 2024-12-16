@@ -1,6 +1,6 @@
 "use server";
 
-import { FC } from "react";
+import type { FC } from "react";
 
 type EndCreditsProps = {
   finishedDays: number[];
