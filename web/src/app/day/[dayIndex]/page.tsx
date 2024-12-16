@@ -8,6 +8,8 @@ import {
 import { getCalendarDayPreview } from "../../../utils/calendar-day.utils";
 import { Day } from "./day";
 
+import type { JSX } from "react";
+
 type DayPageParams = {
   dayIndex: string;
 };
@@ -19,9 +21,8 @@ type DayPageProps = {
 export const dynamic = "force-dynamic";
 export const runtime = "edge";
 
-export default async function DayPage({
-  params,
-}: DayPageProps): Promise<JSX.Element | null> {
+export default async function DayPage(props: DayPageProps): Promise<JSX.Element | null> {
+  const params = await props.params;
   const dayIndexString = params.dayIndex;
 
   if (!dayIndexString) {
@@ -70,7 +71,8 @@ export default async function DayPage({
   );
 }
 
-export async function generateMetadata({ params }: DayPageProps) {
+export async function generateMetadata(props: DayPageProps) {
+  const params = await props.params;
   return {
     title: `Day ${params.dayIndex} | Guess what song this is!`,
   };
