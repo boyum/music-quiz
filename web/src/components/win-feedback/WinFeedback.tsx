@@ -1,5 +1,5 @@
 import ordinal from "ordinal";
-import { CalendarDayData } from "../../types/CalendarDayData";
+import type { CalendarDayData } from "../../types/CalendarDayData";
 
 export type WinFeedbackProps = {
   day: CalendarDayData;
@@ -27,18 +27,21 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({
           ) : null}
           {day.playedBy ? <>, and was played by {day.playedBy}</> : null}.
         </div>
-        <iframe
-          className="mt-8 block w-full"
-          src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`.replaceAll(
-            "https://open.spotify.com/embed/track/https://open.spotify.com/embed/track",
-            "https://open.spotify.com/embed/track",
-          )}
-          width="300"
-          height="80"
-          frameBorder="0"
-          allowTransparency={true}
-          allow="encrypted-media"
-        ></iframe>
+        {day.spotifyIds.length > 0 && (
+          <iframe
+            className="mt-8 block w-full"
+            src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`.replaceAll(
+              "https://open.spotify.com/embed/track/https://open.spotify.com/embed/track",
+              "https://open.spotify.com/embed/track",
+            )}
+            width="300"
+            height="80"
+            frameBorder="0"
+            allowTransparency={true}
+            allow="encrypted-media"
+            title={day.songTitles[0]}
+          />
+        )}
       </p>
 
       <p className="mt-8 text-xl text-blue-900">
