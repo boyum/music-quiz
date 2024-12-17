@@ -1,8 +1,13 @@
 import type { NextApiHandler } from "next";
 import { isError } from "../../../types/ErrorResponse";
-import { Guess } from "../../../types/Guess";
+import { Guess, isSpotifyGuess } from "../../../types/Guess";
 import { ResponseData } from "../../../types/ResponseData";
-import { getCalendarDay, tryGuess } from "../../../utils/calendar-day.utils";
+import {
+  getCalendarDay,
+  getInvalidSpotifyUriErrorMessage,
+  getInvalidSpotifyUrlErrorMessage,
+  tryGuess,
+} from "../../../utils/calendar-day.utils";
 import { getDayStats, postDayStats } from "../../../utils/firebase.utils";
 
 const dayHandler: NextApiHandler<ResponseData> = async (
@@ -56,7 +61,16 @@ const dayHandler: NextApiHandler<ResponseData> = async (
         return;
       }
 
-      const correctness = await tryGuess(day, guess);
+      let correctness: 0 | 0.5 | 1;
+
+      try {
+        correctness = await tryGuess(day, guess);
+      } catch (exception: unknown) {
+        correctness = 0;
+
+        console.error(exception);
+      }
+
       const isCorrect = correctness === 1;
 
       await postDayStats(dayIndex, isCorrect, dayStats, guess);
@@ -68,7 +82,12 @@ const dayHandler: NextApiHandler<ResponseData> = async (
           day,
         });
       } else {
-        response.status(200).send({ correctness });
+        response.status(200).send(
+          // @ts-expect-error `correctness` is either 0 or 0.5 here
+          {
+            correctness,
+          },
+        );
       }
 
       break;

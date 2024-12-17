@@ -8,6 +8,12 @@ import type { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
 import { getSanityFile } from "./image-url";
 import { sanityClient } from "./sanity-client";
 
+export const getInvalidSpotifyUrlErrorMessage = (url: string) =>
+  `'${url}' is not a valid Spotify url`;
+
+export const getInvalidSpotifyUriErrorMessage = (uri: string) =>
+  `'${uri}' is not a valid Spotify uri`;
+
 const mapCalendarDayDTOToCalendarDay = ({
   _id,
   dayIndex,
@@ -114,19 +120,20 @@ export const getCalendarDayPreview = async (
 const getTrackIdFromUrl = (url: string) => {
   const isSpotifyUri = url.startsWith("https://open.spotify.com/track");
   if (!isSpotifyUri) {
-    throw new Error(`'${url}' is not a valid Spotify url`);
+    return null;
   }
 
   const trackId = url
     .replace("https://open.spotify.com/track/", "")
     .split("?")[0];
+
   return trackId;
 };
 
 const getTrackIdFromUri = (uri: string) => {
   const isSpotifyUri = uri.startsWith("spotify:track");
   if (!isSpotifyUri) {
-    throw new Error(`'${uri}' is not a valid Spotify uri`);
+    return null;
   }
 
   const trackId = uri.replace("spotify:track:", "");
@@ -142,16 +149,20 @@ export async function tryGuess(
   if (isSpotifyGuess(guess)) {
     const spotifyGuess = guess.spotify ?? "";
     const normalizedSpotifyGuess = spotifyGuess.trim();
-    const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith("https://");
+    const answerIsSpotifyUrl = normalizedSpotifyGuess.startsWith(
+      "https://open.spotify.com",
+    );
     const answerIsSpotifyUri =
       normalizedSpotifyGuess.startsWith("spotify:track:");
 
     if (answerIsSpotifyUrl) {
       const trackId = getTrackIdFromUrl(normalizedSpotifyGuess);
-      correctness = day.spotifyIds?.includes(trackId) ? 1 : 0;
+      correctness =
+        trackId != null && day.spotifyIds?.includes(trackId) ? 1 : 0;
     } else if (answerIsSpotifyUri) {
       const trackId = getTrackIdFromUri(normalizedSpotifyGuess);
-      correctness = day.spotifyIds?.includes(trackId) ? 1 : 0;
+      correctness =
+        trackId != null && day.spotifyIds?.includes(trackId) ? 1 : 0;
     } else {
       console.error(`Invalid Spotify guess '${spotifyGuess}'`);
       correctness = 0;
