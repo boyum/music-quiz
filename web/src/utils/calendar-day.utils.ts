@@ -111,7 +111,7 @@ export const getCalendarDayPreview = async (
   return question;
 };
 
-export const getTrackIdFromUrl = (url: string) => {
+const getTrackIdFromUrl = (url: string) => {
   const isSpotifyUri = url.startsWith("https://open.spotify.com/track");
   if (!isSpotifyUri) {
     throw new Error(`'${url}' is not a valid Spotify url`);
@@ -123,7 +123,7 @@ export const getTrackIdFromUrl = (url: string) => {
   return trackId;
 };
 
-export const getTrackIdFromUri = (uri: string) => {
+const getTrackIdFromUri = (uri: string) => {
   const isSpotifyUri = uri.startsWith("spotify:track");
   if (!isSpotifyUri) {
     throw new Error(`'${uri}' is not a valid Spotify uri`);
