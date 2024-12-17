@@ -24,7 +24,7 @@ export const getLocalStorageInputMode = (): FormInputMode => {
 };
 
 export const getLocalStorageFinishedDays = (): Array<number> => {
-  const finishedDaysString = window.localStorage.getItem(FINISHED_DAYS_KEY);
+  const finishedDaysString = window.localStorage?.getItem(FINISHED_DAYS_KEY);
 
   if (!finishedDaysString) {
     return [];
