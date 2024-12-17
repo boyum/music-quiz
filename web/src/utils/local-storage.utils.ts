@@ -13,7 +13,7 @@ export const setLocalStorageInputMode = (value: FormInputMode): void => {
   window.localStorage?.setItem(INPUT_MODE_KEY, value);
 };
 
-export const getLocalStorageInputMode = (): FormInputMode => {  
+export const getLocalStorageInputMode = (): FormInputMode => {
   const inputMode = window.localStorage?.getItem(INPUT_MODE_KEY);
 
   if (!isInputMode(inputMode)) {
