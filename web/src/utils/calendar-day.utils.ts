@@ -1,10 +1,10 @@
 import groq from "groq";
 import leven from "leven";
-import { CalendarDayData } from "../types/CalendarDayData";
-import { CalendarDayPreviewData } from "../types/CalendarDayPreviewData";
-import { Guess, isSpotifyGuess } from "../types/Guess";
-import { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
-import { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
+import type { CalendarDayData } from "../types/CalendarDayData";
+import type { CalendarDayPreviewData } from "../types/CalendarDayPreviewData";
+import { type Guess, isSpotifyGuess } from "../types/Guess";
+import type { CalendarDayDTO } from "../types/dto/CalendarDayDTO";
+import type { CalendarDayPreviewDTO } from "../types/dto/CalendarDayPreviewDTO";
 import { getSanityFile } from "./image-url";
 import { sanityClient } from "./sanity-client";
 
@@ -39,7 +39,7 @@ const mapCalendarDayPreviewDTOToCalendarDayPreview = ({
   dayIndex,
   audioTrackUrl: getSanityFile(audioTrack.asset._ref),
   hints: hints ?? null,
-  hasArtists: artists && artists.length > 0 ? true : false,
+  hasArtists: !!(artists && artists.length > 0),
 });
 
 const calendarDaySchemaId = "calendar-day-2024";
@@ -59,10 +59,10 @@ export const getCalendarDay = async (
     spotifyIds,
     playedBy,
   }`;
-  const order = `| order(dayIndex asc)`;
+  const order = "| order(dayIndex asc)";
   const query = [filter, projection, order].join(" ");
 
-  let questionDTO;
+  let questionDTO: CalendarDayDTO;
   try {
     questionDTO = await sanityClient.fetch<CalendarDayDTO>(query);
   } catch (error) {
@@ -91,10 +91,10 @@ export const getCalendarDayPreview = async (
     hints,
     artists,
   }`;
-  const order = `| order(dayIndex asc)`;
+  const order = "| order(dayIndex asc)";
   const query = [filter, projection, order].join(" ");
 
-  let questionDTO;
+  let questionDTO: CalendarDayPreviewDTO;
   try {
     questionDTO = await sanityClient.fetch<CalendarDayPreviewDTO>(query);
   } catch (error) {
@@ -148,10 +148,10 @@ export async function tryGuess(
 
     if (answerIsSpotifyUrl) {
       const trackId = getTrackIdFromUrl(normalizedSpotifyGuess);
-      correctness = day.spotifyIds.includes(trackId) ? 1 : 0;
+      correctness = day.spotifyIds?.includes(trackId) ? 1 : 0;
     } else if (answerIsSpotifyUri) {
       const trackId = getTrackIdFromUri(normalizedSpotifyGuess);
-      correctness = day.spotifyIds.includes(trackId) ? 1 : 0;
+      correctness = day.spotifyIds?.includes(trackId) ? 1 : 0;
     } else {
       console.error(`Invalid Spotify guess '${spotifyGuess}'`);
       correctness = 0;

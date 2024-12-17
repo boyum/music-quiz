@@ -27,7 +27,7 @@ export const WinFeedback: React.FC<WinFeedbackProps> = ({
           ) : null}
           {day.playedBy ? <>, and was played by {day.playedBy}</> : null}.
         </div>
-        {day.spotifyIds.length > 0 && (
+        {day.spotifyIds && day.spotifyIds.length > 0 && (
           <iframe
             className="mt-8 block w-full"
             src={`https://open.spotify.com/embed/track/${day.spotifyIds[0]}`.replaceAll(
