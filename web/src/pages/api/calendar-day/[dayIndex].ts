@@ -75,19 +75,16 @@ const dayHandler: NextApiHandler<ResponseData> = async (
 
       await postDayStats(dayIndex, isCorrect, dayStats, guess);
 
-      if (isCorrect) {
+      if (correctness === 1) {
         response.status(200).send({
           correctness,
           successfulAttempts: dayStats.successfulAttempts + 1,
           day,
         });
       } else {
-        response.status(200).send(
-          // @ts-expect-error `correctness` is either 0 or 0.5 here
-          {
-            correctness,
-          },
-        );
+        response.status(200).send({
+          correctness,
+        });
       }
 
       break;
