@@ -257,7 +257,7 @@ export const Day: FC<DayProps> = ({
                     value="artist+song"
                     onChange={changeInputMode}
                   />{" "}
-                  Artist + song
+                  {dayPreviewData.hasArtists ? "Artist + song" : "Song"}
                 </label>
                 <label className="text-md flex gap-2 text-blue-900">
                   <input
