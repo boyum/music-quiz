@@ -26,7 +26,7 @@ const getAdjective = (numberOfCorrect: number): string => {
   return "perfectly!!!";
 };
 
-export const EndCredits: FC<EndCreditsProps> = ({ finishedDays }) => {
+export const EndCredits: FC<EndCreditsProps> = async ({ finishedDays }) => {
   return (
     <>
       <h2 className="mb-8 text-4xl">That&apos;s all Folks!</h2>
