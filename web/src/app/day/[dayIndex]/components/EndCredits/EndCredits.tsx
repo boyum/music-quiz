@@ -26,7 +26,7 @@ const getAdjective = (numberOfCorrect: number): string => {
   return "perfectly!!!";
 };
 
-export const EndCredits: FC<EndCreditsProps> = ({ finishedDays }) => {
+export const EndCredits: FC<EndCreditsProps> = async ({ finishedDays }) => {
   return (
     <>
       <h2 className="mb-8 text-4xl">That&apos;s all Folks!</h2>
@@ -51,14 +51,12 @@ export const EndCredits: FC<EndCreditsProps> = ({ finishedDays }) => {
         <br /> recording the pieces and
         <br /> seeing you all answer hilariously wrong 🎵
         <br />
+        <br /> A special thanks goes out Janne Merete, Mats,
+        <br /> Sondre and Nicolai who helped out by creating
+        <br /> some of the questions and recordings 😍
+        <br />
         <br /> We wish you a 🎄merry Christmas and happy holidays 🎄
         <br /> and we will hopefully meet again next year!
-        <br /> This music quiz might become a regular thing,
-        <br /> so please follow along on{" "}
-        <a className="underline" href="https://twitter.com/sindreboyum">
-          Sindre&apos;s Twitter
-        </a>
-        <br /> for updates ✨
       </p>
     </>
   );
