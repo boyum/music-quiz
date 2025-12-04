@@ -41,3 +41,8 @@ html {
   right: 16px;
   top: 16px;
 }
+
+.text-blue-900 {
+  /* Yeah I know, but I didn't feel like setting the color everywhere */
+  color: lch(60.34 50.58 285.8 / 1) !important;
+}
