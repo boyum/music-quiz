@@ -23,7 +23,7 @@ export const CalendarDoor: FC<CalendarDoorProps> = ({
           isUnlocked
             ? "hatch-unlocked text-shadow-unlocked shadow-lg"
             : "hatch-locked shadow-inner"
-        } flex items-center justify-center rounded-lg text-3xl font-bold text-white transition duration-150 ease-in-out hover:bg-blue-900 focus:bg-blue-900 xl:text-4xl`}
+        } flex items-center justify-center rounded-lg text-3xl font-bold text-white transition duration-150 ease-in-out xl:text-4xl`}
         href={`/day/${index}`}
         tabIndex={index}
       >

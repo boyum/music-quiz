@@ -4,8 +4,10 @@ html {
   font-family: "Lora", serif;
   --hatch-color-1: #4986ca;
   --hatch-color-2: #93c5fd;
-  --hatch-color-3: #6ca8ec;
-  --hatch-color-4: hsl(212, 77%, 80%);
+  /* --hatch-color-3: #6ca8ec; */
+  /* --hatch-color-4: hsl(212, 77%, 80%); */
+  --hatch-color-3: lch(30.43 25.49 258.56 / 1);
+  --hatch-color-4: lch(18.43 19.49 258.56 / 1);
 }
 
 .text-shadow {
@@ -27,6 +29,11 @@ html {
 
 .hatch-unlocked {
   background-color: var(--hatch-color-3);
+
+  &:hover,
+  &:focus {
+    background-color: hsl(208 53% 36% / 1);
+  }
 }
 
 .hatch-badge {
