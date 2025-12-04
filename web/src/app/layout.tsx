@@ -30,7 +30,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
         {/* biome-ignore lint/security/noDangerouslySetInnerHtml: It's easier to work with GTM as a native script */}
         <script dangerouslySetInnerHTML={{ __html: tagManagerScript }} />
       </head>
-      <body style={{backgroundColor: "lch(14.2 20.78 259.08 / 1)"}}>
+      <body style={{ backgroundColor: "lch(14.2 20.78 259.08 / 1)" }}>
         <noscript>
           <iframe
             src="https://www.googletagmanager.com/ns.html?id=GTM-WLD4SPB"
