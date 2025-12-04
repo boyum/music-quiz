@@ -3,7 +3,7 @@ import { CalendarDayStats } from "../types/CalendarDayStats";
 import { ErrorResponse } from "../types/ErrorResponse";
 import { Guess } from "../types/Guess";
 
-const CALENDAR_DAY_COLLECTION = `calendar-day-2024-${
+const CALENDAR_DAY_COLLECTION = `calendar-day-2025-${
   process.env.SANITY_DATASET ?? "test"
 }`;
 
