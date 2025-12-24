@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Snowflake } from "../../types/Snowflake";
 
-export type SnowCanvasProps = {};
-
 const update = (
   canvasWidth: number,
   canvasHeight: number,
@@ -39,14 +37,14 @@ const tick = (
   );
 };
 
-export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
+export const SnowCanvas: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState<number>();
   const [windowHeight, setWindowHeight] = useState<number>();
   const [isRunning, setIsRunning] = useState<boolean>(false);
   const canvas = useRef<HTMLCanvasElement>(null);
 
   const snowflakes = useRef<Array<Snowflake>>([]);
-  const context = useRef<CanvasRenderingContext2D>();
+  const context = useRef<CanvasRenderingContext2D>(undefined);
 
   useEffect(() => {
     if (!canvas.current) {
@@ -83,6 +81,7 @@ export const SnowCanvas: React.FC<SnowCanvasProps> = ({}) => {
     setWindowHeight(window.innerHeight);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: Run only once
   useEffect(() => {
     resize();
 
