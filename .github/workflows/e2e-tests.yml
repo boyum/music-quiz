@@ -13,6 +13,7 @@ jobs:
         id: vercel_preview_url
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          preview_url_regexp: "\\*\\*music-quiz-web\\*\\* | ✅ Ready \\(\\[Inspect\\]\\((.*)\\)"
 
       - uses: actions/checkout@v4
 
